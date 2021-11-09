@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".auth.RegisterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/register_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:text="REGISTER."
+            android:textColor="@color/yellow_600"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logo_container" />
+
+        <View
+            android:id="@+id/logo_container"
+            android:layout_width="367dp"
+            android:layout_height="178dp"
+            android:layout_marginTop="4dp"
+            android:background="#FFBB33"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/register_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Oh hi! Please fill your details to continue."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/register_title"
+            app:layout_constraintTop_toBottomOf="@+id/register_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_fullname"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@android:color/transparent"
+            android:hint="Full Name"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:expandedHintEnabled="false"
+            app:layout_constraintStart_toStartOf="@+id/register_subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/register_subtitle"
+            app:placeholderText="Your name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_address"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:hint="Address"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:expandedHintEnabled="false"
+            app:layout_constraintStart_toStartOf="@+id/tip_fullname"
+            app:layout_constraintTop_toBottomOf="@+id/tip_fullname"
+            app:placeholderText="Address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_phone"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:hint="Phone Number"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:expandedHintEnabled="false"
+            app:layout_constraintStart_toStartOf="@+id/tip_address"
+            app:layout_constraintTop_toBottomOf="@+id/tip_address"
+            app:placeholderText="+6281xxxxxx">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_email"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:hint="Email"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:expandedHintEnabled="false"
+            app:layout_constraintStart_toStartOf="@+id/tip_phone"
+            app:layout_constraintTop_toBottomOf="@+id/tip_phone"
+            app:placeholderText="user@example.com">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_password"
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:hint="Password"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:expandedHintEnabled="false"
+            app:layout_constraintStart_toStartOf="@+id/tip_email"
+            app:layout_constraintTop_toBottomOf="@+id/tip_email"
+            app:passwordToggleDrawable="@android:drawable/ic_lock_lock"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#C8C8C8"
+            app:placeholderText="**********">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/yellow_600"
+            android:text="REGISTER"
+            app:layout_constraintEnd_toEndOf="@+id/tip_password"
+            app:layout_constraintStart_toStartOf="@+id/tip_password"
+            app:layout_constraintTop_toBottomOf="@+id/tip_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
