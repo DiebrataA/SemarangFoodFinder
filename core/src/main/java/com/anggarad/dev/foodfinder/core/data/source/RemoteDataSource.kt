@@ -11,11 +11,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-
+    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<CurrUserItem>>  {
+        return flow {
+            try{
+                val response = apiService.getUserDetail(userId)
+                emit(ApiResponse.Success(response))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 
     suspend fun getPopularRecipe(): Flow<ApiResponse<List<Feed>>> {
         return flow {

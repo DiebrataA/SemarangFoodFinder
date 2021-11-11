@@ -1,8 +1,11 @@
 package com.anggarad.dev.foodfinder.core.utils
 
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.RecipeDetailEntity
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.Feed
 import com.anggarad.dev.foodfinder.core.domain.model.RecipeDetail
+import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
 
 object DataMapper {
 
@@ -56,5 +59,21 @@ object DataMapper {
         isFavorite = input.isFavorite,
         preparationSteps = input.preparationSteps,
         ingredients = input.ingredients
+    )
+
+    fun mapUserEntityToUser(input: UserDetailEntity) = UserDetail(
+        userId = input.userId,
+        fullName = input.fullName,
+        address = input.address,
+        phoneNum = input.phoneNum,
+        email = input.email
+    )
+
+    fun mapUserResponseToEntity(input: CurrUserItem) = UserDetailEntity(
+        userId = input.userId,
+        fullName = input.name,
+        address = input.address,
+        phoneNum = input.phoneNum,
+        email = input.email
     )
 }

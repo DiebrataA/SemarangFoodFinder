@@ -1,8 +1,10 @@
 package com.anggarad.dev.foodfinder.core.data.source.remote.response
 
 import android.os.Parcelable
+import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
 
 @Parcelize
 data class LoginResponse(
@@ -36,5 +38,10 @@ data class CurrUserItem(
 	val phoneNum: String,
 
 	@field:SerializedName("acc_id")
-	val accId: Int
+	val accId: Int,
+
+	@field:SerializedName("email")
+	val email: String
 ) : Parcelable
+
+

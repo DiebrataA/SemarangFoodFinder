@@ -1,11 +1,17 @@
 package com.anggarad.dev.foodfinder.core.data.source.remote.network
 
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.ListRecipeResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
 import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("api/users/{id}")
+    suspend fun getUserDetail(
+        @Path("id") userId: Int
+    ) : CurrUserItem
 
     @FormUrlEncoded
     @POST("auth/api/v1/login")
