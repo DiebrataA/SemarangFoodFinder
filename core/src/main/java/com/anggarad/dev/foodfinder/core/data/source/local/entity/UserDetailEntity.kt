@@ -22,5 +22,8 @@ data class UserDetailEntity(
     val phoneNum : String,
 
     @ColumnInfo(name = "email")
-    val email : String
+    val email : String,
+
+    @ColumnInfo(name = "token")
+    val token : String
 )

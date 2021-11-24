@@ -2,8 +2,8 @@ package com.anggarad.dev.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.anggarad.dev.foodfinder.core.domain.usecase.RecipeUseCase
+import com.anggarad.dev.foodfinder.core.domain.usecase.RestoUseCase
 
-class FavoriteViewModel(recipeUseCase: RecipeUseCase) : ViewModel() {
-    val favoriteRecipe = recipeUseCase.getFavoriteRecipe().asLiveData()
+class FavoriteViewModel(restoUseCase: RestoUseCase) : ViewModel() {
+    val favoriteRecipe = restoUseCase.getFavoriteResto().asLiveData()
 }

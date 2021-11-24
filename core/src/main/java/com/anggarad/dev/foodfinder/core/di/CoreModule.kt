@@ -2,12 +2,17 @@ package com.anggarad.dev.foodfinder.core.di
 
 import androidx.room.Room
 import com.anggarad.dev.foodfinder.core.BuildConfig
-import com.anggarad.dev.foodfinder.core.data.repository.RecipeRepository
+import com.anggarad.dev.foodfinder.core.data.DataStoreManager
+import com.anggarad.dev.foodfinder.core.data.repository.AuthRepository
+import com.anggarad.dev.foodfinder.core.data.repository.MainRepository
+import com.anggarad.dev.foodfinder.core.data.repository.RestoRepository
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
-import com.anggarad.dev.foodfinder.core.data.source.local.room.RecipeDatabase
+import com.anggarad.dev.foodfinder.core.data.source.local.room.AppDatabase
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
-import com.anggarad.dev.foodfinder.core.domain.repository.IRecipeRepository
+import com.anggarad.dev.foodfinder.core.domain.repository.IMainRepository
+import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
+import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
 import com.anggarad.dev.foodfinder.core.utils.AppExecutors
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
@@ -20,13 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
-    factory { get<RecipeDatabase>().recipeDao() }
+    factory { get<AppDatabase>().recipeDao() }
     single {
         val passphrase: ByteArray = SQLiteDatabase.getBytes("diBsDev".toCharArray())
         val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
-            RecipeDatabase::class.java, "Recipe.db"
+            AppDatabase::class.java, "FoodFinder.db"
         ).fallbackToDestructiveMigration()
             .openHelperFactory(factory)
             .build()
@@ -35,7 +40,7 @@ val databaseModule = module {
 
 val postReviewModule = module {
     single {
-        val token : String? = null
+        val token: String? = null
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
@@ -58,7 +63,7 @@ val postReviewModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost:4000/")
+            .baseUrl("http://10.0.2.2:4000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -69,12 +74,25 @@ val postReviewModule = module {
 val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
+    single { DataStoreManager(get())}
     factory { AppExecutors() }
-    single<IRecipeRepository> {
-        RecipeRepository(
+    single<IUserRepository> {
+        AuthRepository(
+            get(),
+            get(),
+            get(),
+        )
+    }
+
+    single<IRestoRepository> {
+        RestoRepository(
             get(),
             get(),
             get()
         )
+    }
+
+    single<IMainRepository> {
+        MainRepository(get())
     }
 }

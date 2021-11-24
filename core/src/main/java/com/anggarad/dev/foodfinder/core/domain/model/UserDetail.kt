@@ -9,5 +9,6 @@ data class UserDetail (
     val fullName : String,
     val address : String,
     val phoneNum : String,
-    val email : String
+    val email : String,
+    val token : String
         ) : Parcelable

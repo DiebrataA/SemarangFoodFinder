@@ -1,79 +1,80 @@
 package com.anggarad.dev.foodfinder.core.utils
 
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.RecipeDetailEntity
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.Feed
-import com.anggarad.dev.foodfinder.core.domain.model.RecipeDetail
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
+import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
 
 object DataMapper {
 
-    fun mapFeedResponseToEntities(input: List<Feed>): List<RecipeDetailEntity> {
-        val recipeList = ArrayList<RecipeDetailEntity>()
-        input.map {
-            val ingredient = it.content.ingredientLines?.map { ingredient ->
-                ingredient.wholeLine
-            }
-            val feed = RecipeDetailEntity(
-                preparationSteps = it.content.preparationSteps,
-                totalTime = it.content.details.totalTime,
-                name = it.content.details.name,
-                id = it.content.details.id,
-                numberOfServings = it.content.details.numberOfServings,
-                rating = it.content.details.rating,
-                images = it.content.details.images[0].resizableImageUrl,
-                isFavorite = false,
-                ingredients = ingredient
-            )
-            recipeList.add(feed)
-        }
-        return recipeList
-    }
 
-
-    fun mapEntitiesToDomain(input: List<RecipeDetailEntity>): List<RecipeDetail> =
+    fun mapRestoEntityToDomain(input: List<RestoEntity>): List<RestoDetail> =
         input.map {
-            RecipeDetail(
-                totalTime = it.totalTime,
+            RestoDetail(
+                restoId = it.restoId,
                 name = it.name,
-                id = it.id,
-                images = it.images,
-                numberOfServings = it.numberOfServings,
-                rating = it.rating,
-                isFavorite = it.isFavorite,
-                preparationSteps = it.preparationSteps,
-                ingredients = it.ingredients
-
+                isHalal = it.isHalal,
+                opHours = it.opHours,
+                contacts = it.contacts,
+                address = it.address,
+                imgCover = it.imgCover,
+                imgMenuPath = it.imgMenuPath,
+                priceRange = it.priceRange,
+                location = it.location,
+                isFavorite = it.isFavorite
             )
         }
 
-
-    fun mapDomainToEntity(input: RecipeDetail) = RecipeDetailEntity(
-        totalTime = input.totalTime,
+    fun mapRestoDomainToEntity(input: RestoDetail) = RestoEntity(
+        restoId = input.restoId,
         name = input.name,
-        id = input.id,
-        images = input.images,
-        numberOfServings = input.numberOfServings,
-        rating = input.rating,
-        isFavorite = input.isFavorite,
-        preparationSteps = input.preparationSteps,
-        ingredients = input.ingredients
+        isHalal = input.isHalal,
+        opHours = input.opHours,
+        contacts = input.contacts,
+        address = input.address,
+        imgCover = input.imgCover,
+        imgMenuPath = input.imgMenuPath,
+        priceRange = input.priceRange,
+        location = input.location,
+        isFavorite = input.isFavorite
     )
+
+    fun mapRestoResponsetoEntity(input: List<ResponseItem>): List<RestoEntity> =
+        input.map {
+
+            RestoEntity(
+                restoId = it.restoId,
+                name = it.name,
+                isHalal = it.isHalal,
+                contacts = it.contacts,
+                opHours = it.opHours,
+                address = it.address,
+                imgCover = it.imgCover,
+                imgMenuPath = it.imgMenuPath,
+                location = it.location,
+                priceRange = it.priceRange,
+                isFavorite = false
+            )
+        }
 
     fun mapUserEntityToUser(input: UserDetailEntity) = UserDetail(
         userId = input.userId,
         fullName = input.fullName,
         address = input.address,
         phoneNum = input.phoneNum,
-        email = input.email
+        email = input.email,
+        token = input.token
     )
 
-    fun mapUserResponseToEntity(input: CurrUserItem) = UserDetailEntity(
-        userId = input.userId,
-        fullName = input.name,
-        address = input.address,
-        phoneNum = input.phoneNum,
-        email = input.email
+    fun mapUserResponseToEntity(input: LoginResponse) = UserDetailEntity(
+        userId = input.currUser.userId,
+        fullName = input.currUser.name,
+        address = input.currUser.address,
+        phoneNum = input.currUser.phoneNum,
+        email = input.currUser.email,
+        token = input.token
+
     )
 }

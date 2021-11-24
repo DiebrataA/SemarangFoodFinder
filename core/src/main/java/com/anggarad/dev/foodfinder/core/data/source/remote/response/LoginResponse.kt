@@ -13,7 +13,7 @@ data class LoginResponse(
 	val success: Boolean,
 
 	@field:SerializedName("currUser")
-	val currUser: List<CurrUserItem>,
+	val currUser: CurrUserItem,
 
 	@field:SerializedName("message")
 	val message: String,

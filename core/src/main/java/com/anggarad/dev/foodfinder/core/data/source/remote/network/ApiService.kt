@@ -1,12 +1,16 @@
 package com.anggarad.dev.foodfinder.core.data.source.remote.network
 
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ListRecipeResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
 import retrofit2.http.*
 
 interface ApiService {
+
+    @GET("api/restos")
+    suspend fun getAllResto() : RestosResponse
+
+    //Get Cafe lists
+    @GET("api/resto_list_by_category/3")
+    suspend fun getCafes() : RestosResponse
 
     @GET("api/users/{id}")
     suspend fun getUserDetail(

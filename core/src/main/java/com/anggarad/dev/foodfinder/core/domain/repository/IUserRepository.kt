@@ -7,6 +7,7 @@ import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
 import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {
-    suspend fun getUserDetail(userId:Int) : Flow<Resource<UserDetail>>
-    suspend fun userLogin(email: String, password: String) : ApiResponse<LoginResponse>
+    suspend fun saveCredentials(token: String)
+
+    suspend fun userLogin(email: String, password: String) : Flow<ApiResponse<LoginResponse>>
 }

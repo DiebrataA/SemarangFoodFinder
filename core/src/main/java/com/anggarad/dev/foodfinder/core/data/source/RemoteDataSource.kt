@@ -6,19 +6,48 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.Feed
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.withContext
 
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<CurrUserItem>>  {
+    suspend fun getRestoList(): Flow<ApiResponse<List<ResponseItem>>> {
         return flow {
-            try{
+            try {
+                val response = apiService.getAllResto()
+                val restoArray = response.response
+                if (restoArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(restoArray))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteData Source", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+//    suspend fun getCafeList(): Flow<ApiResponse<List<ResponseItem>>> {
+//        return flow {
+//            try {
+//                val response = apiService.getCafes()
+//                val restoArray = response.response
+//                if (restoArray.isNotEmpty()) {
+//                    emit(ApiResponse.Success(restoArray))
+//                }
+//            } catch (e: Exception) {
+//                emit(ApiResponse.Error(e.toString()))
+//                Log.e("Cafe Source", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO)
+//    }
+
+    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<CurrUserItem>> {
+        return flow {
+            try {
                 val response = apiService.getUserDetail(userId)
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
@@ -28,37 +57,17 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getPopularRecipe(): Flow<ApiResponse<List<Feed>>> {
+    suspend fun userLogin(email: String, password: String): Flow<ApiResponse<LoginResponse>> {
         return flow {
             try {
-                val response = apiService.getRecipe(0, 18, "list.recipe.popular")
-                val dataArray = response.feed
-                if (dataArray.isNotEmpty()) {
-                    emit(ApiResponse.Success(response.feed))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
+                val response = apiService.userLogin(email, password)
+                emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
+                Log.e("LoginError :", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getTrendingRecipe(): Flow<ApiResponse<List<Feed>>> {
-        return flow {
-            try {
-                val response = apiService.getRecipe(0, 18, "list.recipe.trending")
-                val dataArray = response.feed
-                if (dataArray.isNotEmpty()) {
-                    emit(ApiResponse.Success(response.feed))
-                } else {
-                    emit(ApiResponse.Empty)
-                }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
-                Log.e("RemoteDataSource", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-    }
+
 }

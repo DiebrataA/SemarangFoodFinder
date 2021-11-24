@@ -1,73 +1,34 @@
 package com.anggarad.dev.foodfinder
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
-import com.anggarad.dev.foodfinder.databinding.ActivityMainBinding
-import com.anggarad.dev.foodfinder.home.HomeFragment
-import com.google.android.material.navigation.NavigationView
+import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.asLiveData
+import com.anggarad.dev.foodfinder.auth.AuthActivity
+import com.anggarad.dev.foodfinder.auth.AuthViewModel
+import com.anggarad.dev.foodfinder.core.data.DataStoreManager
+import com.anggarad.dev.foodfinder.core.utils.startNewActivity
+import com.anggarad.dev.foodfinder.home.HomeActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    private lateinit var binding: ActivityMainBinding
+class MainActivity : AppCompatActivity() {
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        setSupportActionBar(binding.appBarMain.toolbar)
 
-        val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.appBarMain.toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        binding.navView.setNavigationItemSelectedListener(this)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, HomeFragment())
-                .commit()
-            supportActionBar?.title = "Food Finder"
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        var fragment: Fragment? = null
-        var title = "Food Finder"
-        when (item.itemId) {
-            R.id.nav_home -> {
-                fragment = HomeFragment()
-                title = "FoodFinder"
-            }
-
-            R.id.nav_favorite -> {
-                startActivity(
-                    Intent(
-                        this,
-                        Class.forName("com.anggarad.dev.favorite.FavoriteActivity")
-                    )
-                )
+        mainViewModel.checkToken.observe(this) { token ->
+            Log.d("token:", token.toString())
+            val authIntent = Intent(this, AuthActivity::class.java)
+            val homeIntent = Intent(this, HomeActivity::class.java)
+            if (token == "") {
+                startActivity(authIntent)
+            } else {
+                startActivity(homeIntent)
             }
         }
-        if (fragment != null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, fragment)
-                .commit()
-        }
-        supportActionBar?.title = title
-
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 }

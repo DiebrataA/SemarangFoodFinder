@@ -2,42 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/trending_recipe_title"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:padding="5dp"
-        android:text="@string/recipe_title" />
-
-    <TextView
-        android:id="@+id/trending_cook_time"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:drawableLeft="@drawable/ic_timer"
-        android:drawablePadding="3dp"
-        android:gravity="center_vertical"
-        android:padding="2dp"
-        android:textSize="12sp"
-        tools:text="@string/text_subtitle" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/trend_card"
         android:layout_width="130dp"
-        android:layout_height="180dp"
+        android:layout_height="97dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,24 +33,60 @@
                 android:id="@+id/trending_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
                 android:background="@drawable/background_review"
-                android:drawableStart="@drawable/ic_rating"
+                android:drawableStart="@drawable/ic_star"
                 android:drawablePadding="2dp"
                 android:gravity="center"
-                android:scaleX="0.7"
-                android:scaleY="0.7"
+                android:scaleX="1"
+                android:scaleY="1"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_item_trend"
                 tools:text="@string/rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/cafe_home_title"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Cafe Title"
+        android:textColor="@color/text_title"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/cafe_home_subtitle"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:padding="2dp"
+        android:textSize="8sp"
+        tools:text="@string/text_subtitle" />
+
+    <TextView
+        android:id="@+id/cafe_home_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:drawableLeft="@drawable/ic_baseline_location_on_24_grey"
+        android:drawablePadding="3dp"
+        android:gravity="center_vertical"
+        android:padding="2dp"
+        android:textSize="8sp"
+        tools:text="@string/text_subtitle" />
 
 </LinearLayout>
