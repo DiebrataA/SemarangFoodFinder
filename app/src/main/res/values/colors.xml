@@ -9,4 +9,5 @@
     <color name="yellow_600">#FFffbb33</color>
     <color name="yellow_600_dark">#FFc6a700</color>
     <color name ="yellow_600_light">#CCFFBB33</color>
+    <color name="tabs_inactive">#FFE5E5E5</color>
 </resources>

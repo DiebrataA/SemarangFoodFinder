@@ -23,4 +23,20 @@
 
     <style name="Theme.FoodFinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ShapeAppearanceOverlay.App.RoundedCornerImage" parent="">
+        <item name="cornerSize">10%</item>
+    </style>
+    
+    <style name="Widget.App.DetailTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="cornerSize">20%</item>
+        <item name="selectableItemBackground">@color/black</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
 </resources>
