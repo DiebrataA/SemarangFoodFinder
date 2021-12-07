@@ -1,14 +1,14 @@
 package com.anggarad.dev.foodfinder.core.data.source.local
 
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.ReviewEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.room.Dao
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
-import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import kotlinx.coroutines.flow.Flow
 
 
 class LocalDataSource(private val dao: Dao) {
+
 
     suspend fun insertResto(restolist: List<RestoEntity>)= dao.insertRestos(restolist)
 
@@ -24,4 +24,10 @@ class LocalDataSource(private val dao: Dao) {
         resto.isFavorite = newState
         dao.updateFavoriteRestos(resto)
     }
+
+    suspend fun insertReview(reviewList: List<ReviewEntity>) = dao.insertReviews(reviewList)
+
+    fun getRestoReviews(restoId: Int): Flow<List<ReviewEntity>> = dao.getAllReviews(restoId)
+
+    fun getUserReviews(userId: Int): Flow<List<ReviewEntity>> = dao.getUsersReview(userId)
 }

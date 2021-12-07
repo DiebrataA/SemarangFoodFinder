@@ -26,7 +26,8 @@
     <style name="ShapeAppearanceOverlay.App.RoundedCornerImage" parent="">
         <item name="cornerSize">10%</item>
     </style>
-    
+
+
     <style name="Widget.App.DetailTabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="cornerSize">20%</item>
         <item name="selectableItemBackground">@color/black</item>

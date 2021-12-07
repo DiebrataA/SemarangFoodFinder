@@ -31,4 +31,8 @@ data class RestoEntity(
     var location: String,
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean,
+    @ColumnInfo(name = "ratingAvg")
+    var ratingAvg: Float? = null,
+    @ColumnInfo(name = "categories")
+    var categories: List<String>
 )

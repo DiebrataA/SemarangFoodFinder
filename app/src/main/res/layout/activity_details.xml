@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+
+<androidx.core.widget.NestedScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".detail.DetailsActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".detail.DetailsActivity">
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_imgCover"
-        android:layout_width="366dp"
-        android:layout_height="170dp"
-        android:layout_marginTop="8dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_imgCover"
+            android:layout_width="366dp"
+            android:layout_height="170dp"
+            android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,25 +60,27 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_detailCategory" />
 
 
-    <TextView
-        android:id="@+id/tv_item_rating_detail"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/background_review"
-        android:drawableStart="@drawable/ic_star_detail"
-        android:drawablePadding="4dp"
-        android:fontFamily="@font/roboto_light"
-        android:paddingEnd="6dp"
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_imgCover"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_detailCategory"
-        app:layout_constraintTop_toBottomOf="@+id/iv_imgCover"
-        tools:text="@string/rating" />
+        <TextView
+            android:id="@+id/tv_item_rating_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/background_review"
+            android:drawableStart="@drawable/ic_star_detail"
+            android:drawablePadding="3dp"
+            android:fontFamily="@font/roboto_light"
+            android:gravity="center_vertical"
+            android:minEms="3"
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_imgCover"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_detailCategory"
+            app:layout_constraintTop_toBottomOf="@+id/iv_imgCover"
+            tools:text="@string/rating"
+            tools:ignore="RtlCompat" />
 
     <View
         android:id="@+id/divider"
@@ -101,39 +108,27 @@
         style="@style/Widget.App.DetailTabLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:background="@color/tabs_inactive"
-
         app:tabIndicatorColor="@color/yellow_600"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="stretch"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/black"
-        tools:ignore="SpeakableTextPresentCheck">
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/detail_resto_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Details" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/detail_review_page"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Reviews" />
-
-    </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pager_detail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tab_view"
-        app:layout_constraintStart_toStartOf="@+id/tab_view"
-        app:layout_constraintTop_toBottomOf="@+id/tab_view" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/detail_review_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tab_view"
+            app:layout_constraintStart_toStartOf="@+id/tab_view"
+            app:layout_constraintTop_toBottomOf="@+id/tab_view" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

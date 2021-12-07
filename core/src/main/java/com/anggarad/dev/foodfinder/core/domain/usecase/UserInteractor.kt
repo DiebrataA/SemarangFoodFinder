@@ -8,14 +8,18 @@ import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
 import kotlinx.coroutines.flow.Flow
 
 class UserInteractor(private val userRepository: IUserRepository) : UserUseCase {
-    override suspend fun saveCredential( token: String) {
-        return userRepository.saveCredentials( token)
+    override suspend fun saveCredential(token: String) {
+        return userRepository.saveCredentials(token)
     }
 
-
-
-
-    override suspend fun userLogin(email:String, password: String): Flow<ApiResponse<LoginResponse>> {
+    override suspend fun userLogin(
+        email: String,
+        password: String
+    ): Flow<ApiResponse<LoginResponse>> {
         return userRepository.userLogin(email, password)
+    }
+
+    override fun getUserDetail(userId: Int): Flow<Resource<UserDetail>> {
+        return userRepository.getUserDetail(userId)
     }
 }

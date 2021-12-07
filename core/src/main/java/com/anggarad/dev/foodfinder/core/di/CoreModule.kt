@@ -6,12 +6,14 @@ import com.anggarad.dev.foodfinder.core.data.DataStoreManager
 import com.anggarad.dev.foodfinder.core.data.repository.AuthRepository
 import com.anggarad.dev.foodfinder.core.data.repository.MainRepository
 import com.anggarad.dev.foodfinder.core.data.repository.RestoRepository
+import com.anggarad.dev.foodfinder.core.data.repository.ReviewRepository
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.room.AppDatabase
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
 import com.anggarad.dev.foodfinder.core.domain.repository.IMainRepository
 import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
+import com.anggarad.dev.foodfinder.core.domain.repository.IReviewRepository
 import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
 import com.anggarad.dev.foodfinder.core.utils.AppExecutors
 import net.sqlcipher.database.SQLiteDatabase
@@ -63,7 +65,7 @@ val postReviewModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:4000/")
+            .baseUrl("http://192.168.1.5:4000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -76,6 +78,7 @@ val repositoryModule = module {
     single { RemoteDataSource(get()) }
     single { DataStoreManager(get())}
     factory { AppExecutors() }
+
     single<IUserRepository> {
         AuthRepository(
             get(),
@@ -94,5 +97,12 @@ val repositoryModule = module {
 
     single<IMainRepository> {
         MainRepository(get())
+    }
+
+    single<IReviewRepository> {
+        ReviewRepository(
+            get(),
+            get()
+        )
     }
 }

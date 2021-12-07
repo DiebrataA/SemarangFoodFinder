@@ -16,14 +16,17 @@ data class UserDetailEntity(
     val fullName : String,
 
     @ColumnInfo(name = "address")
-    val address : String,
+    val address: String,
 
     @ColumnInfo(name = "phoneNum")
-    val phoneNum : String,
+    val phoneNum: String,
 
     @ColumnInfo(name = "email")
-    val email : String,
+    val email: String,
 
     @ColumnInfo(name = "token")
-    val token : String
+    val accId: Int,
+
+    @ColumnInfo(name = "img_profile")
+    val imgProfile: String? = null
 )

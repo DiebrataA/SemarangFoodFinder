@@ -5,13 +5,12 @@ import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.RestoItems
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
 import com.anggarad.dev.foodfinder.core.utils.AppExecutors
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class RestoRepository(
@@ -20,7 +19,7 @@ class RestoRepository(
     private val appExecutors: AppExecutors
 ) : IRestoRepository{
     override fun getRestoList(): Flow<Resource<List<RestoDetail>>> =
-        object : NetworkBoundResource<List<RestoDetail>, List<ResponseItem>>(){
+        object : NetworkBoundResource<List<RestoDetail>, List<RestoItems>>() {
             override fun loadFromDB(): Flow<List<RestoDetail>> {
                 return localDataSource.getRestoListData().map {
                     DataMapper.mapRestoEntityToDomain(it)
@@ -31,44 +30,40 @@ class RestoRepository(
                 return data == null || data.isEmpty()
             }
 
-            override suspend fun createCall(): Flow<ApiResponse<List<ResponseItem>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<RestoItems>>> {
                 return remoteDataSource.getRestoList()
             }
 
-            override suspend fun saveCallResult(data: List<ResponseItem>) {
+            override suspend fun saveCallResult(data: List<RestoItems>) {
                 val restoList = DataMapper.mapRestoResponsetoEntity(data)
                 return localDataSource.insertResto(restoList)
             }
 
         }.asFlow()
 
-//    override fun getCafeList(): Flow<Resource<List<RestoDetail>>> =
-//        object : NetworkBoundResource<List<RestoDetail>, List<ResponseItem>>(){
-//            override fun loadFromDB(): Flow<List<RestoDetail>> {
-//                return localDataSource.getRestoListData().map {
-//                    DataMapper.mapRestoEntityToDomain(it)
-//                }
-//            }
-//
-//            override fun shouldFetch(data: List<RestoDetail>?): Boolean {
-//                return data == null || data.isEmpty()
-//            }
-//
-//            override suspend fun createCall(): Flow<ApiResponse<List<ResponseItem>>> {
-//                return remoteDataSource.getCafeList()
-//            }
-//
-//            override suspend fun saveCallResult(data: List<ResponseItem>) {
-//                val restoList = DataMapper.mapRestoResponsetoEntity(data)
-//                return localDataSource.insertResto(restoList)
-//            }
-//
-//        }.asFlow()
+    override fun getCafeList(): Flow<Resource<List<RestoDetail>>> =
+        object : NetworkBoundResource<List<RestoDetail>, List<RestoItems>>() {
+            override fun loadFromDB(): Flow<List<RestoDetail>> {
+                return localDataSource.getRestoListData().map {
+                    DataMapper.mapRestoEntityToDomain(it)
+                }
+            }
 
+            override fun shouldFetch(data: List<RestoDetail>?): Boolean {
+                return data == null || data.isEmpty()
+            }
 
-//    override suspend fun getRestoDetail(): Flow<Resource<RestoDetail>> {
-//        TODO("Not yet implemented")
-//    }
+            override suspend fun createCall(): Flow<ApiResponse<List<RestoItems>>> {
+                return remoteDataSource.getCafeList()
+            }
+
+            override suspend fun saveCallResult(data: List<RestoItems>) {
+                val restoList = DataMapper.mapRestoResponsetoEntity(data)
+                return localDataSource.insertResto(restoList)
+            }
+
+        }.asFlow()
+
 
     override fun getFavoriteResto(): Flow<List<RestoDetail>> {
         return localDataSource.getFavoriteResto().map {

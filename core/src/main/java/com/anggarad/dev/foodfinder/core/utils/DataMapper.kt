@@ -1,10 +1,13 @@
 package com.anggarad.dev.foodfinder.core.utils
 
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.ReviewEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.RestoItems
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.ReviewItem
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
+import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
 
 object DataMapper {
@@ -23,7 +26,9 @@ object DataMapper {
                 imgMenuPath = it.imgMenuPath,
                 priceRange = it.priceRange,
                 location = it.location,
-                isFavorite = it.isFavorite
+                isFavorite = it.isFavorite,
+                ratingAvg = it.ratingAvg,
+                categories = it.categories
             )
         }
 
@@ -38,10 +43,12 @@ object DataMapper {
         imgMenuPath = input.imgMenuPath,
         priceRange = input.priceRange,
         location = input.location,
-        isFavorite = input.isFavorite
+        isFavorite = input.isFavorite,
+        ratingAvg = input.ratingAvg,
+        categories = input.categories
     )
 
-    fun mapRestoResponsetoEntity(input: List<ResponseItem>): List<RestoEntity> =
+    fun mapRestoResponsetoEntity(input: List<RestoItems>): List<RestoEntity> =
         input.map {
 
             RestoEntity(
@@ -55,7 +62,9 @@ object DataMapper {
                 imgMenuPath = it.imgMenuPath,
                 location = it.location,
                 priceRange = it.priceRange,
-                isFavorite = false
+                isFavorite = false,
+                ratingAvg = it.ratingAvg,
+                categories = it.categories
             )
         }
 
@@ -65,16 +74,49 @@ object DataMapper {
         address = input.address,
         phoneNum = input.phoneNum,
         email = input.email,
-        token = input.token
+        accId = input.accId,
+        imgProfile = input.imgProfile
     )
 
-    fun mapUserResponseToEntity(input: LoginResponse) = UserDetailEntity(
-        userId = input.currUser.userId,
-        fullName = input.currUser.name,
-        address = input.currUser.address,
-        phoneNum = input.currUser.phoneNum,
-        email = input.currUser.email,
-        token = input.token
+    fun mapUserResponseToEntity(input: UserResponse) = UserDetailEntity(
+        userId = input.response.userId,
+        fullName = input.response.name,
+        address = input.response.address,
+        phoneNum = input.response.phoneNum,
+        email = input.response.email,
+        accId = input.response.accId,
+        imgProfile = input.response.imgProfile
 
     )
+
+    fun mapReviewResponseTOEntity(input: List<ReviewItem>): List<ReviewEntity> =
+        input.map {
+            ReviewEntity(
+                restoId = it.restoId,
+                reviewsId = it.reviewsId,
+                date = it.date,
+                comments = it.comments,
+                userId = it.userId,
+                rating = it.rating,
+                name = it.name,
+                imgReviewPath = it.imgReviewPath,
+                imgProfile = it.imgProfile
+
+            )
+        }
+
+    fun mapReviewEntityToDomain(input: List<ReviewEntity>): List<ReviewDetails> =
+        input.map {
+            ReviewDetails(
+                reviewsId = it.reviewsId,
+                restoId = it.restoId,
+                userId = it.userId,
+                date = it.date,
+                comments = it.comments,
+                rating = it.rating,
+                name = it.name,
+                imgReviewPath = it.imgReviewPath,
+                imgProfile = it.imgProfile
+            )
+        }
 }

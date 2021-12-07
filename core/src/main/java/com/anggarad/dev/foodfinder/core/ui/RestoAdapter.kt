@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anggarad.dev.foodfinder.core.R
-import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutBinding
+import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.bumptech.glide.Glide
 
 class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
@@ -26,7 +26,7 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
         fun bind(itemResto: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://10.0.2.2:4000/uploads/${itemResto.imgCover}")
+                    .load("http://192.168.1.5:4000/uploads/${itemResto.imgCover}")
                     .into(ivItemImage)
                 tvItemTitle.text = itemResto.name
                 tvItemApproxPrice.text = itemResto.priceRange

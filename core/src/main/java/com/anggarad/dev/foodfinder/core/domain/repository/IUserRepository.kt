@@ -9,5 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface IUserRepository {
     suspend fun saveCredentials(token: String)
 
-    suspend fun userLogin(email: String, password: String) : Flow<ApiResponse<LoginResponse>>
+    fun getUserDetail(userId: Int): Flow<Resource<UserDetail>>
+
+    suspend fun userLogin(email: String, password: String): Flow<ApiResponse<LoginResponse>>
 }

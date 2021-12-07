@@ -10,9 +10,9 @@ class RestoInteractor(private val restoRepository: IRestoRepository) : RestoUseC
         return restoRepository.getRestoList()
     }
 
-//    override fun getCafeList(): Flow<Resource<List<RestoDetail>>> {
-//        return restoRepository.getCafeList()
-//    }
+    override fun getCafeList(): Flow<Resource<List<RestoDetail>>> {
+        return restoRepository.getCafeList()
+    }
 
 //    override suspend fun getRestoDetail(): Flow<Resource<RestoDetail>> {
 //        return restoRepository.getRestoDetail()

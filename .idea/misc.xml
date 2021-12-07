@@ -3,13 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/drawable/ic_add_box_yellow.xml" value="0.24444444444444444" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/drawable/ic_launcher_background.xml" value="0.31712962962962965" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/drawable/ic_phone.xml" value="0.3365740740740741" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/drawable/ic_star_detail.xml" value="0.21666666666666667" />
-        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/activity_details.xml" value="0.33" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/drawable/ic_time.xml" value="0.3365740740740741" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/activity_details.xml" value="0.5" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/activity_home.xml" value="0.32222222222222224" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/activity_main.xml" value="0.32222222222222224" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/content_detail_layout.xml" value="0.30277777777777776" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/content_main.xml" value="0.30277777777777776" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/fragment_details_resto.xml" value="0.33" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/fragment_home.xml" value="0.2771164021164021" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/fragment_review.xml" value="0.32222222222222224" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/item_menu_photo_list.xml" value="0.26132246376811596" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/item_resto_photo_list.xml" value="0.67" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/app/src/main/res/layout/view_error.xml" value="0.31203703703703706" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/background_review.xml" value="0.24537037037037038" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.24537037037037038" />
@@ -21,10 +29,13 @@
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/ic_rating.xml" value="0.31805555555555554" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/ic_star.xml" value="0.2490740740740741" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/ic_timer.xml" value="0.2490740740740741" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/ingredients_point.xml" value="0.24444444444444444" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/drawable/number_background.xml" value="0.24444444444444444" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/ingredient_item.xml" value="0.30277777777777776" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/item_layout.xml" value="0.67" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/item_layout_cafe_home.xml" value="0.67" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/item_layout_placeholder.xml" value="0.30277777777777776" />
+        <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/item_layout_review.xml" value="0.33" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/item_layout_trend_home.xml" value="0.30277777777777776" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/core/src/main/res/layout/prep_list_layout.xml" value="0.30277777777777776" />
         <entry key="..\:/Collage/Thesis_Project/SemarangFoodFinder/favorite/src/main/res/layout/item_layout_trend.xml" value="0.19398148148148148" />
@@ -36,5 +47,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.32222222222222224" />
+      </ProjectState>
+    </option>
   </component>
 </project>

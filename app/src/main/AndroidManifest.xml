@@ -13,17 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodFinder">
         <activity
+            android:name=".detail.PostReviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".home.HomeActivity"
             android:exported="false" />
-        <activity android:name=".auth.AuthActivity"/>
-<!--        <activity-->
-<!--            android:name=".detail.DetailsActivity"-->
-<!--            android:exported="false" />-->
-<!--        <activity android:name=".home.HomeActivity" />-->
+        <activity android:name=".auth.AuthActivity" /> <!-- <activity -->
+        <!-- android:name=".detail.DetailsActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity android:name=".home.HomeActivity" /> -->
         <activity
             android:name=".detail.DetailsActivity"
-            android:label="@string/detailView_label"
-            android:theme="@style/Theme.FoodFinder.NoActionBar" />
+            android:label="DetailRestoActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.FoodFinder.NoActionBar">
