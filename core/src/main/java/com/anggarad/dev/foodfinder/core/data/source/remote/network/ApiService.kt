@@ -16,7 +16,7 @@ interface ApiService {
 
     @GET("api/users/{id}")
     suspend fun getUserDetail(
-        @Path("id") userId: Int
+        @Path("id") userId: Int?
     ): UserResponse
 
     @GET("api/reviews/resto_reviews/{id}")
@@ -54,12 +54,12 @@ interface ApiService {
         @Field("phone_num") phoneNum: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ) : RegisterResponse
+    ): RegisterResponse
 
-    @GET("feeds/list")
-    suspend fun getRecipe(
-        @Query("start") start: Int,
-        @Query("limit") limit: Int,
-        @Query("tag") tag: String
-    ): ListRecipeResponse
+//    @GET("feeds/list")
+//    suspend fun getRecipe(
+//        @Query("start") start: Int,
+//        @Query("limit") limit: Int,
+//        @Query("tag") tag: String
+//    ): ListRecipeResponse
 }

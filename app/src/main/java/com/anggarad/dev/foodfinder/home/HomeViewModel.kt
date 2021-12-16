@@ -10,5 +10,6 @@ class HomeViewModel(restoUseCase: RestoUseCase) : ViewModel() {
 //    val trendingRecipe = recipeUseCase.getTrendingRecipe().asLiveData()
 
     val getRestolist = restoUseCase.getRestoList().asLiveData()
+    val getCafelist = restoUseCase.getCafeList().asLiveData()
 
 }

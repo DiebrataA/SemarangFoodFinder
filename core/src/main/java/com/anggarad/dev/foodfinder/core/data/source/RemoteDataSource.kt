@@ -89,6 +89,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val restoArray = response.response
                 if (restoArray.isNotEmpty()) {
                     emit(ApiResponse.Success(restoArray))
+                    Log.d("User Response: ", restoArray.toString())
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -112,11 +113,12 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<UserResponse>> {
+    suspend fun getUserDetail(userId: Int?): Flow<ApiResponse<UserResponse>> {
         return flow {
             try {
                 val response = apiService.getUserDetail(userId)
                 emit(ApiResponse.Success(response))
+                Log.d("User Response: ", response.toString())
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
 

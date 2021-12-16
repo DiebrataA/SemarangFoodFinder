@@ -5,5 +5,5 @@ import androidx.lifecycle.asLiveData
 import com.anggarad.dev.foodfinder.core.domain.usecase.RestoUseCase
 
 class FavoriteViewModel(restoUseCase: RestoUseCase) : ViewModel() {
-    val favoriteRecipe = restoUseCase.getFavoriteResto().asLiveData()
+    val favoriteResto = restoUseCase.getFavoriteResto().asLiveData()
 }

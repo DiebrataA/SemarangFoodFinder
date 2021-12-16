@@ -85,9 +85,9 @@ object DataMapper {
         phoneNum = input.response.phoneNum,
         email = input.response.email,
         accId = input.response.accId,
-        imgProfile = input.response.imgProfile
+        imgProfile = input.response.imgProfile,
 
-    )
+        )
 
     fun mapReviewResponseTOEntity(input: List<ReviewItem>): List<ReviewEntity> =
         input.map {

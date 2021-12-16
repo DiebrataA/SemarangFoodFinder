@@ -2,19 +2,16 @@ package com.anggarad.dev.foodfinder.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.ui.CafeAdapter
 import com.anggarad.dev.foodfinder.core.ui.RestoAdapter
 import com.anggarad.dev.foodfinder.databinding.FragmentHomeBinding
 import com.anggarad.dev.foodfinder.detail.DetailsActivity
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -54,10 +51,25 @@ class HomeFragment : Fragment() {
                         is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             restoAdapter.setRestoList(restoList.data)
-                            cafeAdapter.setCafeList(restoList.data)
                         }
                         is Resource.Error -> {
                             binding.progressBar.visibility = View.GONE
+                            binding.viewError.root.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            })
+
+            homeViewModel.getCafelist.observe(viewLifecycleOwner, { cafeList ->
+                if (cafeList != null) {
+                    when (cafeList) {
+//                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            cafeAdapter.setCafeList(cafeList.data)
+                        }
+                        is Resource.Error -> {
+//                            binding.progressBar.visibility = View.GONE
                             binding.viewError.root.visibility = View.VISIBLE
                         }
                     }

@@ -55,29 +55,9 @@ class ReviewFragment : Fragment() {
 
 
         if (activity != null) {
-
-
             detailResto = arguments?.getParcelable(DetailsActivity.EXTRA_DATA)
 
-//        detailResto?.let { reviewViewModel.getRestoReviews(it.restoId) }
             val id = detailResto?.restoId
-
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            reviewViewModel.reviewList.collect { data ->
-//                when (data) {
-//                    is Resource.Success -> {
-//                        reviewAdapter.setReviewList(data.data)
-//                        Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT).show()
-//                    }
-//                    is Resource.Error -> {
-//                        Toast.makeText(requireContext(), "Gagal amabil Review", Toast.LENGTH_SHORT)
-//                            .show()
-//                    }
-//                }
-//            }
-//
-//
-//        }
 
             if (id != null) {
                 reviewViewModel.getRestoReviews(id).observe(viewLifecycleOwner, { reviewList ->
@@ -89,14 +69,11 @@ class ReviewFragment : Fragment() {
                                     .show()
                             }
                             is Resource.Error -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Gagal amabil Review",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                binding.viewNoReview.root.visibility = View.VISIBLE
                             }
                         }
+                    } else {
+                        binding.viewNoReview.root.visibility = View.VISIBLE
                     }
                 })
             }

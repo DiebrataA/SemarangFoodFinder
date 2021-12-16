@@ -15,17 +15,24 @@ class DataStoreManager(val context: Context) {
 
     companion object {
         val TOKEN = stringPreferencesKey("USER_TOKEN")
+        val USER_ID = intPreferencesKey("USER_ID")
     }
 
-    suspend fun saveToDataStore( token: String) {
+    suspend fun saveToDataStore(token: String, userId: Int) {
         context.dataStore.edit {
             it[TOKEN] = token
+            it[USER_ID] = userId
         }
     }
 
     val getUserToken: Flow<String?> = context.dataStore.data
         .map { preferences ->
             preferences[TOKEN] ?: ""
+        }
+
+    val getUserId: Flow<Int> = context.dataStore.data
+        .map { preferences ->
+            preferences[USER_ID] ?: 0
         }
 }
 

@@ -1,15 +1,13 @@
 package com.anggarad.dev.foodfinder.core.domain.repository
 
-import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
 import kotlinx.coroutines.flow.Flow
 
 interface IUserRepository {
-    suspend fun saveCredentials(token: String)
 
-    fun getUserDetail(userId: Int): Flow<Resource<UserDetail>>
+    //    fun getUserDetail(userId: Int): Flow<Resource<UserDetail>>
+    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<UserResponse>>
 
-    suspend fun userLogin(email: String, password: String): Flow<ApiResponse<LoginResponse>>
+    fun getUserId(): Flow<Int>
 }

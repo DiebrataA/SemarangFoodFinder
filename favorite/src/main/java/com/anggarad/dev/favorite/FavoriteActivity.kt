@@ -20,7 +20,7 @@ class FavoriteActivity : AppCompatActivity() {
 
         loadKoinModules(favModule)
 
-        supportActionBar?.title = "Favorite Recipe"
+        supportActionBar?.title = "Favorite"
 
         showFavoriteList()
     }
@@ -33,7 +33,7 @@ class FavoriteActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-        favoriteViewModel.favoriteRecipe.observe(this, { dataRecipe ->
+        favoriteViewModel.favoriteResto.observe(this, { dataRecipe ->
             favoriteAdapter.setFavoriteList(dataRecipe)
             binding.viewEmpty.root.visibility =
                 if (dataRecipe.isNotEmpty()) View.GONE else View.VISIBLE

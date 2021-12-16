@@ -2,15 +2,15 @@ package com.anggarad.dev.foodfinder.auth
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.anggarad.dev.foodfinder.home.HomeActivity
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.databinding.FragmentLoginBinding
+import com.anggarad.dev.foodfinder.home.HomeActivity
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -55,8 +55,12 @@ class LoginFragment : Fragment() {
                 when(data) {
                     is ApiResponse.Success -> {
                         val intent = Intent(activity, HomeActivity::class.java)
-                        Toast.makeText(requireContext(), "Welcome", Toast.LENGTH_SHORT).show()
-                        authViewModel.saveCredential(data.data.token)
+                        Toast.makeText(
+                            requireContext(),
+                            data.data.currUser.userId.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        authViewModel.saveCredential(data.data.token, data.data.currUser.userId)
                         startActivity(intent)
                     }
                     is ApiResponse.Error -> {

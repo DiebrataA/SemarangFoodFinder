@@ -9,9 +9,6 @@ import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutReviewBinding
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.bumptech.glide.Glide
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
@@ -26,18 +23,17 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     inner class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var binding = ItemLayoutReviewBinding.bind(itemView)
-        private val calendar = Calendar.getInstance()
-        private val simpleDateFormat = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z")
+
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.5:4000/uploads/${itemReview.imgReviewPath}")
+                    .load("http://192.168.1.4:4000/uploads/${itemReview.imgReviewPath}")
                     .into(reviewPhoto)
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.5:4000/uploads/${itemReview.imgProfile}")
+                    .load("http://192.168.1.4:4000/uploads/${itemReview.imgProfile}")
                     .into(avatarImage)
-                val date = itemReview.date
-                tvDate.text = simpleDateFormat.format(date)
+
+                tvDate.text = itemReview.date
                 tvReviewComment.text = itemReview.comments
                 nameUserReview.text = itemReview.name
                 ratingReview.text = itemReview.rating.toString()

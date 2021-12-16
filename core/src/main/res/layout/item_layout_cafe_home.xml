@@ -27,7 +27,8 @@
                 android:contentDescription="@string/recipe_image_desc"
                 android:src="@drawable/ic_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/trending_review"

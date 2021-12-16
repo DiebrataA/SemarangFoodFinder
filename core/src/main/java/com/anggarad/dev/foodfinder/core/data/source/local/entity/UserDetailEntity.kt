@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 data class UserDetailEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "userId")
+    @ColumnInfo(name = "user_id")
     val userId : Int,
 
     @ColumnInfo(name = "fullName")
@@ -24,7 +24,7 @@ data class UserDetailEntity(
     @ColumnInfo(name = "email")
     val email: String,
 
-    @ColumnInfo(name = "token")
+    @ColumnInfo(name = "acc_id")
     val accId: Int,
 
     @ColumnInfo(name = "img_profile")

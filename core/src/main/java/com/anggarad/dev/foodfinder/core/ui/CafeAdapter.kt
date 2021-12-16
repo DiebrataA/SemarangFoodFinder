@@ -27,7 +27,7 @@ class CafeAdapter : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
         fun bind(itemCafe: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.5:4000/uploads/${itemCafe.imgCover}")
+                    .load("http://192.168.1.4:4000/uploads/${itemCafe.imgCover}")
                     .into(ivItemTrend)
                 cafeHomeTitle.text = itemCafe.name
                 cafeHomeSubtitle.text = itemCafe.priceRange

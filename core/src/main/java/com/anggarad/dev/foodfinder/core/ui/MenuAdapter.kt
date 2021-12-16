@@ -26,7 +26,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
         fun bind(itemMenu: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.5:4000/uploads/${itemMenu.imgMenuPath}")
+                    .load("http://192.168.1.4:4000/uploads/${itemMenu.imgMenuPath}")
                     .into(ivMenuPhoto)
 
             }

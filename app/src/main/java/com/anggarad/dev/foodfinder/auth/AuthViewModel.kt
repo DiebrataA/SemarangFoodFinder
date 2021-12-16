@@ -1,25 +1,24 @@
 package com.anggarad.dev.foodfinder.auth
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.domain.usecase.UserUseCase
+import com.anggarad.dev.foodfinder.core.domain.usecase.AuthUseCase
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val userUseCase: UserUseCase): ViewModel() {
+class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
 
-    private val _loginResponse= Channel<ApiResponse<LoginResponse>>(Channel.BUFFERED)
+    private val _loginResponse = Channel<ApiResponse<LoginResponse>>(Channel.BUFFERED)
     val loginResponse = _loginResponse.receiveAsFlow()
 
-    fun login(email:String, password: String) {
+    fun login(email: String, password: String) {
         viewModelScope.launch {
-            userUseCase.userLogin(email, password)
+            authUseCase.userLogin(email, password)
                 .catch { e ->
                     _loginResponse.send(ApiResponse.Error(e.toString()))
                 }
@@ -30,10 +29,9 @@ class AuthViewModel(private val userUseCase: UserUseCase): ViewModel() {
     }
 
 
-
-    fun saveCredential( token: String) {
+    fun saveCredential(token: String, userId: Int) {
         viewModelScope.launch {
-            userUseCase.saveCredential(token)
+            authUseCase.saveCredential(token, userId)
         }
     }
 }

@@ -26,7 +26,7 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
         fun bind(itemResto: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.5:4000/uploads/${itemResto.imgCover}")
+                    .load("http://192.168.1.4:4000/uploads/${itemResto.imgCover}")
                     .into(ivItemImage)
                 tvItemTitle.text = itemResto.name
                 tvItemApproxPrice.text = itemResto.priceRange

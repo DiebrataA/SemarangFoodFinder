@@ -55,7 +55,7 @@ class DetailsActivity : AppCompatActivity() {
                 tvRestoTitle.text = detailResto.name
                 tvDetailLocation.text = detailResto.location
                 Glide.with(this@DetailsActivity)
-                    .load("http://192.168.1.5:4000/uploads/${detailResto.imgCover}")
+                    .load("http://192.168.1.4:4000/uploads/${detailResto.imgCover}")
                     .into(ivImgCover)
                 tvItemRatingDetail.text = detailResto.ratingAvg.toString()
                 tvDetailCategory.text = detailResto.categories.toString()

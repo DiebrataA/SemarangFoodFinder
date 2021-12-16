@@ -3,18 +3,12 @@ package com.anggarad.dev.foodfinder.core.di
 import androidx.room.Room
 import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
-import com.anggarad.dev.foodfinder.core.data.repository.AuthRepository
-import com.anggarad.dev.foodfinder.core.data.repository.MainRepository
-import com.anggarad.dev.foodfinder.core.data.repository.RestoRepository
-import com.anggarad.dev.foodfinder.core.data.repository.ReviewRepository
+import com.anggarad.dev.foodfinder.core.data.repository.*
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.room.AppDatabase
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
-import com.anggarad.dev.foodfinder.core.domain.repository.IMainRepository
-import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
-import com.anggarad.dev.foodfinder.core.domain.repository.IReviewRepository
-import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
+import com.anggarad.dev.foodfinder.core.domain.repository.*
 import com.anggarad.dev.foodfinder.core.utils.AppExecutors
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
@@ -65,7 +59,7 @@ val postReviewModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.5:4000/")
+            .baseUrl("http://192.168.1.4:4000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -76,14 +70,21 @@ val postReviewModule = module {
 val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
-    single { DataStoreManager(get())}
+    single { DataStoreManager(get()) }
     factory { AppExecutors() }
 
-    single<IUserRepository> {
+    single<IAuthRepository> {
         AuthRepository(
             get(),
             get(),
+        )
+    }
+
+    single<IUserRepository> {
+        UserRepository(
             get(),
+            get(),
+            get()
         )
     }
 
