@@ -26,15 +26,30 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
         fun bind(itemResto: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.4:4000/uploads/${itemResto.imgCover}")
+                    .load("http://192.168.1.3:4000/uploads/${itemResto.imgCover}")
                     .into(ivItemImage)
+                tvItemRating.text = itemResto.ratingAvg.toString()
                 tvItemTitle.text = itemResto.name
-                tvItemApproxPrice.text = itemResto.priceRange
-                if(itemResto.isHalal != 1) {
+                tvItemApproxPrice.text = "Approx. Rp ${itemResto.priceRange} for two"
+                tvItemCategories.text =
+                    itemResto.categories.toString().replace("[", "").replace("]", "")
+                tvItemLocation.text = itemResto.location
+                if (itemResto.isHalal != 1) {
                     tvItemIsHalal.visibility = View.GONE
                 } else {
                     tvItemIsHalal.visibility = View.VISIBLE
                     tvItemIsHalal.text = "Halal"
+                }
+                if (itemResto.haveInternet != 1) {
+                    icWifi.visibility = View.GONE
+                } else if (itemResto.haveToilet != 1) {
+                    icWc.visibility = View.GONE
+                } else if (itemResto.haveSocket != 1) {
+                    icSocket.visibility = View.GONE
+                } else {
+                    icWifi.visibility = View.VISIBLE
+                    icSocket.visibility = View.VISIBLE
+                    icWc.visibility = View.VISIBLE
                 }
             }
         }

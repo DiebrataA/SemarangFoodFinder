@@ -1,4 +1,4 @@
-package com.anggarad.dev.favorite
+package com.anggarad.dev.foodfinder.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

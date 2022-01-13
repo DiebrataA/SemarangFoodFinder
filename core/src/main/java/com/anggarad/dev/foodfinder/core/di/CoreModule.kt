@@ -36,30 +36,22 @@ val databaseModule = module {
 
 val postReviewModule = module {
     single {
-        val token: String? = null
+
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                chain.proceed(chain.request().newBuilder().also {
-                    it.addHeader(
-                        "token",
-                        "$token"
-                    )
-                }.build())
-            }
             .also {
                 if (BuildConfig.DEBUG) {
                     it.addInterceptor(loggingInterceptor)
                 }
             }
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
             .build()
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.4:4000/")
+            .baseUrl("http://192.168.1.3:4000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
@@ -102,6 +94,7 @@ val repositoryModule = module {
 
     single<IReviewRepository> {
         ReviewRepository(
+            get(),
             get(),
             get()
         )

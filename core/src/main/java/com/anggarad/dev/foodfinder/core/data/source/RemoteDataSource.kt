@@ -24,6 +24,8 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val reviewsArray = response.response
                 if (reviewsArray !== null && reviewsArray.isNotEmpty()) {
                     emit(ApiResponse.Success(reviewsArray))
+                } else if (reviewsArray !== null && reviewsArray.isEmpty()) {
+                    emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -47,36 +49,45 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     suspend fun postReviews(
+        token: String,
         restoId: Int,
         userId: Int,
-        rating: Double,
+        rating: Float,
         comments: String,
         fileName: String,
-        body: RequestBody
-    ): Flow<ApiResponse<ReviewResponse>> {
-        val requestRestoId =
-            restoId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+        body: RequestBody?
+    ): Flow<ApiResponse<PostReviewResponse>> {
+
+        val requestRestoId = restoId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+
         val requestUserId =
-            userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestRating =
-            rating.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestComments = comments.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val requestFile = MultipartBody.Part.createFormData("img_review_path", fileName, body)
+            MultipartBody.Builder().addFormDataPart("user_id", userId.toString()).build()
+//            userId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestRating = rating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+//            rating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestComments = comments.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val commentsB = MultipartBody.Part.createFormData("comments", comments)
+
+        val image =
+            body?.let { MultipartBody.Part.createFormData("img_review_path", fileName, body!!) }
+
+
 
         return flow {
             try {
                 val response = apiService.postReview(
+                    token,
                     requestRestoId,
                     requestUserId,
                     requestRating,
                     requestComments,
-                    requestFile
+                    image
                 )
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
 
     }
@@ -89,7 +100,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val restoArray = response.response
                 if (restoArray.isNotEmpty()) {
                     emit(ApiResponse.Success(restoArray))
-                    Log.d("User Response: ", restoArray.toString())
+
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -108,7 +119,35 @@ class RemoteDataSource(private val apiService: ApiService) {
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
-                Log.e("Cafe Source", e.toString())
+
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getRestoMenu(restoId: Int): Flow<ApiResponse<List<MenuResponseItem>>> {
+        return flow {
+            try {
+                val response = apiService.getRestoMenu(restoId)
+                val menuArray = response.response
+                if (menuArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(menuArray))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun searchResto(key: String): Flow<ApiResponse<List<SearchItem>>> {
+        return flow {
+            try {
+                val response = apiService.searchResto(key)
+                val searchResArray = response.response
+                if (searchResArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(searchResArray))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }
@@ -134,6 +173,23 @@ class RemoteDataSource(private val apiService: ApiService) {
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("LoginError :", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun userRegister(
+        email: String,
+        password: String,
+        name: String,
+        phoneNum: String,
+        address: String
+    ): Flow<ApiResponse<RegisterResponse>> {
+        return flow {
+            try {
+                val response = apiService.userRegister(name, address, phoneNum, email, password)
+                emit(ApiResponse.Success(response))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }

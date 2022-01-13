@@ -8,7 +8,7 @@
     android:layout_marginStart="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="6dp"
     app:cardCornerRadius="16dp"
     app:cardElevation="6dp"
     app:cardMaxElevation="6dp">
@@ -27,6 +27,33 @@
             app:layout_constraintDimensionRatio="H,1.5:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ic_wifi"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_categories"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_categories"
+            app:srcCompat="@drawable/ic_baseline_wifi_24" />
+
+        <ImageView
+            android:id="@+id/ic_wc"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/ic_wifi"
+            app:layout_constraintTop_toTopOf="@+id/ic_wifi"
+            app:srcCompat="@drawable/ic_baseline_wc_24" />
+
+        <ImageView
+            android:id="@+id/ic_socket"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/ic_wc"
+            app:layout_constraintTop_toTopOf="@+id/ic_wc"
+            app:srcCompat="@drawable/ic_baseline_power_24" />
 
         <TextView
             android:id="@+id/tv_item_title"
@@ -64,7 +91,7 @@
             android:id="@+id/tv_item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="32dp"
             android:drawableLeft="@drawable/ic_baseline_location_on_24"
             android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
@@ -80,26 +107,23 @@
             android:id="@+id/tv_item_approxPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:drawableLeft="@drawable/ic_baseline_attach_money_24"
+            android:layout_marginStart="32dp"
             android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="center_vertical"
+            android:gravity="center_vertical|end"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/cardview_dark_background"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_location"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_location"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_location"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_isHalal"
+            app:layout_constraintStart_toEndOf="@+id/tv_item_location"
             tools:text="Approx. text for person" />
 
         <TextView
             android:id="@+id/tv_item_isHalal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="28dp"
             android:drawableLeft="@drawable/ic_baseline_check_24"
             android:drawablePadding="5dp"
             android:fontFamily="sans-serif-light"
@@ -107,8 +131,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/cardview_dark_background"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_location"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_categories"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_rating"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_rating"
             tools:text="Halal" />
 
         <TextView

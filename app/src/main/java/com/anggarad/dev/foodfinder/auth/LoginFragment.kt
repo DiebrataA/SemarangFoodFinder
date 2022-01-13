@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.anggarad.dev.foodfinder.R
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.databinding.FragmentLoginBinding
 import com.anggarad.dev.foodfinder.home.HomeActivity
@@ -33,13 +34,27 @@ class LoginFragment : Fragment() {
 
         binding.buttonLogin.isEnabled = true
 
+
         handleOnClick()
 
     }
 
-    private fun handleOnClick(){
+    private fun handleOnClick() {
         binding.buttonLogin.setOnClickListener {
             setObservers()
+        }
+
+        binding.tbToRegister.setOnClickListener {
+            val mRegisterFragment = RegisterFragment()
+            val mFragmentManager = parentFragmentManager
+            mFragmentManager.beginTransaction().apply {
+                replace(
+                    R.id.auth_container,
+                    mRegisterFragment,
+                    RegisterFragment::class.java.simpleName
+                )
+                commit()
+            }
         }
 
     }

@@ -9,10 +9,13 @@ import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutReviewBinding
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     private var listReview = ArrayList<ReviewDetails>()
+
+
     fun setReviewList(newList: List<ReviewDetails>?) {
         if (newList == null) return
         listReview.clear()
@@ -27,11 +30,13 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.4:4000/uploads/${itemReview.imgReviewPath}")
+                    .load("http://192.168.1.3:4000/review/${itemReview.imgReviewPath}")
                     .into(reviewPhoto)
+
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.4:4000/uploads/${itemReview.imgProfile}")
+                    .load("http://192.168.1.3:4000/uploads/${itemReview.imgProfile}")
                     .into(avatarImage)
+                    .apply { RequestOptions().placeholder(R.drawable.ic_baseline_person_24) }
 
                 tvDate.text = itemReview.date
                 tvReviewComment.text = itemReview.comments

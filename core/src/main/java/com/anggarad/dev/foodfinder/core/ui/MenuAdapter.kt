@@ -5,16 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.anggarad.dev.foodfinder.core.R
-import com.anggarad.dev.foodfinder.core.databinding.ItemMenuPhotoListBinding
-import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
-import com.bumptech.glide.Glide
+import com.anggarad.dev.foodfinder.core.databinding.ItemMenuCardBinding
+import com.anggarad.dev.foodfinder.core.domain.model.MenuDetail
 
 class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
-    private var listMenu = ArrayList<RestoDetail>()
-    var onItemClick: ((RestoDetail) -> Unit)? = null
+    private var listMenu = ArrayList<MenuDetail>()
+//    var onItemClick: ((MenuDetail) -> Unit)? = null
 
-    fun setMenuList(newList: List<RestoDetail>?) {
+    fun setMenuList(newList: List<MenuDetail>?) {
         if (newList == null) return
         listMenu.clear()
         listMenu.addAll(newList)
@@ -22,28 +21,31 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
     }
 
     inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var binding = ItemMenuPhotoListBinding.bind(itemView)
-        fun bind(itemMenu: RestoDetail) {
+        private var binding = ItemMenuCardBinding.bind(itemView)
+        fun bind(itemMenu: MenuDetail) {
             with(binding) {
-                Glide.with(itemView.context)
-                    .load("http://192.168.1.4:4000/uploads/${itemMenu.imgMenuPath}")
-                    .into(ivMenuPhoto)
-
+                tvItemTitle.text = itemMenu.menuName
+                tvItemPrice.text = "Rp ${itemMenu.menuPrice}"
+                if (itemMenu.isRecommended == 0 || itemMenu.isRecommended == null) {
+                    tvItemIsBestSeller.visibility = View.GONE
+                } else {
+                    tvItemIsBestSeller.visibility = View.VISIBLE
+                }
             }
         }
 
-        init {
-            binding.root.setOnClickListener {
-                onItemClick?.invoke(listMenu[adapterPosition])
-            }
-        }
+//        init {
+//            binding.root.setOnClickListener {
+//                onItemClick?.invoke(listMenu[adapterPosition])
+//            }
+//        }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ) = MenuViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_menu_photo_list, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_menu_card, parent, false)
     )
 
     override fun onBindViewHolder(holder: MenuAdapter.MenuViewHolder, position: Int) {

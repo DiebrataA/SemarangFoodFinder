@@ -13,33 +13,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodFinder">
         <activity
+            android:name=".profile.UserReviewHistoryActivity"
+            android:exported="false"
+            android:parentActivityName=".home.HomeActivity" />
+        <activity
             android:name=".search.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.FoodFinder.NoActionBar"
+            android:parentActivityName=".home.HomeActivity" />
         <activity
             android:name=".detail.PostReviewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".detail.DetailsActivity" />
         <activity
             android:name=".home.HomeActivity"
-            android:exported="false" />
-        <activity android:name=".auth.AuthActivity" /> <!-- <activity -->
+            android:exported="false"
+            android:theme="@style/Theme.FoodFinder.NoActionBar" />
+        <activity
+            android:name=".auth.AuthActivity"
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".detail.DetailsActivity" -->
         <!-- android:exported="false" /> -->
         <!-- <activity android:name=".home.HomeActivity" /> -->
         <activity
             android:name=".detail.DetailsActivity"
-            android:label="DetailRestoActivity" />
+            android:label="DetailRestoActivity"
+            android:parentActivityName=".home.HomeActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.FoodFinder.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

@@ -3,11 +3,50 @@ package com.anggarad.dev.foodfinder.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.anggarad.dev.foodfinder.core.data.Resource
+import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.PostReviewResponse
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.usecase.ReviewUseCase
+import com.anggarad.dev.foodfinder.core.domain.usecase.UserUseCase
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 
-class ReviewViewModel(private val reviewUseCase: ReviewUseCase) : ViewModel() {
+class ReviewViewModel(
+    private val reviewUseCase: ReviewUseCase,
+    userUseCase: UserUseCase
+) : ViewModel() {
+    private val _reviewResponse = Channel<ApiResponse<PostReviewResponse>>(Channel.BUFFERED)
+    val reviewResponse = _reviewResponse.receiveAsFlow()
+
+    fun postReview(
+        token: String,
+        restoId: Int,
+        userId: Int,
+        rating: Float,
+        fileName: String,
+        comments: String,
+        body: RequestBody?
+    ) {
+        viewModelScope.launch {
+            reviewUseCase.postReview(token, restoId, userId, rating, comments, fileName, body)
+                .catch { e ->
+                    _reviewResponse.send(ApiResponse.Error(e.toString()))
+                }
+                .collect {
+                    _reviewResponse.send(it)
+                }
+        }
+
+    }
+
+    val userId = userUseCase.getUserId().asLiveData()
+    val userToken = reviewUseCase.getToken().asLiveData()
 
 //    private val _reviewList =MutableSharedFlow<Resource<List<ReviewDetails>>>()
 //    val reviewList = _reviewList.asSharedFlow()

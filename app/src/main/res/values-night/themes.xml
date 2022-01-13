@@ -1,16 +1,58 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FoodFinder" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.FoodFinder" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/yellow_600</item>
         <item name="colorPrimaryVariant">@color/yellow_600_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/green_500</item>
-        <item name="colorSecondaryVariant">@color/green_500</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/yellow_600</item>
+        <item name="colorSecondaryVariant">@color/yellow_600_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.App.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <!--        <item name="actionBarStyle">@style/Theme.FoodFinder.LightActionBar</item>-->
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextAppearance.App.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
+    </style>
+
+    <style name="Theme.FoodFinder.LightActionBar" parent="Theme.MaterialComponents.Light">
+        <item name="background">?attr/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="iconTint">@color/black</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.FoodFinder.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.FoodFinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ShapeAppearanceOverlay.App.RoundedCornerImage" parent="">
+        <item name="cornerSize">10%</item>
+    </style>
+
+
+    <style name="Widget.App.DetailTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="cornerSize">20%</item>
+        <item name="selectableItemBackground">@color/black</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 </resources>

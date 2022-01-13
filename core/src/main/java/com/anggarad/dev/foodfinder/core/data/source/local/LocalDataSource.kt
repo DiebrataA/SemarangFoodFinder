@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.core.data.source.local
 
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.MenuEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.ReviewEntity
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
@@ -10,11 +11,16 @@ import kotlinx.coroutines.flow.Flow
 class LocalDataSource(private val dao: Dao) {
 
 
-    suspend fun insertResto(restolist: List<RestoEntity>)= dao.insertRestos(restolist)
+    suspend fun insertResto(restolist: List<RestoEntity>) = dao.insertRestos(restolist)
 
     fun getRestoListData(): Flow<List<RestoEntity>> = dao.getAllRestos()
 
+    fun getRestoDetail(restoId: Int): Flow<RestoEntity> = dao.getRestoDetail(restoId)
+
     fun getFavoriteResto(): Flow<List<RestoEntity>> = dao.getFavoriteRestos()
+
+    suspend fun insertMenu(menuList: List<MenuEntity>) = dao.insertMenu(menuList)
+    fun getMenuResto(restoId: Int): Flow<List<MenuEntity>> = dao.getMenuRestos(restoId)
 
     fun getUserData(userId: Int): Flow<UserDetailEntity> = dao.getUser(userId)
 

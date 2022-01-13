@@ -1,6 +1,9 @@
 package com.anggarad.dev.foodfinder.core.domain.usecase
 
 import com.anggarad.dev.foodfinder.core.data.Resource
+import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.SearchItem
+import com.anggarad.dev.foodfinder.core.domain.model.MenuDetail
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,15 +17,24 @@ class RestoInteractor(private val restoRepository: IRestoRepository) : RestoUseC
         return restoRepository.getCafeList()
     }
 
-//    override suspend fun getRestoDetail(): Flow<Resource<RestoDetail>> {
-//        return restoRepository.getRestoDetail()
-//    }
+    override fun getRestoDetail(restoId: Int): Flow<RestoDetail> {
+        return restoRepository.getRestoDetail(restoId)
+    }
+
 
     override fun getFavoriteResto(): Flow<List<RestoDetail>> {
         return restoRepository.getFavoriteResto()
     }
 
-    override suspend fun setFavoriteResto(resto: RestoDetail, state: Boolean) {
+    override fun setFavoriteResto(resto: RestoDetail, state: Boolean) {
         return restoRepository.setFavoriteResto(resto, state)
+    }
+
+    override fun getMenu(restoId: Int): Flow<Resource<List<MenuDetail>>> {
+        return restoRepository.getMenu(restoId)
+    }
+
+    override suspend fun searchResto(key: String): Flow<ApiResponse<List<SearchItem>>> {
+        return restoRepository.searchResto(key)
     }
 }

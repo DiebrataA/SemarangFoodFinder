@@ -1,8 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     tools:context=".detail.PostReviewActivity">
+
+    <Button
+        android:id="@+id/btn_submit_review"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+
+    <EditText
+        android:id="@+id/edit_comments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Comments Here.."
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_write_review_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_write_review_title"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_write_review_title2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_write_review_title2"
+        app:srcCompat="@drawable/ic_outline_add_24"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        app:layout_constraintStart_toStartOf="@+id/tv_rate_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_rate_title"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/tv_write_review_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/roboto"
+        android:text="Write a Review"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rate_title"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <TextView
+        android:id="@+id/tv_write_review_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="Add Photos"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_rate_title"
+        app:layout_constraintTop_toBottomOf="@+id/edit_comments" />
+
+    <TextView
+        android:id="@+id/tv_rate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto"
+        android:text="How Would You Rate This Restaurant"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_upload_image"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+
+    <TextView
+        android:id="@+id/tv_filename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

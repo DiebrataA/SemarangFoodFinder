@@ -12,6 +12,7 @@ import com.anggarad.dev.foodfinder.core.ui.CafeAdapter
 import com.anggarad.dev.foodfinder.core.ui.RestoAdapter
 import com.anggarad.dev.foodfinder.databinding.FragmentHomeBinding
 import com.anggarad.dev.foodfinder.detail.DetailsActivity
+import com.anggarad.dev.foodfinder.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -42,6 +43,16 @@ class HomeFragment : Fragment() {
                 intent.putExtra(DetailsActivity.EXTRA_DATA, selectedItem)
                 startActivity(intent)
             }
+            cafeAdapter.onItemClick = { selectedItem ->
+                val intent = Intent(activity, DetailsActivity::class.java)
+                intent.putExtra(DetailsActivity.EXTRA_DATA, selectedItem)
+                startActivity(intent)
+            }
+
+            binding.searchView.setOnClickListener {
+                val intentSearch = Intent(activity, SearchActivity::class.java)
+                startActivity(intentSearch)
+            }
 
 
             homeViewModel.getRestolist.observe(viewLifecycleOwner, { restoList ->
@@ -63,13 +74,13 @@ class HomeFragment : Fragment() {
             homeViewModel.getCafelist.observe(viewLifecycleOwner, { cafeList ->
                 if (cafeList != null) {
                     when (cafeList) {
-//                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                         is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
                             cafeAdapter.setCafeList(cafeList.data)
                         }
                         is Resource.Error -> {
-//                            binding.progressBar.visibility = View.GONE
+                            binding.progressBar.visibility = View.GONE
                             binding.viewError.root.visibility = View.VISIBLE
                         }
                     }

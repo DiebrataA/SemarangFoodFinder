@@ -8,129 +8,148 @@
     android:fillViewport="true"
     tools:context=".detail.DetailsActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detail_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
-        <TextView
-            android:id="@+id/tv_restoTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/roboto_medium"
-            android:text="Title"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/iv_imgCover"
-            app:layout_constraintTop_toBottomOf="@+id/iv_imgCover" />
+            <TextView
+                android:id="@+id/tv_restoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/iv_imgCover"
+                app:layout_constraintTop_toBottomOf="@+id/iv_imgCover" />
 
-        <TextView
-            android:id="@+id/tv_detailCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto_light"
-            android:text="TextView"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/tv_restoTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tv_restoTitle" />
+            <TextView
+                android:id="@+id/tv_detailCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="TextView"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/tv_restoTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tv_restoTitle" />
 
-        <TextView
-            android:id="@+id/tv_detail_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto"
-            android:text="TextView"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/tv_detailCategory"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detailCategory" />
+            <TextView
+                android:id="@+id/tv_detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/roboto"
+                android:text="TextView"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_detailCategory"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detailCategory" />
 
-        <TextView
-            android:id="@+id/tv_item_rating_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/background_review"
-            android:drawableStart="@drawable/ic_star_detail"
-            android:drawablePadding="3dp"
-            android:fontFamily="@font/roboto_light"
-            android:gravity="center_vertical"
-            android:minEms="3"
-            android:textAlignment="viewStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_imgCover"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_detailCategory"
-            app:layout_constraintTop_toBottomOf="@+id/iv_imgCover"
-            tools:ignore="RtlCompat"
-            tools:text="@string/rating" />
+            <TextView
+                android:id="@+id/tv_item_rating_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="48dp"
+                android:background="@drawable/background_review"
+                android:drawableStart="@drawable/ic_star_detail"
+                android:drawablePadding="3dp"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center_vertical"
+                android:minEms="3"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/iv_imgCover"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tv_detailCategory"
+                app:layout_constraintTop_toBottomOf="@+id/iv_imgCover"
+                tools:ignore="RtlCompat"
+                tools:text="@string/rating" />
 
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="366dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="18dp"
-            android:background="@android:drawable/screen_background_dark"
-            android:backgroundTint="@color/yellow_600"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_location" />
+            <View
+                android:id="@+id/divider"
+                android:layout_width="366dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:background="@android:drawable/screen_background_dark"
+                android:backgroundTint="@color/yellow_600"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_location" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tab_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/divider"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@+id/divider">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_detail"
+                    style="@style/Widget.App.DetailTabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/tabs_inactive"
+                    app:tabIndicatorColor="@color/yellow_600"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorGravity="stretch"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/black"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_imgCover"
+                android:layout_width="366dp"
+                android:layout_height="170dp"
+                android:layout_marginTop="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedCornerImage"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/detail_review_pager"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_container"
-            app:layout_constraintEnd_toEndOf="@+id/tab_view"
-            app:layout_constraintStart_toStartOf="@+id/tab_view"
-            app:layout_constraintTop_toBottomOf="@+id/tab_view" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/tab_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/detail_container"
             android:layout_marginTop="12dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/divider"
-            app:layout_constraintStart_toStartOf="@+id/divider"
-            app:layout_constraintTop_toBottomOf="@+id/divider">
+            app:layout_constraintBottom_toBottomOf="@+id/detail_container" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_detail"
-                style="@style/Widget.App.DetailTabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/tabs_inactive"
-                app:tabIndicatorColor="@color/yellow_600"
-                app:tabIndicatorFullWidth="true"
-                app:tabIndicatorGravity="stretch"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/black"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_imgCover"
-            android:layout_width="366dp"
-            android:layout_height="170dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedCornerImage"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

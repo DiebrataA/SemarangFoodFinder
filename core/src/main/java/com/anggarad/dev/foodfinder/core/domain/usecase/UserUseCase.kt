@@ -1,7 +1,9 @@
 package com.anggarad.dev.foodfinder.core.domain.usecase
 
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
+import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import kotlinx.coroutines.flow.Flow
 
 interface UserUseCase {
@@ -9,4 +11,6 @@ interface UserUseCase {
     suspend fun getUserDetail(userId: Int): Flow<ApiResponse<UserResponse>>
 
     fun getUserId(): Flow<Int>
+
+    fun getUsersReview(userId: Int): Flow<Resource<List<ReviewDetails>>>
 }

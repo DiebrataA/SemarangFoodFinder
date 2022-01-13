@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,15 +21,6 @@ class ProfileFragment : Fragment() {
     private var userId: Int = 0
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launchWhenStarted {
-
-
-        }
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +35,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        onClickUserReviews()
 
         profileViewModel.userId.observe(viewLifecycleOwner, { id ->
             userId = id
@@ -57,6 +49,7 @@ class ProfileFragment : Fragment() {
                         binding.progressBar.visibility = View.VISIBLE
                     }
                     is ApiResponse.Success -> {
+
                         binding.progressBar.visibility = View.GONE
                         binding.tvProfileName.text = data.data.response.name
                         binding.tvProfileEmail.text = data.data.response.email
@@ -64,8 +57,9 @@ class ProfileFragment : Fragment() {
                         binding.tvUserAddress.text = data.data.response.address
 
                         Glide.with(requireContext())
-                            .load("http://192.168.1.4:4000/uploads/${data.data.response.imgProfile}")
+                            .load("http://192.168.1.3:4000/uploads/${data.data.response.imgProfile}")
                             .into(binding.ivAvatarProfile)
+
                     }
                     is ApiResponse.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -75,100 +69,15 @@ class ProfileFragment : Fragment() {
             }
         }
 
-//        if (activity != null) {
-//            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//                profileViewModel.userId().observe(viewLifecycleOwner, { id ->
-//
-//                    if (id!== null){
-//
-//                    profileViewModel.getUSerDetail(id)
-//
-//
-////                        profileViewModel.getUserDetail(id).observe(viewLifecycleOwner, { userDetail ->
-////                            if (userDetail != null) {
-////                                when (userDetail) {
-////                                    is Resource.Loading -> { binding.progressBar.visibility = View.VISIBLE}
-////                                    is Resource.Success -> {
-////                                        binding.progressBar.visibility = View.GONE
-////                                        userDetail.data?.let {
-////
-////                                            binding.tvProfileName.text = it.fullName
-////                                            binding.tvProfileEmail.text = it.email
-////                                            binding.tvPhone.text = it.phoneNum
-////                                            binding.tvUserAddress.text = it.address
-////
-////                                            Glide.with(requireContext())
-////                                                .load("http://192.168.1.4:4000/uploads/${it.imgProfile}")
-////                                                .into(binding.ivAvatarProfile)
-////
-////                                        }
-////                                    }
-////                                    is Resource.Error -> {
-////                                        binding.progressBar.visibility = View.GONE
-////                                        binding.viewError.root.visibility = View.VISIBLE
-////                                        Toast.makeText(requireContext(), "Eror Bung", Toast.LENGTH_SHORT)
-////                                            .show()
-////                                    }
-////
-////                                }
-////
-////                            }
-////                        })
-//                    } else {
-//                        Toast.makeText(requireContext(), "No id", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//
-//                })
-//            }
-//
-//
-//
-//
-//
-//
-//
-//        } else {
-//            binding.viewError.root.visibility = View.VISIBLE
-//        }
-
-
     }
 
-//    private fun getDetails(userId: Int){
-//        return profileViewModel.getUserDetail(userId).observe(viewLifecycleOwner, {userDetail ->
-//            if(userDetail != null) {
-//                when (userDetail) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
-//                    }
-//                    is Resource.Success -> {
-//                        binding.progressBar.visibility = View.GONE
-//
-//
-//                        binding.tvProfileName.text = userDetail.data?.fullName ?: ""
-//                        binding.tvProfileEmail.text = userDetail.data?.email ?: "no email"
-//                        binding.tvPhone.text = userDetail.data?.phoneNum ?: "0"
-//                        binding.tvUserAddress.text = userDetail.data?.address ?: ""
-//
-//                        Glide.with(this)
-//                            .load("http://192.168.1.5:4000/uploads/${userDetail.data?.imgProfile}")
-//                            .into(binding.ivAvatarProfile)
-//
-//
-//                    }
-//                    is Resource.Error -> {
-//                        binding.progressBar.visibility = View.GONE
-//                        Toast.makeText(requireContext(), "Eror Bung", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                }
-//
-//            } else {
-//                binding.viewError.root.visibility = View.VISIBLE
-//            }
-//        })
-//    }
-
+    private fun onClickUserReviews() {
+        binding.btnReviewHistory2.setOnClickListener {
+            val intentUserReview = Intent(activity, UserReviewHistoryActivity::class.java)
+            intentUserReview.putExtra(UserReviewHistoryActivity.EXTRA_ID, userId)
+            startActivity(intentUserReview)
+        }
+    }
 
 }
+

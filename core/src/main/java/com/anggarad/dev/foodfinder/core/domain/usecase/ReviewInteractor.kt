@@ -2,7 +2,7 @@ package com.anggarad.dev.foodfinder.core.domain.usecase
 
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ReviewResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.PostReviewResponse
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.repository.IReviewRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,17 +14,22 @@ class ReviewInteractor(private val reviewRepository: IReviewRepository) : Review
     }
 
     override suspend fun postReview(
+        token: String,
         restoId: Int,
         userId: Int,
-        rating: Double,
+        rating: Float,
         comments: String,
         fileName: String,
-        body: RequestBody
-    ): Flow<ApiResponse<ReviewResponse>> {
-        return reviewRepository.postReview(restoId, userId, rating, comments, fileName, body)
+        body: RequestBody?
+    ): Flow<ApiResponse<PostReviewResponse>> {
+        return reviewRepository.postReview(token, restoId, userId, rating, comments, fileName, body)
     }
 
-    override fun getUsersReview(userId: Int): Flow<Resource<List<ReviewDetails>>> {
-        return reviewRepository.getUsersReview(userId)
+    override fun getToken(): Flow<String> {
+        return reviewRepository.getToken()
     }
+
+//    override fun getUsersReview(userId: Int): Flow<Resource<List<ReviewDetails>>> {
+//        return reviewRepository.getUsersReview(userId)
+//    }
 }

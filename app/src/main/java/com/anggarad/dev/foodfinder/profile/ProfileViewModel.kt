@@ -1,10 +1,13 @@
 package com.anggarad.dev.foodfinder.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
+import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.usecase.UserUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.catch
@@ -31,6 +34,10 @@ class ProfileViewModel(private val userUseCase: UserUseCase) : ViewModel() {
 
 
     val userId = userUseCase.getUserId().asLiveData()
+
+    fun getUserReviews(userId: Int): LiveData<Resource<List<ReviewDetails>>> {
+        return userUseCase.getUsersReview(userId).asLiveData()
+    }
 
 //    fun getUserDetail(userId: Int): LiveData<Resource<UserDetail>> {
 //        return userUseCase.getUserDetail(userId).asLiveData()

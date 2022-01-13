@@ -19,12 +19,14 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment_home)
 
         val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.nav_home, R.id.nav_favorite, R.id.nav_profile
+            R.id.homeFragment, R.id.favoriteFragment, R.id.profileFragment
         ).build()
 
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -62,6 +64,11 @@ class HomeActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 
 

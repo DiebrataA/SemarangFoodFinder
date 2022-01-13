@@ -1,12 +1,12 @@
-package com.anggarad.dev.favorite
+package com.anggarad.dev.foodfinder.core.ui
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.anggarad.dev.favorite.databinding.ItemLayoutTrendBinding
+import com.anggarad.dev.foodfinder.core.R
+import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutTrendBinding
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
-
 import com.bumptech.glide.Glide
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
@@ -26,7 +26,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         fun bind(data: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://10.0.2.2/uploads/${data.imgMenuPath}")
+                    .load("http://192.168.1.3:4000/uploads/${data.imgCover}")
                     .into(ivItemTrend)
                 cafeHomeTitle.text = data.name
                 cafeHomeSubtitle.text = data.address

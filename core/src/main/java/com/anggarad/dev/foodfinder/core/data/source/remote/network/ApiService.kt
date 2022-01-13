@@ -32,12 +32,14 @@ interface ApiService {
     @Multipart
     @POST("api/reviews")
     suspend fun postReview(
+        @Header("Authorization") token: String,
         @Part("resto_id") restoId: RequestBody,
         @Part("user_id") userId: RequestBody,
         @Part("rating") rating: RequestBody,
         @Part("comments") comments: RequestBody,
-        @Part reviewImage: MultipartBody.Part
-    ): ReviewResponse
+        @Part reviewImage: MultipartBody.Part?
+
+    ): PostReviewResponse
 
     @FormUrlEncoded
     @POST("auth/api/v1/login")
@@ -55,6 +57,16 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): RegisterResponse
+
+    @GET("api/restos/search/{key}")
+    suspend fun searchResto(
+        @Path("key") key: String
+    ): SearchResponse
+
+    @GET("api/restos/menu/{resto_id}")
+    suspend fun getRestoMenu(
+        @Path("resto_id") restoId: Int
+    ): MenuResponse
 
 //    @GET("feeds/list")
 //    suspend fun getRecipe(

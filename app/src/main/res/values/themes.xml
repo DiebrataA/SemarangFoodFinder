@@ -1,17 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FoodFinder" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.FoodFinder" parent="Theme.MaterialComponents.Light">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green_500</item>
-        <item name="colorPrimaryVariant">@color/green_500_dark</item>
+        <item name="colorPrimary">@color/yellow_600</item>
+        <item name="colorPrimaryVariant">@color/yellow_600_dark</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/yellow_600</item>
-        <item name="colorSecondaryVariant">@color/yellow_600</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/yellow_600_dark</item>
+        <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+
         <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="Theme.FoodFinder.LightActionBar">
+        <item name="background">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="iconTint">@color/black</item>
     </style>
 
     <style name="Theme.FoodFinder.NoActionBar">
@@ -19,7 +27,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="Theme.FoodFinder.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
 
     <style name="Theme.FoodFinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

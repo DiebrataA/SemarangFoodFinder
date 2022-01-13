@@ -74,18 +74,20 @@
             android:background="@android:color/transparent"
             android:hint="Password"
             app:boxBackgroundColor="@android:color/transparent"
+            app:endIconCheckable="false"
+            app:endIconMode="password_toggle"
             app:expandedHintEnabled="false"
             app:layout_constraintStart_toStartOf="@+id/tip_email"
             app:layout_constraintTop_toBottomOf="@+id/tip_email"
-            app:passwordToggleDrawable="@android:drawable/ic_lock_lock"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#C8C8C8"
+            app:passwordToggleTint="?attr/colorPrimary"
             app:placeholderText="**********">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tb_toRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

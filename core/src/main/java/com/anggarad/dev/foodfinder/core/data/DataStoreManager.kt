@@ -25,7 +25,7 @@ class DataStoreManager(val context: Context) {
         }
     }
 
-    val getUserToken: Flow<String?> = context.dataStore.data
+    val getUserToken: Flow<String> = context.dataStore.data
         .map { preferences ->
             preferences[TOKEN] ?: ""
         }

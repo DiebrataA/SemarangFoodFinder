@@ -30,9 +30,23 @@ data class RestoEntity(
     @ColumnInfo(name = "location")
     var location: String,
     @ColumnInfo(name = "isFavorite")
-    var isFavorite: Boolean,
+    var isFavorite: Boolean = false,
     @ColumnInfo(name = "ratingAvg")
     var ratingAvg: Float? = null,
     @ColumnInfo(name = "categories")
-    var categories: List<String>
+    var categories: List<String>,
+    @ColumnInfo(name = "have_toilet")
+    var haveToilet: Int,
+    @ColumnInfo(name = "have_musholla")
+    var haveMusholla: Int,
+    @ColumnInfo(name = "have_internet")
+    var haveInternet: Int,
+    @ColumnInfo(name = "have_socket")
+    var haveSocket: Int,
+    @ColumnInfo(name = "have_smoking_room")
+    var haveSmokingRoom: Int,
+    @ColumnInfo(name = "have_meeting_room")
+    var haveMeetingRoom: Int,
+    @ColumnInfo(name = "have_outdoor")
+    var haveOutdoor: Int,
 )
