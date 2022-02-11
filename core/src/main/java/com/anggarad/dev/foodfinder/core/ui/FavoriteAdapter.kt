@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutTrendBinding
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
@@ -13,6 +14,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     private var listFavorite = ArrayList<RestoDetail>()
     var onItemClick: ((RestoDetail) -> Unit)? = null
+
+    companion object {
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
 
     fun setFavoriteList(newList: List<RestoDetail>?) {
         if (newList == null) return
@@ -26,7 +31,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         fun bind(data: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.3:4000/uploads/${data.imgCover}")
+                    .load(SERVER_URL + "uploads/uploads/${data.imgCover}")
                     .into(ivItemTrend)
                 cafeHomeTitle.text = data.name
                 cafeHomeSubtitle.text = data.address

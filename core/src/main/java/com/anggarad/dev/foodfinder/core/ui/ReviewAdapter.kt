@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutReviewBinding
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
@@ -14,6 +15,10 @@ import com.bumptech.glide.request.RequestOptions
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     private var listReview = ArrayList<ReviewDetails>()
+
+    companion object {
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
 
 
     fun setReviewList(newList: List<ReviewDetails>?) {
@@ -30,11 +35,11 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.3:4000/review/${itemReview.imgReviewPath}")
+                    .load(SERVER_URL + "review/${itemReview.imgReviewPath}")
                     .into(reviewPhoto)
 
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.3:4000/uploads/${itemReview.imgProfile}")
+                    .load(SERVER_URL + "uploads/${itemReview.imgProfile}")
                     .into(avatarImage)
                     .apply { RequestOptions().placeholder(R.drawable.ic_baseline_person_24) }
 

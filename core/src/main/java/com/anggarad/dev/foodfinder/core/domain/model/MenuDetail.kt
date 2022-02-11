@@ -1,7 +1,10 @@
 package com.anggarad.dev.foodfinder.core.domain.model
 
-data class MenuDetail(
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
+data class MenuDetail(
     val restoId: Int,
     val menuCategory: Int,
     val menuCategoryName: String,
@@ -10,4 +13,4 @@ data class MenuDetail(
     val description: String,
     val menuPrice: String,
     val isRecommended: Int? = null
-)
+) : Parcelable

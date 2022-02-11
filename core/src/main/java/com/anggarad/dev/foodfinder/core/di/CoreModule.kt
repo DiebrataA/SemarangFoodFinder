@@ -51,7 +51,7 @@ val postReviewModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.3:4000/")
+            .baseUrl(BuildConfig.MY_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

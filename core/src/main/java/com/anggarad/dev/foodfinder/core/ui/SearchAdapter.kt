@@ -4,17 +4,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.R
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.SearchItem
+
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutSearchBinding
+import com.anggarad.dev.foodfinder.core.domain.model.SearchModel
 import com.bumptech.glide.Glide
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
-    private var listSearch = ArrayList<SearchItem>()
-    var onItemClick: ((SearchItem) -> Unit)? = null
+    private var listSearch = ArrayList<SearchModel>()
+    var onItemClick: ((SearchModel) -> Unit)? = null
 
-    fun setSearchList(newList: List<SearchItem>?) {
+    companion object {
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
+
+    fun setSearchList(newList: List<SearchModel>?) {
         if (newList == null) return
         listSearch.clear()
         listSearch.addAll(newList)
@@ -23,10 +29,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     inner class SearchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var binding = ItemLayoutSearchBinding.bind(itemView)
-        fun bind(itemSearch: SearchItem) {
+        fun bind(itemSearch: SearchModel) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.3:4000/uploads/${itemSearch.imgCover}")
+                    .load(SERVER_URL + "uploads/${itemSearch.imgCover}")
                     .into(ivSearchResto)
                 tvSearchRestoTitle.text = itemSearch.name
                 tvSearchLocationResto.text = itemSearch.location

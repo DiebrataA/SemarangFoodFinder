@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.BuildConfig
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -20,11 +19,15 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private var userId: Int = 0
 
+    companion object {
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,36 +42,62 @@ class ProfileFragment : Fragment() {
 
         profileViewModel.userId.observe(viewLifecycleOwner, { id ->
             userId = id
-            profileViewModel.getUSerDetail(userId)
+            getUser(userId)
         })
 
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileViewModel.userResponse.collect { data ->
-                when (data) {
-                    is ApiResponse.Empty -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                    }
-                    is ApiResponse.Success -> {
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            profileViewModel.userResponse.collect { data ->
+//                when (data) {
+//                    is ApiResponse.Empty -> {
+//                        binding.progressBar.visibility = View.VISIBLE
+//                    }
+//                    is ApiResponse.Success -> {
+//
+//                        binding.progressBar.visibility = View.GONE
+//                        binding.tvProfileName.text = data.data.response.name
+//                        binding.tvProfileEmail.text = data.data.response.email
+//                        binding.tvPhone.text = data.data.response.phoneNum
+//                        binding.tvUserAddress.text = data.data.response.address
+//
+//                        Glide.with(requireContext())
+//                            .load("http://192.168.1.3:4000/uploads/${data.data.response.imgProfile}")
+//                            .into(binding.ivAvatarProfile)
+//
+//                    }
+//                    is ApiResponse.Error -> {
+//                        binding.progressBar.visibility = View.GONE
+//                        Toast.makeText(requireContext(), "Errr", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//        }
 
+    }
+
+    private fun getUser(userId: Int) {
+        profileViewModel.getUserDetail(userId).observe(viewLifecycleOwner, { user ->
+            if (user != null) {
+                when (user) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.tvProfileName.text = data.data.response.name
-                        binding.tvProfileEmail.text = data.data.response.email
-                        binding.tvPhone.text = data.data.response.phoneNum
-                        binding.tvUserAddress.text = data.data.response.address
-
+                        binding.tvProfileName.text = user.data?.fullName
+                        binding.tvProfileEmail.text = user.data?.email
+                        binding.tvPhone.text = user.data?.phoneNum
+                        binding.tvUserAddress.text = user.data?.address
                         Glide.with(requireContext())
-                            .load("http://192.168.1.3:4000/uploads/${data.data.response.imgProfile}")
+                            .load(SERVER_URL + "uploads/${user.data?.imgProfile}")
                             .into(binding.ivAvatarProfile)
-
                     }
-                    is ApiResponse.Error -> {
+                    is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(), "Errr", Toast.LENGTH_SHORT).show()
                     }
+
                 }
             }
-        }
 
+        })
     }
 
     private fun onClickUserReviews() {

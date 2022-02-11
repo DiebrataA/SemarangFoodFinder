@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class RemoteDataSource(private val apiService: ApiService) {
@@ -58,21 +57,25 @@ class RemoteDataSource(private val apiService: ApiService) {
         body: RequestBody?
     ): Flow<ApiResponse<PostReviewResponse>> {
 
-        val requestRestoId = restoId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestRestoId = RequestBody.create(MultipartBody.FORM, "1")
+        //restoId.toString().toRequestBody(MultipartBody.FORM)
 
-        val requestUserId =
-            MultipartBody.Builder().addFormDataPart("user_id", userId.toString()).build()
-//            userId.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val requestRating = rating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestUserId = RequestBody.create("text/plain".toMediaTypeOrNull(), "1")
+//            MultipartBody.Builder().addFormDataPart("user_id", userId.toString()).build()
+
+        val requestRating = RequestBody.create("text/plain".toMediaTypeOrNull(), "4")
 //            rating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val requestComments = comments.toRequestBody("text/plain".toMediaTypeOrNull())
+        val requestComments = RequestBody.create("text/plain".toMediaTypeOrNull(), comments)
 //        val commentsB = MultipartBody.Part.createFormData("comments", comments)
 
+//        val partMap = HashMap<String, RequestBody>()
+//        partMap.put("resto_id", requestRestoId)
+//        partMap.put("user_id", requestUserId)
+//        partMap.put("rating", requestRating)
+//        partMap.put("comments", requestComments)
+
         val image =
-            body?.let { MultipartBody.Part.createFormData("img_review_path", fileName, body!!) }
-
-
-
+            body?.let { MultipartBody.Part.createFormData("img_review_path", fileName, body) }
         return flow {
             try {
                 val response = apiService.postReview(
@@ -131,6 +134,8 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val menuArray = response.response
                 if (menuArray.isNotEmpty()) {
                     emit(ApiResponse.Success(menuArray))
+                } else if (menuArray !== null && menuArray.isEmpty()) {
+                    emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -145,6 +150,8 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val searchResArray = response.response
                 if (searchResArray.isNotEmpty()) {
                     emit(ApiResponse.Success(searchResArray))
+                } else if (searchResArray !== null && searchResArray.isEmpty()) {
+                    emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))

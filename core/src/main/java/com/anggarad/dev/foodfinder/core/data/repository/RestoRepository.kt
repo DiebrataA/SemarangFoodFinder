@@ -10,6 +10,7 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.response.RestoItems
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.SearchItem
 import com.anggarad.dev.foodfinder.core.domain.model.MenuDetail
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
+import com.anggarad.dev.foodfinder.core.domain.model.SearchModel
 import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
 import com.anggarad.dev.foodfinder.core.utils.AppExecutors
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
@@ -108,7 +109,27 @@ class RestoRepository(
         appExecutors.diskIO().execute { localDataSource.setFavoriteResto(restoEntity, state) }
     }
 
-    override suspend fun searchResto(key: String): Flow<ApiResponse<List<SearchItem>>> {
-        return remoteDataSource.searchResto(key)
-    }
+    override suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>> =
+        object : NetworkBoundResource<List<SearchModel>, List<SearchItem>>() {
+            override fun loadFromDB(): Flow<List<SearchModel>> {
+                return localDataSource.getAllSearchHistory(key).map {
+                    DataMapper.mapSearchEntityToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<SearchModel>?): Boolean {
+                return true
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<List<SearchItem>>> {
+                return remoteDataSource.searchResto(key)
+            }
+
+            override suspend fun saveCallResult(data: List<SearchItem>) {
+                val searchResult = DataMapper.mapSearchResponseToEntity(data)
+                return localDataSource.insertSearch(searchResult)
+
+            }
+
+        }.asFlow()
 }

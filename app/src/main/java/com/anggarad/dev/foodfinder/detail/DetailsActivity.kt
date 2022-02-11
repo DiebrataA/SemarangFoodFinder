@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.anggarad.dev.foodfinder.R
+import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.databinding.ActivityDetailsBinding
 import com.bumptech.glide.Glide
@@ -17,6 +18,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class DetailsActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+
     }
 
     private val detailViewModel: DetailViewModel by viewModel()
@@ -24,6 +27,7 @@ class DetailsActivity : AppCompatActivity() {
     private var detailResto: RestoDetail? = null
     private var menu: Menu? = null
     private var favState: Boolean? = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,7 +129,7 @@ class DetailsActivity : AppCompatActivity() {
                 tvRestoTitle.text = detailResto.name
                 tvDetailLocation.text = detailResto.location
                 Glide.with(this@DetailsActivity)
-                    .load("http://192.168.1.3:4000/uploads/${detailResto.imgCover}")
+                    .load(SERVER_URL + "uploads/${detailResto.imgCover}")
                     .into(ivImgCover)
                 tvItemRatingDetail.text = detailResto.ratingAvg.toString()
                 tvDetailCategory.text =

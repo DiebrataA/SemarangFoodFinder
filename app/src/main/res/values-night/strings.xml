@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="details_title">Details</string>
+    <string name="resto_name">Resto Name</string>
+    <string name="resto_categories">Categories</string>
+    <string name="resto_location">Location</string>
+    <string name="btn_submit">Submit</string>
+    <string name="comments_placeholder">Comments Here..</string>
+    <string name="write_a_review_title">Write a Review</string>
+    <string name="add_photos_title">Add Photos</string>
+    <string name="rating_page_title">How Would You Rate This Restaurant</string>
+    <string name="review_img_title">Img Title</string>
+    <string name="halal">halal</string>
+    <string name="location_detail">location detail</string>
+    <string name="menu_title">Menu</string>
 </resources>

@@ -1,17 +1,7 @@
 package com.anggarad.dev.foodfinder.core.utils
-
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.MenuEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.ReviewEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.MenuResponseItem
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.RestoItems
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ReviewItem
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
-import com.anggarad.dev.foodfinder.core.domain.model.MenuDetail
-import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
-import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
-import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.*
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
+import com.anggarad.dev.foodfinder.core.domain.model.*
 
 object DataMapper {
 
@@ -196,4 +186,25 @@ object DataMapper {
                 description = it.description
             )
         }
+
+    fun mapSearchResponseToEntity(input: List<SearchItem>): List<SearchItemEntity> =
+        input.map {
+            SearchItemEntity(
+                restoId = it.restoId,
+                name = it.name,
+                location = it.location,
+                imgCover = it.imgCover
+            )
+        }
+
+    fun mapSearchEntityToDomain(input: List<SearchItemEntity>): List<SearchModel> =
+        input.map {
+            SearchModel(
+                restoId = it.restoId,
+                name = it.name,
+                location = it.location,
+                imgCover = it.imgCover
+            )
+        }
+
 }

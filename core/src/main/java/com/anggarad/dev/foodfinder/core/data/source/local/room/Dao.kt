@@ -2,10 +2,7 @@ package com.anggarad.dev.foodfinder.core.data.source.local.room
 
 import androidx.room.*
 import androidx.room.Dao
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.MenuEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.RestoEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.ReviewEntity
-import com.anggarad.dev.foodfinder.core.data.source.local.entity.UserDetailEntity
+import com.anggarad.dev.foodfinder.core.data.source.local.entity.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -31,11 +28,17 @@ interface Dao {
     @Query("SELECT * FROM restos_menu WHERE restoId = :restoId")
     fun getMenuRestos(restoId: Int): Flow<List<MenuEntity>>
 
+    @Query("SELECT * FROM search WHERE name LIKE :query")
+    fun getAllSearchHistory(query: String): Flow<List<SearchItemEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRestos(restoEntity: List<RestoEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMenu(menuEntity: List<MenuEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSearchItem(searchItemEntity: List<SearchItemEntity>)
 
     @Update
     fun updateFavoriteRestos(resto: RestoEntity)

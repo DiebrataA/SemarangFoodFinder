@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutBinding
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
@@ -13,6 +14,10 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
 
     private var listResto = ArrayList<RestoDetail>()
     var onItemClick: ((RestoDetail) -> Unit)? = null
+
+    companion object {
+        const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
 
     fun setRestoList(newList: List<RestoDetail>?) {
         if (newList == null) return
@@ -26,7 +31,7 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
         fun bind(itemResto: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load("http://192.168.1.3:4000/uploads/${itemResto.imgCover}")
+                    .load(SERVER_URL + "uploads/${itemResto.imgCover}")
                     .into(ivItemImage)
                 tvItemRating.text = itemResto.ratingAvg.toString()
                 tvItemTitle.text = itemResto.name

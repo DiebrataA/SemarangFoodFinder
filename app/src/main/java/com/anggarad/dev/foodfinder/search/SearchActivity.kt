@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -11,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anggarad.dev.foodfinder.R
-import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.ui.SearchAdapter
 import com.anggarad.dev.foodfinder.databinding.ActivitySearchBinding
 import com.anggarad.dev.foodfinder.detail.DetailsActivity
@@ -61,7 +62,8 @@ class SearchActivity : AppCompatActivity() {
                             .observe(this@SearchActivity, { searchRes ->
 
                                 when (searchRes) {
-                                    is ApiResponse.Success -> {
+                                    is Resource.Success -> {
+                                        binding.progressBar.visibility = View.GONE
                                         searchAdapter.setSearchList(searchRes.data)
                                         Toast.makeText(
                                             this@SearchActivity,
@@ -69,20 +71,18 @@ class SearchActivity : AppCompatActivity() {
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-                                    is ApiResponse.Error -> {
+                                    is Resource.Error -> {
+                                        binding.progressBar.visibility = View.GONE
                                         Toast.makeText(
                                             this@SearchActivity,
                                             "Error Search",
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     }
-                                    is ApiResponse.Empty -> {
-                                        Toast.makeText(
-                                            this@SearchActivity,
-                                            "No Data",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
+                                    is Resource.Loading -> {
+                                        binding.progressBar.visibility = View.VISIBLE
                                     }
+
                                 }
 
                             })

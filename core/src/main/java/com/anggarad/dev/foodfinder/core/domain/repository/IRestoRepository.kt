@@ -1,10 +1,9 @@
 package com.anggarad.dev.foodfinder.core.domain.repository
 
 import com.anggarad.dev.foodfinder.core.data.Resource
-import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.SearchItem
 import com.anggarad.dev.foodfinder.core.domain.model.MenuDetail
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
+import com.anggarad.dev.foodfinder.core.domain.model.SearchModel
 import kotlinx.coroutines.flow.Flow
 
 interface IRestoRepository {
@@ -18,5 +17,5 @@ interface IRestoRepository {
 
     fun getMenu(restoId: Int): Flow<Resource<List<MenuDetail>>>
 
-    suspend fun searchResto(key: String): Flow<ApiResponse<List<SearchItem>>>
+    suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>>
 }

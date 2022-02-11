@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_medium"
-                android:text="Title"
+                android:text="@string/resto_name"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/iv_imgCover"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="TextView"
+                android:text="@string/resto_categories"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@+id/tv_restoTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tv_restoTitle" />
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
-                android:text="TextView"
+                android:text="@string/resto_location"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_detailCategory"
@@ -86,7 +86,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/tv_detailCategory"
                 app:layout_constraintTop_toBottomOf="@+id/iv_imgCover"
-                tools:ignore="RtlCompat"
+                tools:ignore="RtlCompat,TextContrastCheck"
                 tools:text="@string/rating" />
 
 

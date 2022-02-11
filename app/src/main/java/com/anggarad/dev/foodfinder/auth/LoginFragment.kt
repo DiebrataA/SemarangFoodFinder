@@ -37,6 +37,7 @@ class LoginFragment : Fragment() {
 
         handleOnClick()
 
+
     }
 
     private fun handleOnClick() {
@@ -77,6 +78,7 @@ class LoginFragment : Fragment() {
                         ).show()
                         authViewModel.saveCredential(data.data.token, data.data.currUser.userId)
                         startActivity(intent)
+
                     }
                     is ApiResponse.Error -> {
                         Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()

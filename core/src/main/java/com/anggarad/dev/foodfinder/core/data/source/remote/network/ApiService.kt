@@ -33,6 +33,7 @@ interface ApiService {
     @POST("api/reviews")
     suspend fun postReview(
         @Header("Authorization") token: String,
+//        @PartMap data : Map<String, RequestBody>,
         @Part("resto_id") restoId: RequestBody,
         @Part("user_id") userId: RequestBody,
         @Part("rating") rating: RequestBody,

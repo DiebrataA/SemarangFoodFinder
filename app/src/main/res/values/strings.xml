@@ -21,5 +21,27 @@
     <string name="no_reviews">No Reviews so far</string>
     <string name="profile_title">Profile</string>
     <string name="no_menu_available">No Menu Available</string>
+    <string name="resto_name">Resto Name</string>
+    <string name="resto_categories">Categories</string>
+    <string name="resto_location">Location</string>
+    <string name="btn_submit">Submit</string>
+    <string name="comments_placeholder">Comments Here..</string>
+    <string name="write_a_review_title">Write a Review</string>
+    <string name="add_photos_title">Add Photos</string>
+    <string name="rating_page_title">How Would You Rate This Restaurant</string>
+    <string name="review_img_title">Img Title</string>
+    <string name="operational_hours">Operational hours</string>
+    <string name="resto_phone">phone</string>
+    <string name="halal">halal</string>
+    <string name="location_detail">location detail</string>
+    <string name="menu_title">Menu</string>
+    <string name="login_title">LOGIN.</string>
+    <string name="subtitle_login">Welcome back! Ready to explore?</string>
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_button">LOGIN</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="register_here">Register Here</string>
+    <string name="logo_description">sff_logo</string>
 
 </resources>
