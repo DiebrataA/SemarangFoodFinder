@@ -35,6 +35,7 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
     private var ratingResult: Float = 0.0f
     private var imageToProcess: Uri? = null
     private var requestBody: RequestBody? = null
+    private var imageUrl: String? = null
 
     //    private var file : File? = null
     private var restoId: Int? = 0
@@ -107,12 +108,30 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                 inputStream.copyTo(outputStream)
 
                 binding.imageButton2.setImageURI(imageToProcess)
+                uploadImageFirebase()
                 binding.tvFilename.text = file.name
                 binding.progressBarUploadImage.progress = 0
                 requestBody = UploadRequestBody(file, "image", this)
 //                        requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
             }
         }
+
+    private fun uploadImageFirebase() {
+        val alphabet: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        val randomString: String = List(20) { alphabet.random() }.joinToString("")
+        reviewViewModel.postImage(
+            imageToProcess!!,
+            "$randomString",
+            "images",
+            "reviewPicture"
+        ).observe(
+            this, { downloadUrl ->
+                if (downloadUrl != null) {
+                    imageUrl = downloadUrl
+                }
+            }
+        )
+    }
 
 
     private fun handlePostReview(restoId: Int?) {
@@ -128,15 +147,16 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                 val fileName = binding.tvFilename.text.toString()
 
                 restoId?.let {
-                    reviewViewModel.postReview(
-                        "Bearer $token",
-                        it,
-                        userId,
-                        ratingResult,
-                        fileName,
-                        comments,
-                        requestBody
-                    )
+                    imageUrl?.let { it1 ->
+                        reviewViewModel.postReview(
+                            "Bearer $token",
+                            it,
+                            userId,
+                            ratingResult,
+                            comments,
+                            it1
+                        )
+                    }
 
                 }
 

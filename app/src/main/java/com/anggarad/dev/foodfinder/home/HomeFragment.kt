@@ -19,8 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
-
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var cafeAdapter: CafeAdapter
 
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
             val restoAdapter = RestoAdapter()
-            val cafeAdapter = CafeAdapter()
+            cafeAdapter = CafeAdapter()
             restoAdapter.onItemClick = { selectedItem ->
                 val intent = Intent(activity, DetailsActivity::class.java)
                 intent.putExtra(DetailsActivity.EXTRA_DATA, selectedItem)
@@ -54,39 +54,8 @@ class HomeFragment : Fragment() {
                 startActivity(intentSearch)
             }
 
-
-            homeViewModel.getRestolist.observe(viewLifecycleOwner, { restoList ->
-                if (restoList != null) {
-                    when (restoList) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            restoAdapter.setRestoList(restoList.data)
-                        }
-                        is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.root.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            })
-
-            homeViewModel.getCafelist.observe(viewLifecycleOwner, { cafeList ->
-                if (cafeList != null) {
-                    when (cafeList) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            cafeAdapter.setCafeList(cafeList.data)
-                        }
-                        is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.root.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            })
-
+            getResto(restoAdapter)
+            getCafe(cafeAdapter)
 
             with(binding.rvRestos) {
                 layoutManager = LinearLayoutManager(context)
@@ -102,5 +71,49 @@ class HomeFragment : Fragment() {
 
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        getCafe(cafeAdapter)
+
+
+    }
+
+    private fun getCafe(cafeAdapter: CafeAdapter) {
+        homeViewModel.getCafelist.observe(viewLifecycleOwner, { cafeList ->
+            if (cafeList != null) {
+                when (cafeList) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        cafeAdapter.setCafeList(cafeList.data)
+                    }
+                    is Resource.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.viewError.root.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getResto(restoAdapter: RestoAdapter) {
+        homeViewModel.getRestolist.observe(viewLifecycleOwner, { restoList ->
+            if (restoList != null) {
+                when (restoList) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        restoAdapter.setRestoList(restoList.data)
+                    }
+                    is Resource.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.viewError.root.visibility = View.VISIBLE
+                    }
+                }
+            }
+        })
+    }
+
 
 }

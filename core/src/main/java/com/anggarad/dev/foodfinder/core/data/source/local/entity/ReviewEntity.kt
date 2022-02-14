@@ -10,21 +10,21 @@ data class ReviewEntity(
     @PrimaryKey
     @NotNull
     @ColumnInfo(name = "reviews_id")
-    val reviewsId: Int? = null,
+    var reviewsId: Int? = null,
     @ColumnInfo(name = "resto_id")
-    val restoId: Int? = null,
+    var restoId: Int? = null,
     @ColumnInfo(name = "date")
-    val date: String? = null,
+    var date: String? = null,
     @ColumnInfo(name = "comments")
-    val comments: String? = null,
+    var comments: String? = null,
     @ColumnInfo(name = "user_id")
-    val userId: Int? = null,
+    var userId: Int? = null,
     @ColumnInfo(name = "rating")
-    val rating: Int? = null,
+    var rating: Int? = null,
     @ColumnInfo(name = "name")
-    val name: String? = null,
+    var name: String? = null,
     @ColumnInfo(name = "img_review_path")
-    val imgReviewPath: String? = null,
+    var imgReviewPath: String? = null,
     @ColumnInfo(name = "img_profile")
-    val imgProfile: String? = null
+    var imgProfile: String? = null
 )

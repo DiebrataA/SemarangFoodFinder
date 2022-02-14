@@ -1,8 +1,6 @@
 package com.anggarad.dev.foodfinder.core.data.source.remote.network
 
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -16,7 +14,7 @@ interface ApiService {
 
     @GET("api/users/{id}")
     suspend fun getUserDetail(
-        @Path("id") userId: Int?
+        @Path("id") userId: Int
     ): UserResponse
 
     @GET("api/reviews/resto_reviews/{id}")
@@ -29,16 +27,28 @@ interface ApiService {
         @Path("id") userId: Int
     ): ReviewResponse
 
-    @Multipart
+    //    @Multipart
+//    @POST("api/reviews")
+//    suspend fun postReview(
+//        @Header("Authorization") token: String,
+////        @PartMap data : Map<String, RequestBody>,
+//        @Part("resto_id") restoId: RequestBody,
+//        @Part("user_id") userId: RequestBody,
+//        @Part("rating") rating: RequestBody,
+//        @Part("comments") comments: RequestBody,
+//        @Part reviewImage: MultipartBody.Part?
+//
+//    ): PostReviewResponse
+    @FormUrlEncoded
     @POST("api/reviews")
     suspend fun postReview(
         @Header("Authorization") token: String,
 //        @PartMap data : Map<String, RequestBody>,
-        @Part("resto_id") restoId: RequestBody,
-        @Part("user_id") userId: RequestBody,
-        @Part("rating") rating: RequestBody,
-        @Part("comments") comments: RequestBody,
-        @Part reviewImage: MultipartBody.Part?
+        @Field("resto_id") restoId: Int,
+        @Field("user_id") userId: Int,
+        @Field("rating") rating: Float,
+        @Field("comments") comments: String,
+        @Field("img_review_path") imgReviewPath: String
 
     ): PostReviewResponse
 

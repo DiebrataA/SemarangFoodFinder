@@ -3,6 +3,7 @@ package com.anggarad.dev.foodfinder.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
 import com.anggarad.dev.foodfinder.core.domain.usecase.AuthUseCase
@@ -49,5 +50,12 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
         viewModelScope.launch {
             authUseCase.saveCredential(token, userId)
         }
+    }
+
+    fun saveUserData(userResponse: CurrUserItem) {
+        viewModelScope.launch {
+            authUseCase.saveUserInfo(userResponse)
+        }
+
     }
 }

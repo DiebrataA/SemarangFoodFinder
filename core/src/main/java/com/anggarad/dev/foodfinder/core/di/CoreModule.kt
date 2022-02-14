@@ -69,6 +69,7 @@ val repositoryModule = module {
         AuthRepository(
             get(),
             get(),
+            get()
         )
     }
 

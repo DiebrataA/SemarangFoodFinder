@@ -21,7 +21,7 @@ class ReviewFragment : Fragment() {
     private lateinit var binding: FragmentReviewBinding
     private var restoId: Int? = 0
     private var detailResto: RestoDetail? = null
-    private var userId: Int = 0
+    private lateinit var reviewAdapter: ReviewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +36,6 @@ class ReviewFragment : Fragment() {
     ): View? {
         binding = FragmentReviewBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,9 +47,15 @@ class ReviewFragment : Fragment() {
             startActivity(intent)
         }
 
+        if (activity != null) {
+            detailResto = arguments?.getParcelable(DetailsActivity.EXTRA_DATA)
 
-        val reviewAdapter = ReviewAdapter()
+            setDataReview()
+        }
+    }
 
+    private fun setDataReview() {
+        reviewAdapter = ReviewAdapter()
         with(binding.rvReview) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -61,37 +65,37 @@ class ReviewFragment : Fragment() {
             )
         }
 
-        if (activity != null) {
-            detailResto = arguments?.getParcelable(DetailsActivity.EXTRA_DATA)
+        val id = detailResto?.restoId
 
-            val id = detailResto?.restoId
-
-            if (id != null) {
-                reviewViewModel.getRestoReviews(id).observe(viewLifecycleOwner, { reviewList ->
-                    if (reviewList != null) {
-                        when (reviewList) {
-                            is Resource.Success -> {
-                                if (reviewList.data?.isEmpty() == true) {
-                                    binding.viewNoReview.root.visibility = View.VISIBLE
-                                }
-                                reviewAdapter.setReviewList(reviewList.data)
-                                binding.tvReviewSum.text = reviewList.data?.size.toString()
-//                                Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT)
-//                                    .show()
-                            }
-                            is Resource.Error -> {
+        if (id != null) {
+            reviewViewModel.getRestoReviews(id).observe(viewLifecycleOwner, { reviewList ->
+                if (reviewList != null) {
+                    when (reviewList) {
+                        is Resource.Success -> {
+                            if (reviewList.data?.isEmpty() == true) {
                                 binding.viewNoReview.root.visibility = View.VISIBLE
                             }
+                            reviewAdapter.setReviewList(reviewList.data)
+                            binding.tvReviewSum.text = reviewList.data?.size.toString()
+//                                Toast.makeText(requireContext(), "Berhasil", Toast.LENGTH_SHORT)
+//                                    .show()
                         }
-                    } else {
-                        binding.viewNoReview.root.visibility = View.VISIBLE
+                        is Resource.Error -> {
+                            binding.viewNoReview.root.visibility = View.VISIBLE
+                        }
                     }
-                })
-            }
-
-
+                } else {
+                    binding.viewNoReview.root.visibility = View.VISIBLE
+                }
+            })
         }
+
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        setDataReview()
+    }
 
 }

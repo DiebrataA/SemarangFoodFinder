@@ -38,6 +38,7 @@
         <activity
             android:name=".detail.DetailsActivity"
             android:label="DetailRestoActivity"
+            android:theme="@style/Theme.FoodFinder.NoActionBar"
             android:parentActivityName=".home.HomeActivity" />
         <activity
             android:name=".MainActivity"

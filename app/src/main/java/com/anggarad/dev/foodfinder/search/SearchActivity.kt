@@ -41,7 +41,6 @@ class SearchActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = binding.searchRestoWidget
 

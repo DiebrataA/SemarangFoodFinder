@@ -1,11 +1,12 @@
 package com.anggarad.dev.foodfinder.core.domain.repository
 
+import android.net.Uri
+import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.PostReviewResponse
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import kotlinx.coroutines.flow.Flow
-import okhttp3.RequestBody
 
 interface IReviewRepository {
 
@@ -16,9 +17,10 @@ interface IReviewRepository {
         userId: Int,
         rating: Float,
         comments: String,
-        fileName: String,
-        body: RequestBody?
+        imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>>
+
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String>
 
     fun getToken(): Flow<String>
 

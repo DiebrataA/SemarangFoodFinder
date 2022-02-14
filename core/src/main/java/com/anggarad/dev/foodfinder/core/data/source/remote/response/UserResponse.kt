@@ -16,24 +16,23 @@ data class UserResponse(
 
 @Parcelize
 data class Response(
-
-    @field:SerializedName("address")
-    val address: String,
-
-    @field:SerializedName("img_profile")
-    val imgProfile: String? = null,
-
     @field:SerializedName("user_id")
     val userId: Int,
+
+    @field:SerializedName("acc_id")
+    val accId: Int,
 
     @field:SerializedName("name")
     val name: String,
 
+    @field:SerializedName("address")
+    val address: String,
+
     @field:SerializedName("phone_num")
     val phoneNum: String,
 
-    @field:SerializedName("acc_id")
-    val accId: Int,
+    @field:SerializedName("img_profile")
+    val imgProfile: String? = null,
 
     @field:SerializedName("email")
     val email: String

@@ -40,10 +40,7 @@ class DetailsRestoFragment : Fragment() {
 
         if (activity != null) {
             detailResto = arguments?.getParcelable(DetailsActivity.EXTRA_DATA)
-
             attachData(detailResto)
-
-
         }
 
 
@@ -72,10 +69,9 @@ class DetailsRestoFragment : Fragment() {
                         when (menuList) {
                             is Resource.Success -> {
                                 if (menuList.data?.isEmpty() == true) {
-                                    binding.progressBar.visibility = View.GONE
                                     binding.viewNoMenu.root.visibility = View.VISIBLE
                                 }
-
+                                binding.progressBar.visibility = View.GONE
                                 menuAdapter.setMenuList(menuList.data)
                             }
                             is Resource.Error -> {

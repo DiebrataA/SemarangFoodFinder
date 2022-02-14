@@ -1,6 +1,7 @@
 package com.anggarad.dev.foodfinder.core.domain.usecase
 
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
 import com.anggarad.dev.foodfinder.core.domain.repository.IAuthRepository
@@ -9,6 +10,10 @@ import kotlinx.coroutines.flow.Flow
 class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
     override suspend fun saveCredential(token: String, userId: Int) {
         return authRepos.saveCredentials(token, userId)
+    }
+
+    override suspend fun saveUserInfo(userDetail: CurrUserItem) {
+        return authRepos.saveUserInfo(userDetail)
     }
 
     override suspend fun userLogin(

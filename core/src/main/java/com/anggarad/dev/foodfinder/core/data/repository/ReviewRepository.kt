@@ -1,5 +1,7 @@
 package com.anggarad.dev.foodfinder.core.data.repository
 
+import android.net.Uri
+import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
 import com.anggarad.dev.foodfinder.core.data.NetworkBoundResource
 import com.anggarad.dev.foodfinder.core.data.Resource
@@ -13,7 +15,6 @@ import com.anggarad.dev.foodfinder.core.domain.repository.IReviewRepository
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import okhttp3.RequestBody
 
 class ReviewRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -54,8 +55,7 @@ class ReviewRepository(
         userId: Int,
         rating: Float,
         comments: String,
-        fileName: String,
-        body: RequestBody?
+        imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>> {
         return remoteDataSource.postReviews(
             token,
@@ -63,11 +63,13 @@ class ReviewRepository(
             userId,
             rating,
             comments,
-            fileName,
-            body
+            imgReviewPath
         )
     }
 
+    override fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+        return remoteDataSource.postImage(uri, uid, type, name)
+    }
 
 
 }

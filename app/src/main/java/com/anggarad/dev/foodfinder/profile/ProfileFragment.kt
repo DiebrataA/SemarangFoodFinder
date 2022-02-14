@@ -2,11 +2,12 @@ package com.anggarad.dev.foodfinder.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.databinding.FragmentProfileBinding
@@ -31,19 +32,21 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onClickUserReviews()
 
-        profileViewModel.userId.observe(viewLifecycleOwner, { id ->
-            userId = id
-            getUser(userId)
-        })
+
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            profileViewModel.userId.observe(viewLifecycleOwner, { id ->
+                userId = id
+                Log.d("User ID:", id.toString())
+                getUser(id)
+                onClickUserReviews(id)
+            })
+        }
 
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            profileViewModel.userResponse.collect { data ->
@@ -75,38 +78,48 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getUser(userId: Int) {
-        profileViewModel.getUserDetail(userId).observe(viewLifecycleOwner, { user ->
-            if (user != null) {
-                when (user) {
-                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        binding.progressBar.visibility = View.GONE
-                        binding.tvProfileName.text = user.data?.fullName
-                        binding.tvProfileEmail.text = user.data?.email
-                        binding.tvPhone.text = user.data?.phoneNum
-                        binding.tvUserAddress.text = user.data?.address
-                        Glide.with(requireContext())
-                            .load(SERVER_URL + "uploads/${user.data?.imgProfile}")
-                            .into(binding.ivAvatarProfile)
-                    }
-                    is Resource.Error -> {
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Errr", Toast.LENGTH_SHORT).show()
-                    }
 
+        profileViewModel.getUserDetail(userId).observe(viewLifecycleOwner, { user ->
+
+            when (user) {
+                is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvProfileName.text = user.data?.fullName
+                    binding.tvProfileEmail.text = user.data?.email
+                    binding.tvPhone.text = user.data?.phoneNum
+                    binding.tvUserAddress.text = user.data?.address
+                    Glide.with(requireContext())
+                        .load(SERVER_URL + "uploads/${user.data?.imgProfile}")
+                        .into(binding.ivAvatarProfile)
                 }
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.viewError.root.visibility = View.VISIBLE
+                }
+
             }
 
+
         })
+
+
     }
 
-    private fun onClickUserReviews() {
+    private fun onClickUserReviews(userId: Int) {
         binding.btnReviewHistory2.setOnClickListener {
             val intentUserReview = Intent(activity, UserReviewHistoryActivity::class.java)
             intentUserReview.putExtra(UserReviewHistoryActivity.EXTRA_ID, userId)
             startActivity(intentUserReview)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+//                val userId = arguments?.getInt(HomeActivity.USER_ID)
+        getUser(userId)
+    }
+
 
 }
 

@@ -7,9 +7,10 @@
         android:id="@+id/tv_no_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
         android:text="@string/no_reviews"
         android:textSize="18sp" />
 

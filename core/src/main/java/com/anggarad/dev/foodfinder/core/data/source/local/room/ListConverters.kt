@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class ListConverters {
-
     private val gson = Gson()
 
     @TypeConverter

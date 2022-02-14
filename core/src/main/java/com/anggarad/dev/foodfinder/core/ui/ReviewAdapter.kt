@@ -10,7 +10,6 @@ import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutReviewBinding
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
@@ -35,13 +34,15 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(SERVER_URL + "review/${itemReview.imgReviewPath}")
+                    .load("${itemReview.imgReviewPath}")
+                    .placeholder(R.drawable.ic_image)
                     .into(reviewPhoto)
 
                 Glide.with(itemView.context)
                     .load(SERVER_URL + "uploads/${itemReview.imgProfile}")
+                    .placeholder(R.drawable.ic_baseline_person_24)
                     .into(avatarImage)
-                    .apply { RequestOptions().placeholder(R.drawable.ic_baseline_person_24) }
+
 
                 tvDate.text = itemReview.date
                 tvReviewComment.text = itemReview.comments

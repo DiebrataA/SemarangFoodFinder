@@ -35,6 +35,10 @@ class ProfileViewModel(private val userUseCase: UserUseCase) : ViewModel() {
     fun getUserDetail(userId: Int): LiveData<Resource<UserDetail>> {
         return userUseCase.getUserDetail(userId).asLiveData()
     }
+
+//    fun getUserData(userId: Int): LiveData<UserDetail>{
+//
+//    }
 //    val getUserDetail = userUseCase.getUserDetail( 7).asLiveData()
 
 }

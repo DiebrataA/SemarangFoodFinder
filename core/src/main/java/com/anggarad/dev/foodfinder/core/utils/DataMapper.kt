@@ -1,4 +1,5 @@
 package com.anggarad.dev.foodfinder.core.utils
+
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.*
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
 import com.anggarad.dev.foodfinder.core.domain.model.*
@@ -107,15 +108,36 @@ object DataMapper {
             )
         }
 
-    fun mapUserEntityToUser(input: UserDetailEntity) = UserDetail(
+    fun mapUserEntityToUserDetail(inputUser: UserDetailEntity) =
+        UserDetail(
+            userId = inputUser.userId,
+            fullName = inputUser.fullName,
+            address = inputUser.address,
+            phoneNum = inputUser.phoneNum,
+            email = inputUser.email,
+            accId = inputUser.accId,
+            imgProfile = inputUser.imgProfile
+        )
+
+    //    fun mapUserEntityToUser(input: UserDetailEntity) = UserDetail(
+//        userId = input.userId,
+//        fullName = input.fullName,
+//        address = input.address,
+//        phoneNum = input.phoneNum,
+//        email = input.email,
+//        accId = input.accId,
+//        imgProfile = input.imgProfile
+//    )
+    fun mapUserDataLoginToEntity(input: CurrUserItem) = UserDetailEntity(
         userId = input.userId,
-        fullName = input.fullName,
+        fullName = input.name,
         address = input.address,
         phoneNum = input.phoneNum,
         email = input.email,
         accId = input.accId,
         imgProfile = input.imgProfile
     )
+
 
     fun mapUserResponseToEntity(input: UserResponse) = UserDetailEntity(
         userId = input.response.userId,
@@ -124,9 +146,8 @@ object DataMapper {
         phoneNum = input.response.phoneNum,
         email = input.response.email,
         accId = input.response.accId,
-        imgProfile = input.response.imgProfile,
-
-        )
+        imgProfile = input.response.imgProfile
+    )
 
     fun mapReviewResponseTOEntity(input: List<ReviewItem>): List<ReviewEntity> =
         input.map {

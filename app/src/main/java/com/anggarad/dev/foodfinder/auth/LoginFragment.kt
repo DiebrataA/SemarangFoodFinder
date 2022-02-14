@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
     private fun handleOnClick() {
         binding.buttonLogin.setOnClickListener {
             setObservers()
+
         }
 
         binding.tbToRegister.setOnClickListener {
@@ -71,13 +72,16 @@ class LoginFragment : Fragment() {
                 when(data) {
                     is ApiResponse.Success -> {
                         val intent = Intent(activity, HomeActivity::class.java)
+                        intent.putExtra(HomeActivity.USER_ID, data.data.currUser.userId)
                         Toast.makeText(
                             requireContext(),
                             data.data.currUser.userId.toString(),
                             Toast.LENGTH_SHORT
                         ).show()
                         authViewModel.saveCredential(data.data.token, data.data.currUser.userId)
+                        authViewModel.saveUserData(data.data.currUser)
                         startActivity(intent)
+                        activity?.finish()
 
                     }
                     is ApiResponse.Error -> {
@@ -86,5 +90,10 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.finish()
     }
 }

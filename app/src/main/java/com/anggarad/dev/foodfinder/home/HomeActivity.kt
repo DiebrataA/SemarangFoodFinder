@@ -12,6 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
+    companion object {
+        const val USER_ID = "user_id"
+    }
+
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,10 @@ class HomeActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val userId = intent.getIntExtra(USER_ID, 0)
+        val bundleData = Bundle()
+        bundleData.putInt(USER_ID, userId)
 
 
 //        if (savedInstanceState == null) {

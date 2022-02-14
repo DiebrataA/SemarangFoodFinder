@@ -42,9 +42,9 @@ class UserReviewHistoryActivity : AppCompatActivity() {
         profileViewModel.getUserReviews(userId).observe(this, { reviewList ->
             if (reviewList != null) {
                 when (reviewList) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
-//                    }
+                    is Resource.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
                     is Resource.Success -> {
                         if (reviewList.data?.isEmpty() == true) {
                             binding.viewNoReview.root.visibility = View.VISIBLE

@@ -1,19 +1,21 @@
 package com.anggarad.dev.foodfinder.core.data.source
 
+import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
+import com.anggarad.dev.foodfinder.core.data.source.remote.network.FirebaseService
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 
 class RemoteDataSource(private val apiService: ApiService) {
+
+    private val firebaseService: FirebaseService = FirebaseService()
 
     suspend fun getRestoReviews(restoId: Int): Flow<ApiResponse<List<ReviewItem>>> {
         return flow {
@@ -53,42 +55,17 @@ class RemoteDataSource(private val apiService: ApiService) {
         userId: Int,
         rating: Float,
         comments: String,
-        fileName: String,
-        body: RequestBody?
+        imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>> {
 
-        val requestRestoId = RequestBody.create(MultipartBody.FORM, "1")
-        //restoId.toString().toRequestBody(MultipartBody.FORM)
-
-        val requestUserId = RequestBody.create("text/plain".toMediaTypeOrNull(), "1")
-//            MultipartBody.Builder().addFormDataPart("user_id", userId.toString()).build()
-
-        val requestRating = RequestBody.create("text/plain".toMediaTypeOrNull(), "4")
-//            rating.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-        val requestComments = RequestBody.create("text/plain".toMediaTypeOrNull(), comments)
-//        val commentsB = MultipartBody.Part.createFormData("comments", comments)
-
-//        val partMap = HashMap<String, RequestBody>()
-//        partMap.put("resto_id", requestRestoId)
-//        partMap.put("user_id", requestUserId)
-//        partMap.put("rating", requestRating)
-//        partMap.put("comments", requestComments)
-
-        val image =
-            body?.let { MultipartBody.Part.createFormData("img_review_path", fileName, body) }
         return flow {
             try {
-                val response = apiService.postReview(
-                    token,
-                    requestRestoId,
-                    requestUserId,
-                    requestRating,
-                    requestComments,
-                    image
-                )
+                val response =
+                    apiService.postReview(token, restoId, userId, rating, comments, imgReviewPath)
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                Log.e("PostReviewError :", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
@@ -119,6 +96,8 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val restoArray = response.response
                 if (restoArray.isNotEmpty()) {
                     emit(ApiResponse.Success(restoArray))
+                } else {
+                    emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -159,7 +138,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getUserDetail(userId: Int?): Flow<ApiResponse<UserResponse>> {
+    suspend fun getUserDetail(userId: Int): Flow<ApiResponse<UserResponse>> {
         return flow {
             try {
                 val response = apiService.getUserDetail(userId)
@@ -167,9 +146,9 @@ class RemoteDataSource(private val apiService: ApiService) {
                 Log.d("User Response: ", response.toString())
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
-
             }
         }.flowOn(Dispatchers.IO)
+
     }
 
     suspend fun userLogin(email: String, password: String): Flow<ApiResponse<LoginResponse>> {
@@ -199,6 +178,10 @@ class RemoteDataSource(private val apiService: ApiService) {
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
+    }
+
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+        return firebaseService.uploadImage(uri, uid, type, name)
     }
 
 

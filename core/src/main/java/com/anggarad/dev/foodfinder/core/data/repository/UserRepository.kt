@@ -20,13 +20,18 @@ class UserRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : IUserRepository {
-    override fun getUserDetail(userId: Int): Flow<Resource<UserDetail>> =
-//        return remoteDataSource.getUserDetail(userId)
+//    override fun getUserDetail(userId: Int): Flow<UserDetail> {
+//        return localDataSource.getUserData(userId).map {
+//            DataMapper.mapUserEntityToUser(it)
+//        }
 //    }
+
+
+    override fun getUserDetail(userId: Int): Flow<Resource<UserDetail>> =
         object : NetworkBoundResource<UserDetail, UserResponse>() {
             override fun loadFromDB(): Flow<UserDetail> {
                 return localDataSource.getUserData(userId).map {
-                    DataMapper.mapUserEntityToUser(it)
+                    DataMapper.mapUserEntityToUserDetail(it)
                 }
             }
 

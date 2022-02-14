@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface Dao {
 
     //User
-    @Query("SELECT * FROM user WHERE user_Id=:userId")
+    @Query("SELECT * FROM user WHERE user_id=:userId")
     fun getUser(userId: Int): Flow<UserDetailEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

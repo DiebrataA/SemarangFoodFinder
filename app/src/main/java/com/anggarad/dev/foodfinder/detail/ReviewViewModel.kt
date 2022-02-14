@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.detail
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import okhttp3.RequestBody
 
 class ReviewViewModel(
     private val reviewUseCase: ReviewUseCase,
@@ -29,12 +29,11 @@ class ReviewViewModel(
         restoId: Int,
         userId: Int,
         rating: Float,
-        fileName: String,
         comments: String,
-        body: RequestBody?
+        imgReviewPath: String
     ) {
         viewModelScope.launch {
-            reviewUseCase.postReview(token, restoId, userId, rating, comments, fileName, body)
+            reviewUseCase.postReview(token, restoId, userId, rating, comments, imgReviewPath)
                 .catch { e ->
                     _reviewResponse.send(ApiResponse.Error(e.toString()))
                 }
@@ -43,6 +42,10 @@ class ReviewViewModel(
                 }
         }
 
+    }
+
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+        return reviewUseCase.postImage(uri, uid, type, name)
     }
 
     val userId = userUseCase.getUserId().asLiveData()

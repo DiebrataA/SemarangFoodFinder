@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "search")
 data class SearchItemEntity(
     @ColumnInfo(name = "resto_id")
-    val restoId: Int,
+    var restoId: Int,
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
     @ColumnInfo(name = "location")
-    val location: String,
+    var location: String,
     @ColumnInfo(name = "imgCover")
-    val imgCover: String? = null,
+    var imgCover: String? = null,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "search_Id")

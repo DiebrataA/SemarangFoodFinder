@@ -11,6 +11,5 @@ import com.anggarad.dev.foodfinder.core.data.source.local.entity.*
 )
 @TypeConverters(ListConverters::class)
 abstract class AppDatabase : RoomDatabase() {
-
     abstract fun recipeDao(): Dao
 }
