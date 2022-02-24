@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anggarad.dev.foodfinder.core.data.Resource
-import com.anggarad.dev.foodfinder.core.ui.CafeAdapter
+import com.anggarad.dev.foodfinder.core.ui.CategoriesAdapter
 import com.anggarad.dev.foodfinder.core.ui.RestoAdapter
 import com.anggarad.dev.foodfinder.databinding.FragmentHomeBinding
 import com.anggarad.dev.foodfinder.detail.DetailsActivity
+import com.anggarad.dev.foodfinder.restolist.RestoByCategoryActivity
 import com.anggarad.dev.foodfinder.search.SearchActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModel()
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var cafeAdapter: CafeAdapter
+    private lateinit var categoriesAdapter: CategoriesAdapter
 
 
     override fun onCreateView(
@@ -37,15 +38,16 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
             val restoAdapter = RestoAdapter()
-            cafeAdapter = CafeAdapter()
             restoAdapter.onItemClick = { selectedItem ->
                 val intent = Intent(activity, DetailsActivity::class.java)
-                intent.putExtra(DetailsActivity.EXTRA_DATA, selectedItem)
+                intent.putExtra(DetailsActivity.RESTO_ID, selectedItem.restoId)
                 startActivity(intent)
             }
-            cafeAdapter.onItemClick = { selectedItem ->
-                val intent = Intent(activity, DetailsActivity::class.java)
-                intent.putExtra(DetailsActivity.EXTRA_DATA, selectedItem)
+
+            categoriesAdapter = CategoriesAdapter()
+            categoriesAdapter.onItemClick = { categoryData ->
+                val intent = Intent(activity, RestoByCategoryActivity::class.java)
+                intent.putExtra(RestoByCategoryActivity.ARG_PARAM1, categoryData)
                 startActivity(intent)
             }
 
@@ -55,7 +57,7 @@ class HomeFragment : Fragment() {
             }
 
             getResto(restoAdapter)
-            getCafe(cafeAdapter)
+            getCategories(categoriesAdapter)
 
             with(binding.rvRestos) {
                 layoutManager = LinearLayoutManager(context)
@@ -63,30 +65,25 @@ class HomeFragment : Fragment() {
                 adapter = restoAdapter
             }
 
-            with(binding.rvCafe) {
+
+
+            with(binding.rvCategories) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
                 setHasFixedSize(true)
-                adapter = cafeAdapter
+                adapter = categoriesAdapter
             }
 
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getCafe(cafeAdapter)
-
-
-    }
-
-    private fun getCafe(cafeAdapter: CafeAdapter) {
-        homeViewModel.getCafelist.observe(viewLifecycleOwner, { cafeList ->
-            if (cafeList != null) {
-                when (cafeList) {
+    private fun getCategories(categoriesAdapter: CategoriesAdapter) {
+        homeViewModel.getCategories.observe(viewLifecycleOwner, { categories ->
+            if (categories != null) {
+                when (categories) {
                     is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        cafeAdapter.setCafeList(cafeList.data)
+                        categoriesAdapter.setCategoriesList(categories.data)
                     }
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE

@@ -5,12 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-@Entity(tableName = "restos")
-data class RestoEntity(
+@Entity(tableName = "restos_by_category")
+data class RestoByCategoryEntity(
     @PrimaryKey
     @NotNull
     @ColumnInfo(name = "restoId")
     var restoId: Int,
+    @ColumnInfo(name = "categoryId")
+    val categoryId: Int,
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "isHalal")
@@ -32,7 +34,7 @@ data class RestoEntity(
     @ColumnInfo(name = "ratingAvg")
     var ratingAvg: Float? = null,
     @ColumnInfo(name = "categories")
-    var categories: List<String>? = null,
+    var categories: String,
     @ColumnInfo(name = "have_toilet")
     var haveToilet: Int,
     @ColumnInfo(name = "have_musholla")

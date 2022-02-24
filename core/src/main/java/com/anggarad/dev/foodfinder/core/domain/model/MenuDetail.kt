@@ -12,5 +12,6 @@ data class MenuDetail(
     val menuName: String,
     val description: String,
     val menuPrice: String,
-    val isRecommended: Int? = null
+    val isRecommended: Int? = null,
+    val menuImg: String? = null
 ) : Parcelable

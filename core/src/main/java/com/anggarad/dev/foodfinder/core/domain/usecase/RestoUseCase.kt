@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface RestoUseCase {
     fun getRestoList(): Flow<Resource<List<RestoDetail>>>
-    fun getCafeList(): Flow<Resource<List<RestoDetail>>>
+
+    //    fun getCafeList(): Flow<Resource<List<RestoDetail>>>
+    fun getRestoDetailTest(restoId: Int): Flow<Resource<RestoDetail>>
     fun getRestoDetail(restoId: Int): Flow<RestoDetail>
 
     fun getFavoriteResto(): Flow<List<RestoDetail>>

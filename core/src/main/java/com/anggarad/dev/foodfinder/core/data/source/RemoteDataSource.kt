@@ -89,10 +89,22 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCafeList(): Flow<ApiResponse<List<RestoItems>>> {
+    suspend fun getRestoDetail(restoId: Int): Flow<ApiResponse<SingleRestoItem>> {
         return flow {
             try {
-                val response = apiService.getCafes()
+                val response = apiService.getRestoDetails(restoId)
+                val restoItem = response.values.singleRestoItem
+                emit(ApiResponse.Success(restoItem))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getRestoByCategoryList(restoId: Int): Flow<ApiResponse<List<RestoByCategoryItems>>> {
+        return flow {
+            try {
+                val response = apiService.getRestoByCategory(restoId)
                 val restoArray = response.response
                 if (restoArray.isNotEmpty()) {
                     emit(ApiResponse.Success(restoArray))
@@ -182,6 +194,22 @@ class RemoteDataSource(private val apiService: ApiService) {
 
     fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
         return firebaseService.uploadImage(uri, uid, type, name)
+    }
+
+    fun getRestoCategories(): Flow<ApiResponse<List<CategoriesResponseItem>>> {
+        return flow {
+            try {
+                val response = apiService.getRestoCategories()
+                val categoriesArray = response.response
+                if (categoriesArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(categoriesArray))
+                } else if (categoriesArray !== null && categoriesArray.isEmpty()) {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
     }
 
 

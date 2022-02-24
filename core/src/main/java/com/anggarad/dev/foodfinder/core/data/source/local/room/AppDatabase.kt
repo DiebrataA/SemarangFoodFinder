@@ -6,7 +6,14 @@ import androidx.room.TypeConverters
 import com.anggarad.dev.foodfinder.core.data.source.local.entity.*
 
 @Database(
-    entities = [UserDetailEntity::class, RestoEntity::class, ReviewEntity::class, MenuEntity::class, SearchItemEntity::class],
+    entities = [
+        UserDetailEntity::class,
+        RestoEntity::class,
+        ReviewEntity::class,
+        MenuEntity::class,
+        SearchItemEntity::class,
+        CategoriesEntity::class,
+        RestoByCategoryEntity::class],
     version = 1, exportSchema = false
 )
 @TypeConverters(ListConverters::class)

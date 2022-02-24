@@ -35,9 +35,6 @@ data class RestoItems(
     @field:SerializedName("price_range")
     val priceRange: String,
 
-    @field:SerializedName("img_menu_path")
-    val imgMenuPath: String? = null,
-
     @field:SerializedName("location")
     val location: String,
 
@@ -51,7 +48,7 @@ data class RestoItems(
     val ratingAvg: Float? = null,
 
     @field:SerializedName("category_name")
-    val categories: List<String>,
+    val categories: List<String>? = null,
 
     @field:SerializedName("have_toilet")
     val haveToilet: Int,

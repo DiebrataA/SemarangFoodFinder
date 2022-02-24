@@ -41,6 +41,7 @@ class DetailsRestoFragment : Fragment() {
         if (activity != null) {
             detailResto = arguments?.getParcelable(DetailsActivity.EXTRA_DATA)
             attachData(detailResto)
+            onMenuClick()
         }
 
 
@@ -92,6 +93,16 @@ class DetailsRestoFragment : Fragment() {
             }
 
 
+        }
+    }
+
+    private fun onMenuClick() {
+        menuAdapter.onItemClick = { selectedItem ->
+            val bundle = Bundle()
+            bundle.putParcelable(MenuDetailFragment.MENU_DATA, selectedItem)
+            val menuDetailFragment = MenuDetailFragment()
+            menuDetailFragment.arguments = bundle
+            menuDetailFragment.show(parentFragmentManager, "ModalBottomFragment")
         }
     }
 

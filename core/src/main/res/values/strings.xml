@@ -8,4 +8,6 @@
     <string name="number_list">0</string>
     <string name="default_prep">Popular Recipe for Today</string>
     <string name="text_subtitle">This is the subtitle Text</string>
+    <string name="description_default">description</string>
+    <string name="category_label">Category</string>
 </resources>

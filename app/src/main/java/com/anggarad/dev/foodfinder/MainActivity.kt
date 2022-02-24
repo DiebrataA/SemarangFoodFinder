@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             finish()
-        }, 3000)
+        }, 2000)
 
 //
 //        mainViewModel.checkToken.observe(this) { token ->

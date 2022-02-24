@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface IRestoRepository {
     fun getRestoList(): Flow<Resource<List<RestoDetail>>>
-    fun getCafeList(): Flow<Resource<List<RestoDetail>>>
-    fun getRestoDetail(restoId: Int): Flow<RestoDetail>
+//    fun getCafeList(): Flow<Resource<List<RestoDetail>>>
+fun getRestoDetail(restoId: Int): Flow<RestoDetail>
+    fun getRestoDetailTest(restoId: Int): Flow<Resource<RestoDetail>>
 
     //    suspend fun getRestoDetail() : Flow<Resource<RestoDetail>>
     fun getFavoriteResto(): Flow<List<RestoDetail>>
     fun setFavoriteResto(resto: RestoDetail, state: Boolean)
 
     fun getMenu(restoId: Int): Flow<Resource<List<MenuDetail>>>
-
     suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>>
 }

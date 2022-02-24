@@ -24,5 +24,7 @@ data class MenuEntity(
     @ColumnInfo(name = "menuPrice")
     var menuPrice: String,
     @ColumnInfo(name = "isRecommended")
-    var isRecommended: Int? = null
+    var isRecommended: Int? = null,
+    @ColumnInfo(name = "menuImg")
+    var menuImg: String? = null
 )

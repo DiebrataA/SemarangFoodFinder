@@ -8,9 +8,16 @@ interface ApiService {
     @GET("api/resto_category")
     suspend fun getAllResto(): RestosResponse
 
+    @GET("api/restos/{restoId}")
+    suspend fun getRestoDetails(
+        @Path("restoId") restoId: Int
+    ): SingleRestoResponse
+
     //Get Cafe lists
-    @GET("api/resto_list_by_category/3")
-    suspend fun getCafes(): RestosResponse
+    @GET("api/resto_list_by_category/{id}")
+    suspend fun getRestoByCategory(
+        @Path("id") restoId: Int
+    ): RestoByCategoryResponse
 
     @GET("api/users/{id}")
     suspend fun getUserDetail(
@@ -27,29 +34,15 @@ interface ApiService {
         @Path("id") userId: Int
     ): ReviewResponse
 
-    //    @Multipart
-//    @POST("api/reviews")
-//    suspend fun postReview(
-//        @Header("Authorization") token: String,
-////        @PartMap data : Map<String, RequestBody>,
-//        @Part("resto_id") restoId: RequestBody,
-//        @Part("user_id") userId: RequestBody,
-//        @Part("rating") rating: RequestBody,
-//        @Part("comments") comments: RequestBody,
-//        @Part reviewImage: MultipartBody.Part?
-//
-//    ): PostReviewResponse
     @FormUrlEncoded
     @POST("api/reviews")
     suspend fun postReview(
         @Header("Authorization") token: String,
-//        @PartMap data : Map<String, RequestBody>,
         @Field("resto_id") restoId: Int,
         @Field("user_id") userId: Int,
         @Field("rating") rating: Float,
         @Field("comments") comments: String,
         @Field("img_review_path") imgReviewPath: String
-
     ): PostReviewResponse
 
     @FormUrlEncoded
@@ -79,10 +72,6 @@ interface ApiService {
         @Path("resto_id") restoId: Int
     ): MenuResponse
 
-//    @GET("feeds/list")
-//    suspend fun getRecipe(
-//        @Query("start") start: Int,
-//        @Query("limit") limit: Int,
-//        @Query("tag") tag: String
-//    ): ListRecipeResponse
+    @GET("api/categories")
+    suspend fun getRestoCategories(): CategoriesResponse
 }

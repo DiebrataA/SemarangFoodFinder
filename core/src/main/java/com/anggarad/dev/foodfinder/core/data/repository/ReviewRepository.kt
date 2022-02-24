@@ -30,7 +30,7 @@ class ReviewRepository(
             }
 
             override fun shouldFetch(data: List<ReviewDetails>?): Boolean {
-                return data == null || data.isEmpty()
+                return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<ReviewItem>>> {

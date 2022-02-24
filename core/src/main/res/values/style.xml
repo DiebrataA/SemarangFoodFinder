@@ -3,4 +3,8 @@
     <style name="ShapeAppearanceOverlay.App.AvatarRounded" parent="">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.MenuImageRounded" parent="">
+        <item name="cornerSize">10dp</item>
+    </style>
 </resources>

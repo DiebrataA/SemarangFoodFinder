@@ -33,11 +33,14 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
-                Glide.with(itemView.context)
-                    .load("${itemReview.imgReviewPath}")
-                    .placeholder(R.drawable.ic_image)
-                    .into(reviewPhoto)
-
+                if (itemReview.imgReviewPath == null) {
+                    reviewPhoto.visibility = View.GONE
+                } else {
+                    Glide.with(itemView.context)
+                        .load("${itemReview.imgReviewPath}")
+                        .placeholder(R.drawable.ic_image)
+                        .into(reviewPhoto)
+                }
                 Glide.with(itemView.context)
                     .load(SERVER_URL + "uploads/${itemReview.imgProfile}")
                     .placeholder(R.drawable.ic_baseline_person_24)

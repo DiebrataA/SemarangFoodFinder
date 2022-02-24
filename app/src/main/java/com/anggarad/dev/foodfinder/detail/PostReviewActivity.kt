@@ -37,7 +37,6 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
     private var requestBody: RequestBody? = null
     private var imageUrl: String? = null
 
-    //    private var file : File? = null
     private var restoId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,7 +85,7 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
             if (isGranted) {
                 openImageChooser()
             } else {
-                Toast.makeText(this, "Gaada Akses Gallery", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No Gallery Access", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -128,6 +127,7 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
             this, { downloadUrl ->
                 if (downloadUrl != null) {
                     imageUrl = downloadUrl
+                    binding.progressBarUploadImage.progress = 100
                 }
             }
         )
@@ -164,7 +164,6 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                     reviewViewModel.reviewResponse.collect { data ->
                         when (data) {
                             is ApiResponse.Success -> {
-                                binding.progressBarUploadImage.progress = 100
                                 Toast.makeText(
                                     this@PostReviewActivity,
                                     "Post Berhasil",

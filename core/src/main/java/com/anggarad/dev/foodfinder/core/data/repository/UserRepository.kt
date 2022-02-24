@@ -20,11 +20,6 @@ class UserRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : IUserRepository {
-//    override fun getUserDetail(userId: Int): Flow<UserDetail> {
-//        return localDataSource.getUserData(userId).map {
-//            DataMapper.mapUserEntityToUser(it)
-//        }
-//    }
 
 
     override fun getUserDetail(userId: Int): Flow<Resource<UserDetail>> =
@@ -36,7 +31,7 @@ class UserRepository(
             }
 
             override fun shouldFetch(data: UserDetail?): Boolean {
-                return true
+                return data == null
             }
 
             override suspend fun createCall(): Flow<ApiResponse<UserResponse>> {
@@ -63,7 +58,7 @@ class UserRepository(
             }
 
             override fun shouldFetch(data: List<ReviewDetails>?): Boolean {
-                return data == null || data.isEmpty()
+                return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<ReviewItem>>> {

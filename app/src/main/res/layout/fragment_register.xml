@@ -16,13 +16,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="24dp"
-            android:text="REGISTER."
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/register_label"
             android:textColor="@color/yellow_600"
             android:textSize="36sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo_container" />
+            app:layout_constraintTop_toBottomOf="@+id/logo_container"
+            tools:ignore="TextContrastCheck" />
 
         <View
             android:id="@+id/logo_container"
@@ -39,41 +41,57 @@
             android:id="@+id/register_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Oh hi! Please fill your details to continue."
+            android:fontFamily="@font/roboto"
+            android:text="@string/register_greetings"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/register_title"
             app:layout_constraintTop_toBottomOf="@+id/register_title" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_fullname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="@android:color/transparent"
-            android:hint="Full Name"
+            android:hint="@string/full_name_label"
             app:boxBackgroundColor="@android:color/transparent"
-            app:expandedHintEnabled="false"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="1dp"
+            app:errorContentDescription="Full Name must be filled."
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="@+id/register_subtitle"
             app:layout_constraintTop_toBottomOf="@+id/register_subtitle"
-            app:placeholderText="Your name">
+            app:placeholderText="Your name"
+            app:startIconDrawable="@drawable/ic_baseline_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_fullname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_address"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
-            android:hint="Address"
+            android:hint="@string/address_label"
             app:boxBackgroundColor="@android:color/transparent"
-            app:expandedHintEnabled="false"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorContentDescription="must be filled."
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="@+id/tip_fullname"
             app:layout_constraintTop_toBottomOf="@+id/tip_fullname"
             app:placeholderText="Address">
@@ -82,6 +100,7 @@
                 android:id="@+id/edit_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,13 +108,19 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_phone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
-            android:hint="Phone Number"
+            android:hint="@string/phone_number_label"
             app:boxBackgroundColor="@android:color/transparent"
-            app:expandedHintEnabled="false"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorContentDescription="must be filled."
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="@+id/tip_address"
             app:layout_constraintTop_toBottomOf="@+id/tip_address"
             app:placeholderText="+6281xxxxxx">
@@ -104,21 +129,27 @@
                 android:id="@+id/edit_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
-            android:hint="Email"
+            android:hint="@string/email_label"
             app:boxBackgroundColor="@android:color/transparent"
-            app:expandedHintEnabled="false"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorContentDescription="Email must be filled."
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="@+id/tip_phone"
             app:layout_constraintTop_toBottomOf="@+id/tip_phone"
             app:placeholderText="user@example.com">
@@ -127,30 +158,35 @@
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/transparent"
-            android:hint="Password"
+            android:hint="@string/password_label"
             app:boxBackgroundColor="@android:color/transparent"
-            app:expandedHintEnabled="false"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorContentDescription="Password must be filled."
+            app:errorEnabled="true"
             app:layout_constraintStart_toStartOf="@+id/tip_email"
             app:layout_constraintTop_toBottomOf="@+id/tip_email"
-            app:passwordToggleDrawable="@android:drawable/ic_lock_lock"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="#C8C8C8"
-            app:placeholderText="**********">
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +196,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/yellow_600"
-            android:text="REGISTER"
+            android:text="@string/register_label"
+            app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tip_password"
             app:layout_constraintStart_toStartOf="@+id/tip_password"
             app:layout_constraintTop_toBottomOf="@+id/tip_password" />

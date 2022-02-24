@@ -3,18 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatar_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@+id/name_user_review"
@@ -26,7 +16,7 @@
         android:fontFamily="@font/roboto"
         android:text="Name"
         android:textColor="@color/text_title"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/rating_review"
         app:layout_constraintStart_toEndOf="@+id/avatar_image"
         app:layout_constraintTop_toTopOf="@+id/avatar_image" />
@@ -38,7 +28,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/roboto"
         android:text="date"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/name_user_review"
         app:layout_constraintTop_toBottomOf="@+id/name_user_review" />
 
@@ -57,7 +47,7 @@
         android:scaleY="1"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="10sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name_user_review"
         tools:text="@string/rating" />
@@ -71,21 +61,34 @@
         android:fontFamily="@font/roboto_light"
         android:text="Reviews Here"
         android:textColor="@color/text_title"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/avatar_image"
         app:layout_constraintTop_toBottomOf="@+id/avatar_image" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="50dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.AvatarRounded"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/review_photo"
         android:layout_width="180dp"
         android:layout_height="120dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_reviewComment"
         app:layout_constraintTop_toBottomOf="@+id/tv_reviewComment"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.MenuImageRounded" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

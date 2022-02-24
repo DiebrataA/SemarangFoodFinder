@@ -15,6 +15,10 @@ class DetailViewModel(private val restoUseCase: RestoUseCase) : ViewModel() {
         return restoUseCase.getRestoDetail(restoId).asLiveData()
     }
 
+    fun getDetailRestoTest(restoId: Int): LiveData<Resource<RestoDetail>> {
+        return restoUseCase.getRestoDetailTest(restoId).asLiveData()
+    }
+
 
     fun setFavoriteRestos(restoDetail: RestoDetail, newState: Boolean) {
 

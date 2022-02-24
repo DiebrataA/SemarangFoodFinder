@@ -37,7 +37,7 @@ class SearchActivity : AppCompatActivity() {
         val searchAdapter = SearchAdapter()
         searchAdapter.onItemClick = { searchItem ->
             val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra(DetailsActivity.EXTRA_DATA, searchItem)
+            intent.putExtra(DetailsActivity.RESTO_ID, searchItem.restoId)
             startActivity(intent)
         }
 

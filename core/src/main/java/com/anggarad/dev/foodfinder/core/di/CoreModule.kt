@@ -100,4 +100,11 @@ val repositoryModule = module {
             get()
         )
     }
+
+    single<ICategoriesRepository> {
+        CategoriesRepository(
+            get(),
+            get()
+        )
+    }
 }

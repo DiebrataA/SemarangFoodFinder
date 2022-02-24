@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="detail.MenuDetailFragment">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_menu_detail"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.MenuImageRounded"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/menu_title_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_menu_detail"
+
+        android:layout_alignStart="@+id/iv_menu_detail"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/menu_title"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/menu_description_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_title_detail"
+        android:layout_alignStart="@+id/menu_title_detail"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/description_default"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/menu_price_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_description_detail"
+        android:layout_alignStart="@+id/menu_description_detail"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/price_default"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/iv_recommended_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/menu_description_detail"
+        android:layout_marginStart="220dp"
+        android:layout_toEndOf="@+id/menu_description_detail"
+        android:contentDescription="@string/icon_recommended_desc"
+        android:src="@drawable/ic_baseline_recommend_24"
+        tools:ignore="ImageContrastCheck" />
+
+</RelativeLayout>

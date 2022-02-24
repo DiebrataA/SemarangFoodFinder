@@ -9,6 +9,7 @@
     tools:context=".detail.DetailsActivity">
 
     <RelativeLayout
+        android:id="@+id/detail_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -18,19 +19,6 @@
             android:id="@+id/detail_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/my_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                android:elevation="4dp"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
 
             <TextView
                 android:id="@+id/tv_restoTitle"
@@ -43,6 +31,7 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/iv_imgCover"
                 app:layout_constraintTop_toBottomOf="@+id/iv_imgCover" />
+
 
             <TextView
                 android:id="@+id/tv_detailCategory"
@@ -89,7 +78,6 @@
                 tools:ignore="RtlCompat,TextContrastCheck"
                 tools:text="@string/rating" />
 
-
             <View
                 android:id="@+id/divider"
                 android:layout_width="366dp"
@@ -100,6 +88,19 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_location" />
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
             <com.google.android.material.card.MaterialCardView

@@ -85,7 +85,7 @@ class LoginFragment : Fragment() {
 
                     }
                     is ApiResponse.Error -> {
-                        Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
+                        binding.tvErrorLogin.visibility = View.VISIBLE
                     }
                 }
             }

@@ -19,6 +19,9 @@ interface Dao {
     @Query("SELECT * FROM restos")
     fun getAllRestos(): Flow<List<RestoEntity>>
 
+    @Query("SELECT * FROM restos_by_category WHERE categoryId = :id")
+    fun getRestosByCategoryId(id: Int): Flow<List<RestoByCategoryEntity>>
+
     @Query("SELECT * FROM restos WHERE restoId = :restoId")
     fun getRestoDetail(restoId: Int): Flow<RestoEntity>
 
@@ -28,6 +31,9 @@ interface Dao {
     @Query("SELECT * FROM restos_menu WHERE restoId = :restoId")
     fun getMenuRestos(restoId: Int): Flow<List<MenuEntity>>
 
+    @Query("SELECT * FROM categories")
+    fun getRestoCategories(): Flow<List<CategoriesEntity>>
+
     @Query("SELECT * FROM search WHERE name LIKE :query")
     fun getAllSearchHistory(query: String): Flow<List<SearchItemEntity>>
 
@@ -35,13 +41,22 @@ interface Dao {
     suspend fun insertRestos(restoEntity: List<RestoEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRestosByCategory(restoByCategoryEntity: List<RestoByCategoryEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCategories(categoriesEntity: List<CategoriesEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMenu(menuEntity: List<MenuEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSearchItem(searchItemEntity: List<SearchItemEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSingleRestos(resto: RestoEntity)
+
     @Update
-    fun updateFavoriteRestos(resto: RestoEntity)
+    fun updateRestoData(resto: RestoEntity)
 
     //REVIEWS
     @Query("SELECT * FROM reviews WHERE resto_id = :restoId")

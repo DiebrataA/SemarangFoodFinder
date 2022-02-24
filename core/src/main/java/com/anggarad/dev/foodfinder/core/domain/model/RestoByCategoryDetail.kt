@@ -4,8 +4,9 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RestoDetail(
+data class RestoByCategoryDetail(
     val restoId: Int,
+    val categoryId: Int,
     val name: String,
     val isHalal: Int,
     val opHours: String,
@@ -15,8 +16,8 @@ data class RestoDetail(
     val priceRange: String,
     val location: String,
     val isFavorite: Boolean = false,
+    val categories: String,
     val ratingAvg: Float? = null,
-    val categories: List<String>? = null,
     val haveToilet: Int,
     val haveMusholla: Int,
     val haveInternet: Int,
@@ -24,4 +25,4 @@ data class RestoDetail(
     val haveSmokingRoom: Int,
     val haveMeetingRoom: Int,
     val haveOutdoor: Int,
-): Parcelable
+) : Parcelable

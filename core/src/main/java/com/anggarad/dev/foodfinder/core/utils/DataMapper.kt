@@ -6,6 +6,30 @@ import com.anggarad.dev.foodfinder.core.domain.model.*
 
 object DataMapper {
 
+    fun mapSingleRestoResponseToEntity(input: SingleRestoItem): RestoEntity {
+        return RestoEntity(
+            restoId = input.restoId,
+            name = input.name,
+            isHalal = input.isHalal,
+            contacts = input.contacts,
+            opHours = input.opHours,
+            address = input.address,
+            imgCover = input.imgCover,
+            location = input.location,
+            priceRange = input.priceRange,
+            isFavorite = false,
+            ratingAvg = input.ratingAvg,
+            categories = input.categories,
+            haveInternet = input.haveInternet,
+            haveMeetingRoom = input.haveMeetingRoom,
+            haveMusholla = input.haveMusholla,
+            haveOutdoor = input.haveOutdoor,
+            haveSmokingRoom = input.haveSmokingRoom,
+            haveSocket = input.haveSocket,
+            haveToilet = input.haveToilet
+        )
+    }
+
 
     fun mapRestoEntityToDomainList(input: List<RestoEntity>): List<RestoDetail> =
         input.map {
@@ -17,7 +41,6 @@ object DataMapper {
                 contacts = it.contacts,
                 address = it.address,
                 imgCover = it.imgCover,
-                imgMenuPath = it.imgMenuPath,
                 priceRange = it.priceRange,
                 location = it.location,
                 isFavorite = it.isFavorite,
@@ -42,7 +65,6 @@ object DataMapper {
             contacts = it.contacts,
             address = it.address,
             imgCover = it.imgCover,
-            imgMenuPath = it.imgMenuPath,
             priceRange = it.priceRange,
             location = it.location,
             isFavorite = it.isFavorite,
@@ -66,7 +88,6 @@ object DataMapper {
         contacts = input.contacts,
         address = input.address,
         imgCover = input.imgCover,
-        imgMenuPath = input.imgMenuPath,
         priceRange = input.priceRange,
         location = input.location,
         isFavorite = input.isFavorite,
@@ -92,7 +113,6 @@ object DataMapper {
                 opHours = it.opHours,
                 address = it.address,
                 imgCover = it.imgCover,
-                imgMenuPath = it.imgMenuPath,
                 location = it.location,
                 priceRange = it.priceRange,
                 isFavorite = false,
@@ -119,15 +139,6 @@ object DataMapper {
             imgProfile = inputUser.imgProfile
         )
 
-    //    fun mapUserEntityToUser(input: UserDetailEntity) = UserDetail(
-//        userId = input.userId,
-//        fullName = input.fullName,
-//        address = input.address,
-//        phoneNum = input.phoneNum,
-//        email = input.email,
-//        accId = input.accId,
-//        imgProfile = input.imgProfile
-//    )
     fun mapUserDataLoginToEntity(input: CurrUserItem) = UserDetailEntity(
         userId = input.userId,
         fullName = input.name,
@@ -190,7 +201,8 @@ object DataMapper {
                 menuName = it.menuName,
                 menuPrice = it.menuPrice,
                 isRecommended = it.isRecommended,
-                description = it.description
+                description = it.description,
+                menuImg = it.menuImg
             )
         }
 
@@ -204,13 +216,24 @@ object DataMapper {
                 menuName = it.menuName,
                 menuPrice = it.menuPrice,
                 isRecommended = it.isRecommended,
-                description = it.description
+                description = it.description,
+                menuImg = it.menuImg
             )
         }
 
     fun mapSearchResponseToEntity(input: List<SearchItem>): List<SearchItemEntity> =
         input.map {
             SearchItemEntity(
+                restoId = it.restoId,
+                name = it.name,
+                location = it.location,
+                imgCover = it.imgCover
+            )
+        }
+
+    fun mapSearchResponseToDomain(input: List<SearchItem>): List<SearchModel> =
+        input.map {
+            SearchModel(
                 restoId = it.restoId,
                 name = it.name,
                 location = it.location,
@@ -225,6 +248,74 @@ object DataMapper {
                 name = it.name,
                 location = it.location,
                 imgCover = it.imgCover
+            )
+        }
+
+    fun mapCategoriesResponseToEntity(input: List<CategoriesResponseItem>): List<CategoriesEntity> =
+        input.map {
+            CategoriesEntity(
+                categoryId = it.categoryId,
+                categoryName = it.categoryName,
+                categoryImg = it.categoryImg
+            )
+        }
+
+    fun mapCategoriesEntityToDomain(input: List<CategoriesEntity>): List<CategoriesDetail> =
+        input.map {
+            CategoriesDetail(
+                categoryId = it.categoryId,
+                categoryName = it.categoryName,
+                categoryImg = it.categoryImg
+            )
+        }
+
+    fun mapRestoByCategoryResponseToEntity(input: List<RestoByCategoryItems>): List<RestoByCategoryEntity> =
+        input.map {
+            RestoByCategoryEntity(
+                restoId = it.restoId,
+                name = it.name,
+                categoryId = it.categoryId,
+                isHalal = it.isHalal,
+                opHours = it.opHours,
+                contacts = it.contacts,
+                address = it.address,
+                imgCover = it.imgCover,
+                priceRange = it.priceRange,
+                location = it.location,
+                categories = it.categories,
+                ratingAvg = it.ratingAvg,
+                haveInternet = it.haveInternet,
+                haveMeetingRoom = it.haveMeetingRoom,
+                haveMusholla = it.haveMusholla,
+                haveOutdoor = it.haveOutdoor,
+                haveSmokingRoom = it.haveSmokingRoom,
+                haveSocket = it.haveSocket,
+                haveToilet = it.haveToilet
+            )
+        }
+
+    fun mapRestoByCategoryEntityToDomain(input: List<RestoByCategoryEntity>): List<RestoByCategoryDetail> =
+        input.map {
+            RestoByCategoryDetail(
+                restoId = it.restoId,
+                categoryId = it.categoryId,
+                name = it.name,
+                isHalal = it.isHalal,
+                opHours = it.opHours,
+                contacts = it.contacts,
+                address = it.address,
+                imgCover = it.imgCover,
+                priceRange = it.priceRange,
+                location = it.location,
+                categories = it.categories,
+                ratingAvg = it.ratingAvg,
+                haveInternet = it.haveInternet,
+                haveMeetingRoom = it.haveMeetingRoom,
+                haveMusholla = it.haveMusholla,
+                haveOutdoor = it.haveOutdoor,
+                haveSmokingRoom = it.haveSmokingRoom,
+                haveSocket = it.haveSocket,
+                haveToilet = it.haveToilet
             )
         }
 
