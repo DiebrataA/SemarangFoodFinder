@@ -14,6 +14,8 @@
 
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="Theme.FoodFinder.LightActionBar">
@@ -35,6 +37,12 @@
 
     <style name="ShapeAppearanceOverlay.App.RoundedCornerImage" parent="">
         <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.FieldStroke" parent="">
+        <item name="cornerSize">10%</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
     </style>
 
 

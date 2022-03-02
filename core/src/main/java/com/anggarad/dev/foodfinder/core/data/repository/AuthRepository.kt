@@ -1,15 +1,20 @@
 package com.anggarad.dev.foodfinder.core.data.repository
 
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
+import com.anggarad.dev.foodfinder.core.data.NetworkOnlyResource
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
+import com.anggarad.dev.foodfinder.core.domain.model.CurrentUserModel
+import com.anggarad.dev.foodfinder.core.domain.model.LoginModel
+import com.anggarad.dev.foodfinder.core.domain.model.RegisterModel
 import com.anggarad.dev.foodfinder.core.domain.repository.IAuthRepository
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class AuthRepository(
     private val dataStoreManager: DataStoreManager,
@@ -20,17 +25,23 @@ class AuthRepository(
         return dataStoreManager.saveToDataStore(token, userId)
     }
 
-    override suspend fun saveUserInfo(userDetail: CurrUserItem) {
-        val userData = DataMapper.mapUserDataLoginToEntity(userDetail)
+    override suspend fun saveUserInfo(userDetail: CurrentUserModel) {
+        val userData = DataMapper.mapCurrentUserModelToEntity(userDetail)
         return localDataSource.insertUserData(userData)
     }
 
-    override suspend fun userLogin(
-        email: String,
-        password: String
-    ): Flow<ApiResponse<LoginResponse>> {
-        return remoteDataSource.userLogin(email, password)
-    }
+
+    override suspend fun userLogin(email: String, password: String): Flow<Resource<LoginModel>> =
+        object : NetworkOnlyResource<LoginModel, LoginResponse>() {
+            override fun collectResult(data: LoginResponse): Flow<LoginModel> {
+                return flow { emit(DataMapper.mapLoginResponseToDomain(data)) }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<LoginResponse>> {
+                return remoteDataSource.userLogin(email, password)
+            }
+
+        }.asFlow()
 
     override suspend fun userRegister(
         email: String,
@@ -38,8 +49,16 @@ class AuthRepository(
         name: String,
         phoneNum: String,
         address: String
-    ): Flow<ApiResponse<RegisterResponse>> {
-        return remoteDataSource.userRegister(email, password, name, phoneNum, address)
-    }
+    ): Flow<Resource<RegisterModel>> =
+        object : NetworkOnlyResource<RegisterModel, RegisterResponse>() {
+            override fun collectResult(data: RegisterResponse): Flow<RegisterModel> {
+                return flow { emit(DataMapper.mapRegisterResponseToDomain(data)) }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<RegisterResponse>> {
+                return remoteDataSource.userRegister(email, password, name, phoneNum, address)
+            }
+
+        }.asFlow()
 
 }

@@ -1,9 +1,9 @@
 package com.anggarad.dev.foodfinder.core.domain.usecase
 
-import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.CurrUserItem
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.LoginResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResponse
+import com.anggarad.dev.foodfinder.core.data.Resource
+import com.anggarad.dev.foodfinder.core.domain.model.CurrentUserModel
+import com.anggarad.dev.foodfinder.core.domain.model.LoginModel
+import com.anggarad.dev.foodfinder.core.domain.model.RegisterModel
 import com.anggarad.dev.foodfinder.core.domain.repository.IAuthRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -12,14 +12,11 @@ class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
         return authRepos.saveCredentials(token, userId)
     }
 
-    override suspend fun saveUserInfo(userDetail: CurrUserItem) {
+    override suspend fun saveUserInfo(userDetail: CurrentUserModel) {
         return authRepos.saveUserInfo(userDetail)
     }
 
-    override suspend fun userLogin(
-        email: String,
-        password: String
-    ): Flow<ApiResponse<LoginResponse>> {
+    override suspend fun userLogin(email: String, password: String): Flow<Resource<LoginModel>> {
         return authRepos.userLogin(email, password)
     }
 
@@ -29,7 +26,7 @@ class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
         name: String,
         phoneNum: String,
         address: String
-    ): Flow<ApiResponse<RegisterResponse>> {
+    ): Flow<Resource<RegisterModel>> {
         return authRepos.userRegister(email, password, name, phoneNum, address)
     }
 }

@@ -7,8 +7,9 @@
     <color name="green_500">#FF4caf50</color>
     <color name="green_500_dark">#FF087f23</color>
     <color name="green_500_light">#CC4CAF50</color>
-    <color name="yellow_600">#FFffbb33</color>
+    <color name="yellow_600">#FFF47A20</color>
     <color name="yellow_600_dark">#FFc6a700</color>
     <color name ="yellow_600_light">#CCFFBB33</color>
     <color name="tabs_inactive">#FFE5E5E5</color>
+    <color name="text_input_hint">#FF727070</color>
 </resources>

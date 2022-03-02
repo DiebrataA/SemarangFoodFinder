@@ -5,6 +5,30 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
 import com.anggarad.dev.foodfinder.core.domain.model.*
 
 object DataMapper {
+    fun mapRegisterResponseToDomain(input: RegisterResponse): RegisterModel {
+        return RegisterModel(
+            success = input.success,
+            message = input.message,
+            status = input.status
+        )
+    }
+
+    fun mapLoginResponseToDomain(input: LoginResponse): LoginModel {
+        val currentUser = CurrentUserModel(
+            userId = input.currUser.userId,
+            name = input.currUser.name,
+            address = input.currUser.address,
+            email = input.currUser.email,
+            phoneNum = input.currUser.phoneNum,
+            accId = input.currUser.accId,
+            imgProfile = input.currUser.imgProfile
+        )
+        return LoginModel(
+            token = input.token,
+            currentUser = currentUser
+        )
+    }
+
 
     fun mapSingleRestoResponseToEntity(input: SingleRestoItem): RestoEntity {
         return RestoEntity(
@@ -139,7 +163,7 @@ object DataMapper {
             imgProfile = inputUser.imgProfile
         )
 
-    fun mapUserDataLoginToEntity(input: CurrUserItem) = UserDetailEntity(
+    fun mapCurrentUserModelToEntity(input: CurrentUserModel) = UserDetailEntity(
         userId = input.userId,
         fullName = input.name,
         address = input.address,

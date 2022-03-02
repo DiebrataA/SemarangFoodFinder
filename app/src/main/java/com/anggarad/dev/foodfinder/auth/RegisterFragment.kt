@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.anggarad.dev.foodfinder.R
-import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.databinding.FragmentRegisterBinding
-import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment(), View.OnClickListener {
@@ -21,52 +21,61 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.buttonRegister.isEnabled = true
         binding.buttonRegister.setOnClickListener(this)
-
-
     }
-
 
     private fun setObservers() {
 
-        val email = binding.editEmail.text.toString().trim()
-        val password = binding.editPassword.text.toString().trim()
+        val email = binding.editEmailRegister.text.toString().trim()
+        val password = binding.editPasswordRegister.text.toString().trim()
         val name = binding.editFullname.text.toString().trim()
         val phoneNum = binding.editPhone.text.toString().trim()
         val address = binding.editAddress.text.toString().trim()
 
-        authViewModel.register(email, password, name, phoneNum, address)
-
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            authViewModel.registerResponse.collect { data ->
-                when (data) {
-                    is ApiResponse.Success -> {
-                        displayLoginFragment()
+            authViewModel.register(email, password, name, phoneNum, address)
+                .observe(viewLifecycleOwner, { response ->
+                    when (response) {
+                        is Resource.Success -> {
+                            Toast.makeText(requireContext(), "Register Success", Toast.LENGTH_SHORT)
+                                .show()
+                            displayLoginFragment()
+                        }
+                        is Resource.Error -> Toast.makeText(
+                            requireContext(),
+                            "Register Failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    is ApiResponse.Error -> {
-                        Toast.makeText(requireContext(), "Register Failed", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
-            }
+                })
+//            authViewModel.registerResponse.collect { data ->
+//                when (data) {
+//                    is ApiResponse.Success -> {
+//                        displayLoginFragment()
+//                    }
+//                    is ApiResponse.Error -> {
+//                        Toast.makeText(requireContext(), "Register Failed", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+//                }
+//            }
         }
     }
 
     private fun displayLoginFragment() {
         val mLoginFragment = LoginFragment()
-        val mFragmentManager = parentFragmentManager
+        val mFragmentManager = requireActivity().supportFragmentManager
         mFragmentManager.beginTransaction().apply {
             replace(R.id.auth_container, mLoginFragment, LoginFragment::class.java.simpleName)
             addToBackStack(null)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             commit()
         }
     }
