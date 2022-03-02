@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".detail.DetailsActivity"
-    android:fitsSystemWindows="true">
-
-    <RelativeLayout
-        android:id="@+id/detail_relative_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/detail_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    tools:context=".detail.DetailsActivity">
 
             <TextView
                 android:id="@+id/tv_restoTitle"
@@ -103,7 +88,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/tab_view"
                 android:layout_width="0dp"
@@ -127,31 +111,40 @@
                     app:tabTextColor="@color/black"
                     tools:ignore="SpeakableTextPresentCheck" />
 
-
             </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_imgCover"
+        android:layout_width="366dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedCornerImage"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_view">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/detail_review_pager"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tab_view" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_imgCover"
-                android:layout_width="366dp"
-                android:layout_height="170dp"
-                android:layout_marginTop="8dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedCornerImage"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </RelativeLayout>
+    </ScrollView>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

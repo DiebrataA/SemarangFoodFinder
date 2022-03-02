@@ -109,14 +109,14 @@
             android:id="@+id/details_fragment_title_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/detail_container"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/menu_title"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
 
-            android:layout_below="@id/detail_container" />
+            android:textSize="16sp" />
 
 
         <androidx.recyclerview.widget.RecyclerView

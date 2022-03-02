@@ -18,7 +18,7 @@ android {
         targetSdkVersion 30
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField "String", "MY_SERVER_URL", '"http://192.168.1.2:4000/"'
+        buildConfigField "String", "MY_SERVER_URL", '"http://192.168.100.162:4000/"'
 
     }
 
