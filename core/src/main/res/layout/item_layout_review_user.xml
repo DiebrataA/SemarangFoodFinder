@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/name_user_review"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ellipsize="none"
+        android:fontFamily="@font/roboto"
+        android:text="Name"
+        android:textColor="@color/text_title"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/rating_review"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="date"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/name_user_review"
+        app:layout_constraintTop_toBottomOf="@+id/name_user_review" />
+
+    <TextView
+        android:id="@+id/rating_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/background_review"
+        android:drawableStart="@drawable/ic_star"
+        android:drawablePadding="2dp"
+        android:gravity="center"
+        android:minEms="3"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_user_review"
+        tools:text="@string/rating" />
+
+    <TextView
+        android:id="@+id/tv_reviewComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="Reviews Here"
+        android:textColor="@color/text_title"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/rating_review"
+        app:layout_constraintStart_toStartOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/review_photo"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_reviewComment"
+        app:layout_constraintTop_toBottomOf="@+id/tv_reviewComment"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.MenuImageRounded"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

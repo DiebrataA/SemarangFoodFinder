@@ -10,6 +10,7 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResp
 import com.anggarad.dev.foodfinder.core.domain.model.CurrentUserModel
 import com.anggarad.dev.foodfinder.core.domain.model.LoginModel
 import com.anggarad.dev.foodfinder.core.domain.model.RegisterModel
+import com.anggarad.dev.foodfinder.core.domain.model.UserRegister
 import com.anggarad.dev.foodfinder.core.domain.usecase.AuthUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -44,9 +45,9 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
     }
 
 
-    fun saveCredential(token: String, userId: Int) {
+    fun saveCredential(userId: Int) {
         viewModelScope.launch {
-            authUseCase.saveCredential(token, userId)
+            authUseCase.saveCredential(userId)
         }
     }
 
@@ -54,6 +55,17 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
         viewModelScope.launch {
             authUseCase.saveUserInfo(userResponse)
         }
+    }
 
+    fun loginWithEmailFb(email: String, password: String): LiveData<Resource<UserRegister>> {
+        return authUseCase.loginWithEmailFb(email, password)
+    }
+
+    fun registerWithEmailFb(
+        email: String,
+        password: String,
+        userRegister: UserRegister
+    ): LiveData<Resource<UserRegister>> {
+        return authUseCase.registerUserEmailFb(email, password, userRegister)
     }
 }

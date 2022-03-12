@@ -8,5 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class RegisterModel(
     val success: Boolean? = null,
     val message: String? = null,
-    val status: Int? = null
+    val status: Int? = null,
+    val userId: Int? = null,
+    val accId: Int? = null
 ) : Parcelable

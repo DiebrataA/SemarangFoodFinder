@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 interface ReviewUseCase {
     fun getRestoReviews(restoId: Int): Flow<Resource<List<ReviewDetails>>>
     suspend fun postReview(
-        token: String,
         restoId: Int,
         userId: Int,
         rating: Float,
@@ -19,7 +18,7 @@ interface ReviewUseCase {
         imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>>
 
-    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String>
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<Resource<String>>
 
     fun getToken(): Flow<String>
 

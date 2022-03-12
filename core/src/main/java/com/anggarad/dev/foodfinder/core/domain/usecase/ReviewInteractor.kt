@@ -15,17 +15,21 @@ class ReviewInteractor(private val reviewRepository: IReviewRepository) : Review
     }
 
     override suspend fun postReview(
-        token: String,
         restoId: Int,
         userId: Int,
         rating: Float,
         comments: String,
         imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>> {
-        return reviewRepository.postReview(token, restoId, userId, rating, comments, imgReviewPath)
+        return reviewRepository.postReview(restoId, userId, rating, comments, imgReviewPath)
     }
 
-    override fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+    override fun postImage(
+        uri: Uri,
+        uid: String,
+        type: String,
+        name: String
+    ): LiveData<Resource<String>> {
         return reviewRepository.postImage(uri, uid, type, name)
     }
 

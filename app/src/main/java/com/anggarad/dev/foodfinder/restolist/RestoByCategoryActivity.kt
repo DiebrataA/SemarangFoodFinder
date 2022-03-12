@@ -60,6 +60,9 @@ class RestoByCategoryActivity : AppCompatActivity() {
                 when (restoList) {
                     is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
+                        if (restoList.data.isNullOrEmpty()) {
+                            binding.viewError.root.visibility = View.VISIBLE
+                        }
                         binding.progressBar.visibility = View.GONE
                         restoAdapter.setRestoList(restoList.data)
                     }
@@ -89,7 +92,7 @@ class RestoByCategoryActivity : AppCompatActivity() {
         collapsingToolbarLayout.title = categoriesData?.categoryName
 
         collapsingToolbarLayout.setCollapsedTitleTextColor(
-            ContextCompat.getColor(this, R.color.black_60)
+            ContextCompat.getColor(this, R.color.text_secondary)
         )
         collapsingToolbarLayout.setExpandedTitleColor(
             ContextCompat.getColor(this, R.color.white)

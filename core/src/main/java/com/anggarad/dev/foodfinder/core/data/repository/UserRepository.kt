@@ -1,18 +1,21 @@
 package com.anggarad.dev.foodfinder.core.data.repository
 
+import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
 import com.anggarad.dev.foodfinder.core.data.NetworkBoundResource
+import com.anggarad.dev.foodfinder.core.data.NetworkOnlyResource
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ReviewItem
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
-import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
+import com.anggarad.dev.foodfinder.core.domain.model.UserReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 class UserRepository(
@@ -25,13 +28,13 @@ class UserRepository(
     override fun getUserDetail(userId: Int): Flow<Resource<UserDetail>> =
         object : NetworkBoundResource<UserDetail, UserResponse>() {
             override fun loadFromDB(): Flow<UserDetail> {
-                return localDataSource.getUserData(userId).map {
+                return localDataSource.getUserData().map {
                     DataMapper.mapUserEntityToUserDetail(it)
                 }
             }
 
             override fun shouldFetch(data: UserDetail?): Boolean {
-                return data == null
+                return true
             }
 
             override suspend fun createCall(): Flow<ApiResponse<UserResponse>> {
@@ -49,27 +52,20 @@ class UserRepository(
         return dataStoreManager.getUserId
     }
 
-    override fun getUsersReview(userId: Int): Flow<Resource<List<ReviewDetails>>> =
-        object : NetworkBoundResource<List<ReviewDetails>, List<ReviewItem>>() {
-            override fun loadFromDB(): Flow<List<ReviewDetails>> {
-                return localDataSource.getUserReviews(userId).map {
-                    DataMapper.mapReviewEntityToDomain(it)
-                }
+    override fun getUsersReview(userId: Int): Flow<Resource<List<UserReviewDetails>>> =
+        object : NetworkOnlyResource<List<UserReviewDetails>, List<ResponseItem>>() {
+            override fun collectResult(data: List<ResponseItem>): Flow<List<UserReviewDetails>> {
+
+                return flow { emit(DataMapper.mapUserReviewResponseToDomain(data)) }
             }
 
-            override fun shouldFetch(data: List<ReviewDetails>?): Boolean {
-                return true
-            }
-
-            override suspend fun createCall(): Flow<ApiResponse<List<ReviewItem>>> {
+            override suspend fun createCall(): Flow<ApiResponse<List<ResponseItem>>> {
                 return remoteDataSource.getUsersReviews(userId)
-            }
-
-            override suspend fun saveCallResult(data: List<ReviewItem>) {
-                val reviewList = DataMapper.mapReviewResponseTOEntity(data)
-                return localDataSource.insertReview(reviewList)
             }
 
         }.asFlow()
 
+    override fun fetchUser(userId: String): LiveData<Resource<UserDetail>> {
+        return remoteDataSource.getUserData(userId)
+    }
 }

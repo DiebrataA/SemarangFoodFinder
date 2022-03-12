@@ -25,7 +25,6 @@ class ReviewViewModel(
     val reviewResponse = _reviewResponse.receiveAsFlow()
 
     fun postReview(
-        token: String,
         restoId: Int,
         userId: Int,
         rating: Float,
@@ -33,7 +32,7 @@ class ReviewViewModel(
         imgReviewPath: String
     ) {
         viewModelScope.launch {
-            reviewUseCase.postReview(token, restoId, userId, rating, comments, imgReviewPath)
+            reviewUseCase.postReview(restoId, userId, rating, comments, imgReviewPath)
                 .catch { e ->
                     _reviewResponse.send(ApiResponse.Error(e.toString()))
                 }
@@ -44,7 +43,7 @@ class ReviewViewModel(
 
     }
 
-    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<Resource<String>> {
         return reviewUseCase.postImage(uri, uid, type, name)
     }
 

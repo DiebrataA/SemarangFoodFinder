@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/trend_card"
-        android:layout_width="130dp"
+        android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
@@ -24,10 +24,10 @@
                 android:id="@+id/iv_item_trend"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/recipe_image_desc"
                 android:src="@drawable/ic_image"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/recipe_image_desc"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/trending_review"
@@ -42,12 +42,12 @@
                 android:gravity="center"
                 android:scaleX="0.7"
                 android:scaleY="0.7"
-                tools:text="@string/rating"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/rating" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

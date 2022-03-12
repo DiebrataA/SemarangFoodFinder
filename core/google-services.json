@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:44054825081:android:fcb5320c91c1672472eca8",
         "android_client_info": {
-          "package_name": "com.anggarad.dev.foodfinder"
+          "package_name": "com.anggarad.dev.foodfinder.core"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "44054825081-5vok43jq5gcpn6vklrm1708e8ulbkbb8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.anggarad.dev.foodfinder",
+            "package_name": "com.anggarad.dev.foodfinder.core",
             "certificate_hash": "9c78c07c20a266978cbd830d8ab978c2c4cd945b"
           }
         },

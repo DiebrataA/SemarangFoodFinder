@@ -24,7 +24,7 @@
             app:icon="@android:drawable/arrow_down_float"
             app:iconGravity="textEnd"
             app:iconPadding="10dp"
-            app:strokeColor="@color/yellow_600" />
+            app:strokeColor="@color/primary" />
 
         <SearchView
             android:id="@+id/search_view"
@@ -51,7 +51,7 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="Browse from categories"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="20sp" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_marginBottom="20dp"
             android:paddingStart="8dp"
             android:text="Popular Restos"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="20sp" />
 
 

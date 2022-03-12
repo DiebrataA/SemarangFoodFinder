@@ -13,194 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/logo_container"
-            android:layout_width="190dp"
-            android:layout_height="143dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/logo_sff3"
-            android:contentDescription="@string/logo_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tip_fullname"
-            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            app:boxStrokeWidthFocused="0dp"
-            android:background="@drawable/custom_input"
-            android:hint="@string/full_name_label"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeWidth="0dp"
-
-            app:expandedHintEnabled="true"
-            app:hintTextColor="@color/text_input_hint"
-            app:layout_constraintEnd_toEndOf="@+id/logo_container"
-            app:layout_constraintStart_toStartOf="@+id/logo_container"
-            app:layout_constraintTop_toBottomOf="@+id/logo_container"
-            app:placeholderText="Full Name"
-            app:startIconDrawable="@drawable/ic_baseline_person_24"
-            app:startIconTint="@color/yellow_600">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_fullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
-                app:textInputLayoutFocusedRectEnabled="false"
-                tools:ignore="TextContrastCheck"
-                tools:text="@tools:sample/full_names" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tip_email"
-            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_input"
-            app:boxStrokeWidthFocused="0dp"
-            android:hint="@string/phone_number_label"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeWidth="0dp"
-            app:expandedHintEnabled="true"
-            app:hintTextColor="@color/text_input_hint"
-            app:layout_constraintEnd_toEndOf="@+id/tip_fullname"
-            app:layout_constraintStart_toStartOf="@+id/tip_fullname"
-            app:layout_constraintTop_toBottomOf="@+id/tip_fullname"
-            app:placeholderText="user@example.com"
-            app:startIconDrawable="@drawable/ic_mail"
-            app:startIconTint="@color/yellow_600">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_email_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
-                app:textInputLayoutFocusedRectEnabled="false"
-                tools:ignore="TextContrastCheck"
-                tools:text="@tools:sample/first_names" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tip_phone"
-            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:boxStrokeWidthFocused="0dp"
-            android:background="@drawable/custom_input"
-            android:hint="@string/phone_number_label"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeWidth="0dp"
-            app:expandedHintEnabled="true"
-            app:hintTextColor="@color/text_input_hint"
-            app:layout_constraintEnd_toEndOf="@+id/tip_email"
-            app:layout_constraintStart_toStartOf="@+id/tip_email"
-            app:layout_constraintTop_toBottomOf="@+id/tip_email"
-            app:placeholderText="+6281xxxxxx"
-            app:startIconDrawable="@drawable/ic_phone"
-            app:startIconTint="@color/yellow_600">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
-                app:textInputLayoutFocusedRectEnabled="false"
-                tools:ignore="TextContrastCheck"
-                tools:text="@tools:sample/us_phones" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tip_address"
-            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:boxStrokeWidthFocused="0dp"
-            android:background="@drawable/custom_input"
-            android:hint="@string/address_label"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeWidth="0dp"
-            app:expandedHintEnabled="true"
-            app:hintTextColor="@color/text_input_hint"
-            app:layout_constraintEnd_toEndOf="@+id/tip_phone"
-            app:layout_constraintStart_toStartOf="@+id/tip_phone"
-            app:layout_constraintTop_toBottomOf="@+id/tip_phone"
-            app:placeholderText="Street Names"
-            app:startIconDrawable="@drawable/ic_location_green"
-            app:startIconTint="@color/yellow_600">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:textSize="14sp"
-                app:textInputLayoutFocusedRectEnabled="false"
-                tools:ignore="TextContrastCheck"
-                tools:text="@tools:sample/us_zipcodes" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tip_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:boxStrokeWidthFocused="0dp"
-            android:background="@drawable/custom_input"
-            android:hint="@string/password_label"
-            app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="10dp"
-            app:boxCornerRadiusBottomStart="10dp"
-            app:boxCornerRadiusTopEnd="10dp"
-            app:boxCornerRadiusTopStart="10dp"
-            app:boxStrokeWidth="0dp"
-            app:expandedHintEnabled="true"
-            app:hintEnabled="true"
-            app:hintTextColor="@color/text_input_hint"
-            app:layout_constraintStart_toStartOf="@+id/tip_address"
-            app:layout_constraintTop_toBottomOf="@+id/tip_address"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/yellow_600"
-            app:startIconDrawable="@drawable/ic_baseline_lock_24"
-            app:startIconTint="@color/yellow_600">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_password_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:inputType="textPassword"
-                android:textSize="14sp"
-                app:textInputLayoutFocusedRectEnabled="false"
-                tools:ignore="TextContrastCheck"
-                tools:text="@tools:sample/full_names" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Button
             android:id="@+id/button_register"
             android:layout_width="match_parent"
@@ -215,7 +27,210 @@
             app:layout_constraintEnd_toEndOf="@+id/tip_password"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tip_password"
-            app:layout_constraintTop_toBottomOf="@+id/tip_password" />
+            app:layout_constraintTop_toBottomOf="@+id/tip_password"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/logo_container"
+            android:layout_width="190dp"
+            android:layout_height="143dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/logo_sff3"
+            android:contentDescription="@string/logo_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_phone"
+            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_input"
+            android:hint="@string/phone_number_label"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:expandedHintEnabled="true"
+            app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintEnd_toEndOf="@+id/tip_email"
+            app:layout_constraintStart_toStartOf="@+id/tip_email"
+            app:layout_constraintTop_toBottomOf="@+id/tip_email"
+            app:placeholderText="+6281xxxxxx"
+            app:startIconDrawable="@drawable/ic_phone"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:textInputLayoutFocusedRectEnabled="false"
+                tools:ignore="TextContrastCheck"
+                tools:text="@tools:sample/us_phones" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_address"
+            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_input"
+            android:hint="@string/address_label"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:expandedHintEnabled="true"
+            app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintEnd_toEndOf="@+id/tip_phone"
+            app:layout_constraintStart_toStartOf="@+id/tip_phone"
+            app:layout_constraintTop_toBottomOf="@+id/tip_phone"
+            app:placeholderText="Street Names"
+            app:startIconDrawable="@drawable/ic_location_green"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:textInputLayoutFocusedRectEnabled="false"
+                tools:ignore="TextContrastCheck"
+                tools:text="@tools:sample/us_zipcodes" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_input"
+            android:hint="@string/password_label"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:expandedHintEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintStart_toStartOf="@+id/tip_address"
+            app:layout_constraintTop_toBottomOf="@+id/tip_address"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/primary"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:inputType="textPassword"
+                android:textSize="14sp"
+                app:textInputLayoutFocusedRectEnabled="false"
+                tools:ignore="TextContrastCheck"
+                tools:text="@tools:sample/full_names" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_fullname"
+            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/custom_input"
+            android:hint="@string/full_name_label"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+
+            app:expandedHintEnabled="true"
+            app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintEnd_toEndOf="@+id/logo_container"
+            app:layout_constraintStart_toStartOf="@+id/logo_container"
+            app:layout_constraintTop_toBottomOf="@+id/logo_container"
+            app:placeholderText="Full Name"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:textInputLayoutFocusedRectEnabled="false"
+                tools:ignore="TextContrastCheck"
+                tools:text="@tools:sample/full_names" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tip_email"
+            style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_input"
+            android:hint="@string/phone_number_label"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:expandedHintEnabled="true"
+            app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintEnd_toEndOf="@+id/tip_fullname"
+            app:layout_constraintStart_toStartOf="@+id/tip_fullname"
+            app:layout_constraintTop_toBottomOf="@+id/tip_fullname"
+            app:placeholderText="user@example.com"
+            app:startIconDrawable="@drawable/ic_mail"
+            app:startIconTint="@color/primary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:textInputLayoutFocusedRectEnabled="false"
+                tools:ignore="TextContrastCheck"
+                tools:text="@tools:sample/first_names" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

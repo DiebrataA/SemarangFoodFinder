@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.core.data.repository
 
+import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
 import com.anggarad.dev.foodfinder.core.data.NetworkOnlyResource
 import com.anggarad.dev.foodfinder.core.data.Resource
@@ -11,6 +12,7 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.response.RegisterResp
 import com.anggarad.dev.foodfinder.core.domain.model.CurrentUserModel
 import com.anggarad.dev.foodfinder.core.domain.model.LoginModel
 import com.anggarad.dev.foodfinder.core.domain.model.RegisterModel
+import com.anggarad.dev.foodfinder.core.domain.model.UserRegister
 import com.anggarad.dev.foodfinder.core.domain.repository.IAuthRepository
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
@@ -21,13 +23,28 @@ class AuthRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : IAuthRepository {
-    override suspend fun saveCredentials(token: String, userId: Int) {
-        return dataStoreManager.saveToDataStore(token, userId)
+    override suspend fun saveCredentials(userId: Int) {
+        return dataStoreManager.saveToDataStore(userId)
     }
 
     override suspend fun saveUserInfo(userDetail: CurrentUserModel) {
         val userData = DataMapper.mapCurrentUserModelToEntity(userDetail)
         return localDataSource.insertUserData(userData)
+    }
+
+    override fun registerUserEmailFb(
+        email: String,
+        password: String,
+        user: UserRegister
+    ): LiveData<Resource<UserRegister>> {
+        return remoteDataSource.registerWithEmailFb(email, password, user)
+    }
+
+    override fun loginWithEmailFb(
+        email: String,
+        password: String
+    ): LiveData<Resource<UserRegister>> {
+        return remoteDataSource.loginWithEmailFb(email, password)
     }
 
 

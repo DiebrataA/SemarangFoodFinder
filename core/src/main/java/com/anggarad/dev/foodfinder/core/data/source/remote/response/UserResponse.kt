@@ -26,14 +26,17 @@ data class Response(
     val name: String,
 
     @field:SerializedName("address")
-    val address: String,
+    val address: String? = null,
 
     @field:SerializedName("phone_num")
-    val phoneNum: String,
+    val phoneNum: String? = null,
 
     @field:SerializedName("img_profile")
     val imgProfile: String? = null,
 
     @field:SerializedName("email")
-    val email: String
+    val email: String,
+
+    @field:SerializedName("fb_uid")
+    val FUid: String,
 ) : Parcelable

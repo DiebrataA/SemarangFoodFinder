@@ -49,7 +49,7 @@
     <string name="address_label">Address</string>
     <string name="full_name_label">Full Name</string>
     <string name="register_greetings">Oh hi! Please fill your details to continue.</string>
-    <string name="register_label">REGISTER.</string>
+    <string name="register_label">REGISTER</string>
     <string name="password_label">Password</string>
     <string name="category_name_title">Category Name</string>
 

@@ -3,10 +3,13 @@ package com.anggarad.dev.foodfinder.core.data.source
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiService
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.FirebaseService
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
+import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
+import com.anggarad.dev.foodfinder.core.domain.model.UserRegister
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,6 +19,7 @@ import kotlinx.coroutines.flow.flowOn
 class RemoteDataSource(private val apiService: ApiService) {
 
     private val firebaseService: FirebaseService = FirebaseService()
+
 
     suspend fun getRestoReviews(restoId: Int): Flow<ApiResponse<List<ReviewItem>>> {
         return flow {
@@ -34,7 +38,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getUsersReviews(userId: Int): Flow<ApiResponse<List<ReviewItem>>> {
+    suspend fun getUsersReviews(userId: Int): Flow<ApiResponse<List<ResponseItem>>> {
         return flow {
             try {
                 val response = apiService.getUserReviews(userId)
@@ -42,6 +46,8 @@ class RemoteDataSource(private val apiService: ApiService) {
                 val reviewsArray = response.response
                 if (reviewsArray !== null && reviewsArray.isNotEmpty()) {
                     emit(ApiResponse.Success(reviewsArray))
+                } else if (reviewsArray !== null && reviewsArray.isEmpty()) {
+                    emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -50,7 +56,6 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     suspend fun postReviews(
-        token: String,
         restoId: Int,
         userId: Int,
         rating: Float,
@@ -61,7 +66,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         return flow {
             try {
                 val response =
-                    apiService.postReview(token, restoId, userId, rating, comments, imgReviewPath)
+                    apiService.postReview(restoId, userId, rating, comments, imgReviewPath)
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -179,12 +184,13 @@ class RemoteDataSource(private val apiService: ApiService) {
         email: String,
         password: String,
         name: String,
-        phoneNum: String,
-        address: String
+        phoneNum: String?,
+        address: String?
     ): Flow<ApiResponse<RegisterResponse>> {
         return flow {
             try {
-                val response = apiService.userRegister(name, address, phoneNum, email, password)
+                val response =
+                    apiService.userRegister(name, address, phoneNum, email, password)
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -192,7 +198,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+    fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<Resource<String>> {
         return firebaseService.uploadImage(uri, uid, type, name)
     }
 
@@ -212,5 +218,24 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
+    fun registerWithEmailFb(
+        email: String,
+        password: String,
+        userRegisterModel: UserRegister
+    ): LiveData<Resource<UserRegister>> {
+        return firebaseService.registerWithEmailFb(email, password, userRegisterModel)
+    }
+
+    fun loginWithEmailFb(email: String, password: String): LiveData<Resource<UserRegister>> {
+        return firebaseService.loginWithEmailFb(email, password)
+    }
+
+
+    fun getUserData(userId: String): LiveData<Resource<UserDetail>> {
+        return firebaseService.getUserDetail(userId)
+    }
+
 
 }
+
+

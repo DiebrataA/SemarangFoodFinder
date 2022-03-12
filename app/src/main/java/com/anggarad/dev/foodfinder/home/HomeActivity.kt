@@ -12,9 +12,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
-    companion object {
-        const val USER_ID = "user_id"
-    }
+//    companion object {
+//        const val USER_ID = "user_id"
+//    }
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -36,9 +36,9 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val userId = intent.getIntExtra(USER_ID, 0)
-        val bundleData = Bundle()
-        bundleData.putInt(USER_ID, userId)
+//        val userId = intent.getIntExtra(USER_ID, 0)
+//        val bundleData = Bundle()
+//        bundleData.putInt(USER_ID, userId)
 
     }
 

@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.FoodFinder" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/yellow_600</item>
-        <item name="colorPrimaryVariant">@color/yellow_600_dark</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/text_primary</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/yellow_600</item>
-        <item name="colorSecondaryVariant">@color/yellow_600_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/primary_dark</item>
+        <item name="colorOnSecondary">@color/text_primary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
@@ -30,8 +30,8 @@
 
     <style name="Theme.FoodFinder.LightActionBar" parent="Theme.MaterialComponents.Light">
         <item name="background">?attr/colorPrimary</item>
-        <item name="android:textColorSecondary">@color/black</item>
-        <item name="iconTint">@color/black</item>
+        <item name="android:textColorSecondary">@color/text_primary</item>
+        <item name="iconTint">@color/text_primary</item>
         <item name="windowNoTitle">true</item>
     </style>
 
@@ -46,7 +46,7 @@
 
     <style name="Widget.App.DetailTabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="cornerSize">20%</item>
-        <item name="selectableItemBackground">@color/black</item>
+        <item name="selectableItemBackground">@color/text_primary</item>
         <item name="tabIndicatorColor">@color/white</item>
         <item name="tabTextAppearance">@style/TextAppearance.App.Button</item>
     </style>

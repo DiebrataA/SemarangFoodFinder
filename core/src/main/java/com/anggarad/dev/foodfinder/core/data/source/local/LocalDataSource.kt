@@ -36,7 +36,7 @@ class LocalDataSource(private val dao: Dao) {
     suspend fun insertMenu(menuList: List<MenuEntity>) = dao.insertMenu(menuList)
     fun getMenuResto(restoId: Int): Flow<List<MenuEntity>> = dao.getMenuRestos(restoId)
 
-    fun getUserData(userId: Int): Flow<UserDetailEntity> = dao.getUser(userId)
+    fun getUserData(): Flow<UserDetailEntity> = dao.getUser()
 
     suspend fun insertUserData(user: UserDetailEntity) = dao.insertUser(user)
 

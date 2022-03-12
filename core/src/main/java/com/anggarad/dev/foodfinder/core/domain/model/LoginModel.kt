@@ -12,10 +12,10 @@ data class LoginModel(
 
 @Parcelize
 data class CurrentUserModel(
-    val address: String,
+    val address: String? = null,
     val userId: Int,
     val name: String,
-    val phoneNum: String,
+    val phoneNum: String? = null,
     val accId: Int,
     val email: String,
     val imgProfile: String? = null

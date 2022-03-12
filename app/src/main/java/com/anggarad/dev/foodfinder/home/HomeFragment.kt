@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
             }
 
             getResto(restoAdapter)
+
             getCategories(categoriesAdapter)
 
             with(binding.rvRestos) {
@@ -64,8 +65,6 @@ class HomeFragment : Fragment() {
                 setHasFixedSize(true)
                 adapter = restoAdapter
             }
-
-
 
             with(binding.rvCategories) {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

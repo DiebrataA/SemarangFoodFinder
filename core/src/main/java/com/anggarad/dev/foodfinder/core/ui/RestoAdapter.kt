@@ -45,16 +45,21 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
                     tvItemIsHalal.visibility = View.VISIBLE
                     tvItemIsHalal.text = "Halal"
                 }
-                if (itemResto.haveInternet != 1) {
-                    icWifi.visibility = View.GONE
-                } else if (itemResto.haveToilet != 1) {
-                    icWc.visibility = View.GONE
-                } else if (itemResto.haveSocket != 1) {
-                    icSocket.visibility = View.GONE
-                } else {
-                    icWifi.visibility = View.VISIBLE
-                    icSocket.visibility = View.VISIBLE
-                    icWc.visibility = View.VISIBLE
+                when {
+                    itemResto.haveInternet != 1 -> {
+                        icWifi.visibility = View.GONE
+                    }
+                    itemResto.haveToilet != 1 -> {
+                        icWc.visibility = View.GONE
+                    }
+                    itemResto.haveSocket != 1 -> {
+                        icSocket.visibility = View.GONE
+                    }
+                    else -> {
+                        icWifi.visibility = View.VISIBLE
+                        icSocket.visibility = View.VISIBLE
+                        icWc.visibility = View.VISIBLE
+                    }
                 }
             }
         }

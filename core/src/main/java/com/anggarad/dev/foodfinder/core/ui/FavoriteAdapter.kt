@@ -31,11 +31,12 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         fun bind(data: RestoDetail) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(SERVER_URL + "uploads/uploads/${data.imgCover}")
+                    .load(SERVER_URL + "uploads/${data.imgCover}")
+                    .centerCrop()
                     .into(ivItemTrend)
                 cafeHomeTitle.text = data.name
-                cafeHomeSubtitle.text = data.address
-                trendingReview.text = data.priceRange
+                cafeHomeSubtitle.text = data.opHours
+                trendingReview.text = data.ratingAvg.toString()
             }
         }
 

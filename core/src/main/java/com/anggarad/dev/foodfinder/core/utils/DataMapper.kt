@@ -5,11 +5,14 @@ import com.anggarad.dev.foodfinder.core.data.source.remote.response.*
 import com.anggarad.dev.foodfinder.core.domain.model.*
 
 object DataMapper {
+
     fun mapRegisterResponseToDomain(input: RegisterResponse): RegisterModel {
         return RegisterModel(
             success = input.success,
             message = input.message,
-            status = input.status
+            status = input.status,
+            userId = input.userId,
+            accId = input.accId
         )
     }
 
@@ -171,6 +174,7 @@ object DataMapper {
         email = input.email,
         accId = input.accId,
         imgProfile = input.imgProfile
+
     )
 
 
@@ -183,6 +187,20 @@ object DataMapper {
         accId = input.response.accId,
         imgProfile = input.response.imgProfile
     )
+
+    fun mapUserReviewResponseToDomain(input: List<ResponseItem>): List<UserReviewDetails> =
+        input.map {
+            UserReviewDetails(
+                reviewsId = it.reviewsId,
+                restoId = it.restoId,
+                userId = it.userId,
+                date = it.date,
+                comments = it.comments,
+                rating = it.rating,
+                name = it.name,
+                imgReviewPath = it.imgReviewPath,
+            )
+        }
 
     fun mapReviewResponseTOEntity(input: List<ReviewItem>): List<ReviewEntity> =
         input.map {

@@ -32,12 +32,11 @@ interface ApiService {
     @GET("api/reviews/user_reviews/{id}")
     suspend fun getUserReviews(
         @Path("id") userId: Int
-    ): ReviewResponse
+    ): UserReviewResponse
 
     @FormUrlEncoded
     @POST("api/reviews")
     suspend fun postReview(
-        @Header("Authorization") token: String,
         @Field("resto_id") restoId: Int,
         @Field("user_id") userId: Int,
         @Field("rating") rating: Float,
@@ -56,8 +55,8 @@ interface ApiService {
     @POST("auth/api/v1/register")
     suspend fun userRegister(
         @Field("name") name: String,
-        @Field("address") address: String,
-        @Field("phone_num") phoneNum: String,
+        @Field("address") address: String? = null,
+        @Field("phone_num") phoneNum: String? = null,
         @Field("email") email: String,
         @Field("password") password: String
     ): RegisterResponse

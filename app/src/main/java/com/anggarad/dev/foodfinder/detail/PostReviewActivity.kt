@@ -10,14 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.anggarad.dev.foodfinder.R
+import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.utils.UploadRequestBody
 import com.anggarad.dev.foodfinder.core.utils.getFileName
 import com.anggarad.dev.foodfinder.databinding.ActivityPostReviewBinding
 import kotlinx.coroutines.flow.collect
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileInputStream
@@ -45,6 +44,8 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
         setContentView(binding.root)
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         restoId = intent.getIntExtra(EXTRA_DATA, 0)
 
@@ -120,15 +121,34 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
         val randomString: String = List(20) { alphabet.random() }.joinToString("")
         reviewViewModel.postImage(
             imageToProcess!!,
-            "$randomString",
+            randomString,
             "images",
             "reviewPicture"
         ).observe(
             this, { downloadUrl ->
-                if (downloadUrl != null) {
-                    imageUrl = downloadUrl
-                    binding.progressBarUploadImage.progress = 100
+                when (downloadUrl) {
+                    is Resource.Loading -> {
+                        binding.btnSubmitReview.isEnabled = false
+                        onProgressUpdate(50)
+                    }
+                    is Resource.Success -> {
+                        binding.btnSubmitReview.isEnabled = true
+                        imageUrl = downloadUrl.data
+                        onProgressUpdate(100)
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(
+                            this@PostReviewActivity,
+                            "Gagal upload foto",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        onProgressUpdate(0)
+                    }
                 }
+//                if (downloadUrl != null) {
+//                    imageUrl = downloadUrl
+//                    binding.progressBarUploadImage.progress = 100
+//                }
             }
         )
     }
@@ -138,50 +158,46 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
 
 
         reviewViewModel.userId.observe(this, { userId ->
-            reviewViewModel.userToken.observe(this, { token ->
-
-                val comments = binding.editComments.text.toString().trim()
-                val commentsB = comments.toRequestBody("text/plain".toMediaTypeOrNull())
-
-
-                val fileName = binding.tvFilename.text.toString()
-
-                restoId?.let {
-                    imageUrl?.let { it1 ->
-                        reviewViewModel.postReview(
-                            "Bearer $token",
-                            it,
-                            userId,
-                            ratingResult,
-                            comments,
-                            it1
-                        )
-                    }
-
+            val comments = binding.editComments.text.toString().trim()
+            restoId?.let {
+                imageUrl?.let { it1 ->
+                    reviewViewModel.postReview(
+                        it,
+                        userId,
+                        ratingResult,
+                        comments,
+                        it1
+                    )
                 }
 
-                lifecycleScope.launchWhenStarted {
-                    reviewViewModel.reviewResponse.collect { data ->
-                        when (data) {
-                            is ApiResponse.Success -> {
-                                Toast.makeText(
-                                    this@PostReviewActivity,
-                                    "Post Berhasil",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            is ApiResponse.Error -> {
-                                Toast.makeText(
-                                    this@PostReviewActivity,
-                                    "Post Gagal",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+            }
+
+            lifecycleScope.launchWhenStarted {
+                reviewViewModel.reviewResponse.collect { data ->
+                    when (data) {
+                        is ApiResponse.Success -> {
+                            Toast.makeText(
+                                this@PostReviewActivity,
+                                "Post Berhasil",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent =
+                                Intent(this@PostReviewActivity, DetailsActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
-
+                        is ApiResponse.Error -> {
+                            Toast.makeText(
+                                this@PostReviewActivity,
+                                "Post Gagal",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
+
                 }
-            })
+            }
+
 
         })
 

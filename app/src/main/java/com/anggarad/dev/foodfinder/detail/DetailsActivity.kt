@@ -3,6 +3,7 @@ package com.anggarad.dev.foodfinder.detail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,6 +13,7 @@ import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.anggarad.dev.foodfinder.databinding.ActivityDetailsBinding
 import com.bumptech.glide.Glide
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -37,10 +39,12 @@ class DetailsActivity : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(findViewById(R.id.my_toolbar))
+        setUpToolbar()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+//        setSupportActionBar(findViewById(R.id.my_toolbar))
+//
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayShowHomeEnabled(true)
 
 //        detailResto = intent.getParcelableExtra(EXTRA_DATA)
 
@@ -109,7 +113,7 @@ class DetailsActivity : AppCompatActivity() {
 
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setFavoriteState(state: Boolean?) {
@@ -123,20 +127,20 @@ class DetailsActivity : AppCompatActivity() {
     }
 
 
-    private fun showDetail(detailResto: RestoDetail?) {
-        detailResto?.let {
-            with(binding) {
-                tvRestoTitle.text = detailResto.name
-                tvDetailLocation.text = detailResto.location
-                Glide.with(this@DetailsActivity)
-                    .load(SERVER_URL + "uploads/${detailResto.imgCover}")
-                    .into(ivImgCover)
-                tvItemRatingDetail.text = detailResto.ratingAvg.toString()
-                tvDetailCategory.text =
-                    detailResto.categories.toString().replace("[", "").replace("]", "")
-            }
-        }
-    }
+//    private fun showDetail(detailResto: RestoDetail?) {
+//        detailResto?.let {
+//            with(binding) {
+//                tvRestoTitle.text = detailResto.name
+//                tvDetailLocation.text = detailResto.location
+//                Glide.with(this@DetailsActivity)
+//                    .load(SERVER_URL + "uploads/${detailResto.imgCover}")
+//                    .into(ivImgCover)
+//                tvItemRatingDetail.text = detailResto.ratingAvg.toString()
+//                tvDetailCategory.text =
+//                    detailResto.categories.toString().replace("[", "").replace("]", "")
+//            }
+//        }
+//    }
 
     private fun attachViewPager() {
         val tabLayout = binding.tabDetail
@@ -198,6 +202,31 @@ class DetailsActivity : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    private fun setUpToolbar() {
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        val collapsingToolbarLayout =
+            findViewById<View>(R.id.collapsing_app_bar_detail) as CollapsingToolbarLayout
+        collapsingToolbarLayout.title = detailResto?.name
+
+        collapsingToolbarLayout.setCollapsedTitleTextColor(
+            ContextCompat.getColor(this, R.color.text_secondary)
+        )
+        collapsingToolbarLayout.setExpandedTitleColor(
+            ContextCompat.getColor(this, R.color.white)
+        )
+//        detailResto?.let {
+//            binding.categoryTitlePage.text = it.categoryName
+//            Glide.with(this)
+//                .load(RestoByCategoryActivity.SERVER_URL + "uploads/${it.categoryImg}")
+//                .into(binding.ivCategoryLogo)
+//        }
+
     }
 
 

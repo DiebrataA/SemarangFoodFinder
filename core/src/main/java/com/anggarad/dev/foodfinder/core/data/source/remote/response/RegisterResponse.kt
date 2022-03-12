@@ -14,5 +14,11 @@ data class RegisterResponse(
     val message: String? = null,
 
     @field:SerializedName("status")
-    val status: Int? = null
+    val status: Int? = null,
+
+    @field:SerializedName("user_id")
+    val userId: Int? = null,
+
+    @field:SerializedName("acc_id")
+    val accId: Int? = null
 ) : Parcelable

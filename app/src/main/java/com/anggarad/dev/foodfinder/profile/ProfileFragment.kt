@@ -2,26 +2,34 @@ package com.anggarad.dev.foodfinder.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import com.anggarad.dev.foodfinder.auth.AuthActivity
 import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ProfileFragment : Fragment() {
     private val profileViewModel: ProfileViewModel by viewModel()
     private lateinit var binding: FragmentProfileBinding
-    private var userId: Int = 0
+    private var userId: String = ""
+    private lateinit var fAuth: FirebaseAuth
 
     companion object {
         const val SERVER_URL = BuildConfig.MY_SERVER_URL
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fAuth = Firebase.auth
     }
 
 
@@ -32,21 +40,32 @@ class ProfileFragment : Fragment() {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            profileViewModel.userId.observe(viewLifecycleOwner, { id ->
-                userId = id
-                Log.d("User ID:", id.toString())
-                getUser(id)
-                onClickUserReviews(id)
-            })
+        fAuth.currentUser?.uid.let {
+            if (it != null) {
+                userId = it
+                fetchUserData(it)
+            }
         }
+
+        binding.btnLogout.setOnClickListener {
+            fAuth.signOut()
+            val intentAuth = Intent(activity, AuthActivity::class.java)
+            startActivity(intentAuth)
+        }
+
+//        profileViewModel.userId.observe(viewLifecycleOwner, { id ->
+//            userId = id
+//            Log.d("User ID:", id.toString())
+//            getUser(userId)
+//            onClickUserReviews(userId)
+//        })
+
 
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
 //            profileViewModel.userResponse.collect { data ->
@@ -74,6 +93,31 @@ class ProfileFragment : Fragment() {
 //                }
 //            }
 //        }
+
+    }
+
+    private fun fetchUserData(userId: String) {
+        profileViewModel.fetchUserDetail(userId).observe(viewLifecycleOwner, { user ->
+            when (user) {
+                is Resource.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.viewError.root.visibility = View.VISIBLE
+                }
+                is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                is Resource.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.tvProfileName.text = user.data?.fullName
+                    binding.tvProfileEmail.text = user.data?.email
+                    binding.tvPhone.text = user.data?.phoneNum
+                    binding.tvUserAddress.text = user.data?.address
+                    Glide.with(requireContext())
+                        .load(SERVER_URL + "uploads/${user.data?.imgProfile}")
+                        .into(binding.ivAvatarProfile)
+
+                    user.data?.userId?.let { onClickUserReviews(it) }
+                }
+            }
+        })
 
     }
 
@@ -117,7 +161,7 @@ class ProfileFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 //                val userId = arguments?.getInt(HomeActivity.USER_ID)
-        getUser(userId)
+        fetchUserData(userId)
     }
 
 

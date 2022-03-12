@@ -48,7 +48,7 @@
                     android:layout_toStartOf="@+id/iv_category_logo"
                     android:fontFamily="@font/roboto_medium"
                     android:text="@string/category_name_title"
-                    android:textColor="@color/black_60"
+                    android:textColor="@color/text_secondary"
                     android:textSize="20sp" />
             </RelativeLayout>
 

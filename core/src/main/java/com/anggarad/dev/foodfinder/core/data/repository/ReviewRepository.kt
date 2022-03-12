@@ -50,7 +50,7 @@ class ReviewRepository(
     }
 
     override suspend fun postReview(
-        token: String,
+
         restoId: Int,
         userId: Int,
         rating: Float,
@@ -58,7 +58,6 @@ class ReviewRepository(
         imgReviewPath: String
     ): Flow<ApiResponse<PostReviewResponse>> {
         return remoteDataSource.postReviews(
-            token,
             restoId,
             userId,
             rating,
@@ -67,7 +66,12 @@ class ReviewRepository(
         )
     }
 
-    override fun postImage(uri: Uri, uid: String, type: String, name: String): LiveData<String> {
+    override fun postImage(
+        uri: Uri,
+        uid: String,
+        type: String,
+        name: String
+    ): LiveData<Resource<String>> {
         return remoteDataSource.postImage(uri, uid, type, name)
     }
 

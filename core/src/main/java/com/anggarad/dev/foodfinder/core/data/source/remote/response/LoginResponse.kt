@@ -25,7 +25,7 @@ data class LoginResponse(
 data class CurrUserItem(
 
     @field:SerializedName("address")
-    val address: String,
+    val address: String? = null,
 
     @field:SerializedName("user_id")
     val userId: Int,
@@ -34,7 +34,7 @@ data class CurrUserItem(
     val name: String,
 
     @field:SerializedName("phone_num")
-    val phoneNum: String,
+    val phoneNum: String? = null,
 
     @field:SerializedName("acc_id")
     val accId: Int,
@@ -44,6 +44,7 @@ data class CurrUserItem(
 
     @field:SerializedName("img_profile")
     val imgProfile: String? = null
+
 ) : Parcelable
 
 

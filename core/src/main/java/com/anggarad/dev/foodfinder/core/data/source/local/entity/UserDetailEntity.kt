@@ -14,10 +14,10 @@ data class UserDetailEntity(
     var fullName: String,
 
     @ColumnInfo(name = "address")
-    var address: String,
+    var address: String? = null,
 
     @ColumnInfo(name = "phoneNum")
-    var phoneNum: String,
+    var phoneNum: String? = null,
 
     @ColumnInfo(name = "email")
     var email: String,
