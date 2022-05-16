@@ -17,13 +17,13 @@
         android:singleLine="false"
         android:text="@string/category_label"
         android:textColor="@color/text_title"
-        android:textSize="16sp" />
+        android:textSize="12sp" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_categories"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.AvatarRounded"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
         tools:srcCompat="@tools:sample/avatars" />

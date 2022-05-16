@@ -10,8 +10,10 @@ data class SearchItemEntity(
     var restoId: Int,
     @ColumnInfo(name = "name")
     var name: String,
-    @ColumnInfo(name = "location")
-    var location: String,
+    @ColumnInfo(name = "latitude")
+    var latitude: String,
+    @ColumnInfo(name = "longitude")
+    var longitude: String,
     @ColumnInfo(name = "imgCover")
     var imgCover: String? = null,
 ) {

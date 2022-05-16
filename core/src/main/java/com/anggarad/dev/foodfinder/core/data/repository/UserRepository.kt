@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.core.data.repository
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.DataStoreManager
 import com.anggarad.dev.foodfinder.core.data.NetworkBoundResource
@@ -8,10 +9,10 @@ import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.RemoteDataSource
 import com.anggarad.dev.foodfinder.core.data.source.local.LocalDataSource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
-import com.anggarad.dev.foodfinder.core.data.source.remote.response.ResponseItem
+import com.anggarad.dev.foodfinder.core.data.source.remote.response.EditProfileResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.UserResponse
+import com.anggarad.dev.foodfinder.core.domain.model.EditUserModel
 import com.anggarad.dev.foodfinder.core.domain.model.UserDetail
-import com.anggarad.dev.foodfinder.core.domain.model.UserReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.repository.IUserRepository
 import com.anggarad.dev.foodfinder.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
@@ -52,20 +53,43 @@ class UserRepository(
         return dataStoreManager.getUserId
     }
 
-    override fun getUsersReview(userId: Int): Flow<Resource<List<UserReviewDetails>>> =
-        object : NetworkOnlyResource<List<UserReviewDetails>, List<ResponseItem>>() {
-            override fun collectResult(data: List<ResponseItem>): Flow<List<UserReviewDetails>> {
+    override fun fetchUser(userId: String): LiveData<Resource<UserDetail>> {
+        return remoteDataSource.getUserData(userId)
+    }
 
-                return flow { emit(DataMapper.mapUserReviewResponseToDomain(data)) }
+    override fun editProfile(
+        userId: String,
+        userDetail: UserDetail,
+    ): LiveData<Resource<UserDetail>> {
+        return remoteDataSource.editProfile(userId, userDetail)
+    }
+
+    override fun postImage(
+        uri: Uri,
+        uid: String,
+        type: String,
+        name: String,
+    ): LiveData<Resource<String>> {
+        return remoteDataSource.postImage(uri, uid, type, name)
+    }
+
+    override suspend fun updateUserDb(
+        userId: Int?,
+        name: String?,
+        address: String?,
+        phoneNum: String?,
+        imgProfile: String?,
+    ): Flow<Resource<EditUserModel>> {
+        return object : NetworkOnlyResource<EditUserModel, EditProfileResponse>() {
+            override fun collectResult(data: EditProfileResponse): Flow<EditUserModel> {
+                return flow { emit(DataMapper.mapEditUserResponseToDomain(data)) }
             }
 
-            override suspend fun createCall(): Flow<ApiResponse<List<ResponseItem>>> {
-                return remoteDataSource.getUsersReviews(userId)
+            override suspend fun createCall(): Flow<ApiResponse<EditProfileResponse>> {
+                return remoteDataSource.updateProfile(userId, name, address, phoneNum, imgProfile)
             }
 
         }.asFlow()
 
-    override fun fetchUser(userId: String): LiveData<Resource<UserDetail>> {
-        return remoteDataSource.getUserData(userId)
     }
 }

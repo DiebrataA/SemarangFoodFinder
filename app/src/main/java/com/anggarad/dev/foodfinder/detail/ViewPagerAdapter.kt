@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.anggarad.dev.foodfinder.reviews.ReviewFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, data: Bundle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {

@@ -10,10 +10,8 @@ import com.anggarad.dev.foodfinder.home.HomeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private val mainViewModel: MainViewModel by viewModel()
     private lateinit var handler: Handler
     private lateinit var fAuth: FirebaseAuth
 

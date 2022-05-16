@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:paddingStart="20dp"
+    android:paddingTop="6dp"
+    android:paddingEnd="20dp"
+    android:background="@drawable/detail_rounded_bg"
+    android:paddingBottom="40dp"
     tools:context="detail.MenuDetailFragment">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_menu_detail"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
+    <ImageView
+        android:id="@+id/iv_recommended_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@+id/menu_description_detail"
+        android:layout_marginStart="220dp"
+        android:layout_toEndOf="@+id/menu_description_detail"
+        android:contentDescription="@string/icon_recommended_desc"
+        android:src="@drawable/ic_baseline_recommend_24"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/ic_dehaze"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.MenuImageRounded"
-        android:scaleType="centerCrop"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_dehaze_24"
+        app:tint="@color/cardview_dark_background" />
+
+    <TextView
+        android:id="@+id/menu_price_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu_description_detail"
+        android:layout_alignStart="@+id/menu_description_detail"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/price_default"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/menu_title_detail"
@@ -40,30 +67,20 @@
         android:layout_alignStart="@+id/menu_title_detail"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
+        android:maxWidth="200dp"
         android:text="@string/description_default"
         android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/menu_price_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menu_description_detail"
-        android:layout_alignStart="@+id/menu_description_detail"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="@string/price_default"
-        android:textColor="@color/text_primary"
-        android:textSize="16sp" />
-
-    <ImageView
-        android:id="@+id/iv_recommended_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignTop="@+id/menu_description_detail"
-        android:layout_marginStart="220dp"
-        android:layout_toEndOf="@+id/menu_description_detail"
-        android:contentDescription="@string/icon_recommended_desc"
-        android:src="@drawable/ic_baseline_recommend_24"
-        tools:ignore="ImageContrastCheck" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_menu_detail"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_below="@id/ic_dehaze"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.MenuImageRounded"
+        tools:src="@tools:sample/backgrounds/scenic" />
 
 </RelativeLayout>
+

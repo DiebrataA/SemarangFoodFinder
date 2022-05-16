@@ -7,7 +7,7 @@ import com.anggarad.dev.foodfinder.core.domain.model.SearchModel
 import kotlinx.coroutines.flow.Flow
 
 interface RestoUseCase {
-    fun getRestoList(): Flow<Resource<List<RestoDetail>>>
+    fun getRestoList(pullToRefresh: Boolean): Flow<Resource<List<RestoDetail>>>
 
     //    fun getCafeList(): Flow<Resource<List<RestoDetail>>>
     fun getRestoDetailTest(restoId: Int): Flow<Resource<RestoDetail>>
@@ -19,4 +19,5 @@ interface RestoUseCase {
     fun getMenu(restoId: Int): Flow<Resource<List<MenuDetail>>>
 
     suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>>
+    suspend fun searchMenu(key: String): Flow<Resource<List<SearchModel>>>
 }

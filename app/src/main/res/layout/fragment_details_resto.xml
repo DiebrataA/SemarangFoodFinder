@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     tools:context=".detail.DetailsRestoFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detail_container"
+
+    <LinearLayout
+        android:id="@+id/linear_detail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/details_fragment_title_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_open_review">
 
         <TextView
             android:id="@+id/details_fragment_title"
@@ -20,131 +32,299 @@
             android:textColor="@color/text_primary"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_operational_hours"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:text="@string/operational_hours"
-                android:textColor="@color/text_primary"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/details_fragment_title"
-                app:drawableStartCompat="@drawable/ic_time" />
-
-            <TextView
-                android:id="@+id/tv_resto_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:text="@string/resto_phone"
-                android:textColor="@color/text_primary"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_operational_hours"
-                app:drawableStartCompat="@drawable/ic_phone" />
-
-            <TextView
-                android:id="@+id/tv_halal_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:text="@string/halal"
-                android:textColor="@color/text_primary"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_resto_phone"
-                app:drawableStartCompat="@drawable/ic_baseline_check_24" />
-
-            <TextView
-                android:id="@+id/tv_location_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:drawablePadding="12dp"
-                android:fontFamily="@font/roboto"
-                android:gravity="center_vertical"
-                android:text="@string/location_detail"
-                android:textColor="@color/text_primary"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_halal_detail"
-                app:drawableStartCompat="@drawable/ic_location_green" />
-
-        <TextView
-            android:id="@+id/details_fragment_title_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detail_container"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/menu_title"
-            android:textAlignment="center"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_location_detail" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/details_fragment_title_menu"
-            tools:listitem="@layout/item_menu_card" />
-
-        <include
-            android:id="@+id/view_no_menu"
-            layout="@layout/view_no_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/details_fragment_title_menu"
-            android:visibility="gone" />
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tv_resto_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/resto_phone"
+            android:textColor="@color/info_main"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_phone"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/details_fragment_title"
+            app:layout_constraintStart_toStartOf="@+id/details_fragment_title"
+            app:layout_constraintTop_toBottomOf="@+id/details_fragment_title" />
 
-        <!--            <androidx.recyclerview.widget.RecyclerView-->
-        <!--                android:id="@+id/rv_restos_photo"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginTop="20dp"-->
-        <!--                android:orientation="horizontal"-->
-        <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toBottomOf="@id/tv_location_detail"-->
-        <!--                tools:ignore="SpeakableTextPresentCheck"-->
-        <!--                tools:listitem="@layout/item_resto_photo_list" />-->
+        <TextView
+            android:id="@+id/tv_location_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/location_detail"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_location_green"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/tv_resto_phone"
+            app:layout_constraintStart_toStartOf="@+id/tv_resto_phone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_resto_phone" />
+
+        <TextView
+            android:id="@+id/tv_free_wifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/free_wifi"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_wifi_24"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/tv_location_detail"
+            app:layout_constraintStart_toStartOf="@+id/tv_location_detail"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_detail" />
+
+        <TextView
+            android:id="@+id/tv_toilets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/toilets"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_wc_24"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/tv_free_wifi"
+            app:layout_constraintStart_toStartOf="@+id/tv_free_wifi"
+            app:layout_constraintTop_toBottomOf="@+id/tv_free_wifi" />
+
+        <TextView
+            android:id="@+id/tv_mushola"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/musholla"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_mosque"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/tv_free_wifi"
+            app:layout_constraintStart_toStartOf="@+id/tv_free_wifi"
+            app:layout_constraintTop_toBottomOf="@+id/tv_free_wifi" />
+
+        <TextView
+            android:id="@+id/tv_power_outlet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center_vertical"
+            android:text="@string/power_outlets"
+            android:textColor="@color/text_primary"
+            android:textSize="12sp"
+            app:autoSizeMinTextSize="12sp"
+            app:drawableStartCompat="@drawable/ic_baseline_power_24"
+            app:drawableTint="@color/info_main"
+            app:layout_constraintEnd_toEndOf="@+id/tv_free_wifi"
+            app:layout_constraintStart_toStartOf="@+id/tv_free_wifi"
+            app:layout_constraintTop_toBottomOf="@+id/tv_free_wifi" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".2" />
+
+    <TextView
+        android:id="@+id/tv_restoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        tools:text="Resto Title" />
+
+    <TextView
+        android:id="@+id/details_fragment_title_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_container"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/menu_title"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_detail" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_detailCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_restoTitle"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/text_secondary"
+        app:layout_constraintStart_toStartOf="@+id/tv_restoTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_restoTitle"
+        tools:text="@string/resto_categories" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="14dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider_review2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_open_review"
+        app:layout_constraintEnd_toStartOf="@+id/btn_open_halal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_open_review"
+        app:layout_constraintTop_toTopOf="@+id/btn_open_review"
+        app:layout_constraintVertical_bias="1.0" />
 
 
-</androidx.core.widget.NestedScrollView>
+    <View
+        android:id="@+id/divider_halalMap"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_open_halal"
+        app:layout_constraintEnd_toStartOf="@+id/btn_show_map"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_open_halal"
+        app:layout_constraintTop_toTopOf="@+id/btn_open_halal"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <View
+        android:id="@+id/divider_review"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_show_map"
+        app:layout_constraintEnd_toStartOf="@+id/btn_open_hours"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_show_map"
+        app:layout_constraintTop_toTopOf="@+id/btn_show_map"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_fragment_title_menu"
+        tools:listitem="@layout/item_menu_card" />
+
+    <include
+        android:id="@+id/btn_open_review"
+        layout="@layout/detail_menu_reviews"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        app:barrierAllowsGoneWidgets="false"
+        app:layout_constraintEnd_toStartOf="@+id/divider_review2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detailCategory" />
+
+    <include
+        android:id="@+id/btn_open_halal"
+        layout="@layout/detail_menu_halal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/divider_halalMap"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider_review2"
+        app:layout_constraintTop_toTopOf="@+id/btn_open_review" />
+
+
+    <include
+        android:id="@+id/btn_show_map"
+        layout="@layout/detail_menu_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:clickable="false"
+        app:layout_constraintEnd_toStartOf="@+id/divider_review"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider_halalMap"
+        app:layout_constraintTop_toTopOf="@+id/btn_open_halal"
+        app:layout_constraintWidth_max="100dp" />
+
+    <include
+        android:id="@+id/btn_open_hours"
+        layout="@layout/detail_menu_open_hours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/divider_review"
+        app:layout_constraintTop_toTopOf="@+id/btn_show_map"
+        app:layout_constraintWidth_min="110dp" />
+
+    <include
+        android:id="@+id/view_no_menu"
+        layout="@layout/view_no_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/details_fragment_title_menu"
+        android:visibility="gone" />
+
+
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:id="@+id/rv_restos_photo"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginTop="20dp"-->
+    <!--                android:orientation="horizontal"-->
+    <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toBottomOf="@id/tv_location_detail"-->
+    <!--                tools:ignore="SpeakableTextPresentCheck"-->
+    <!--                tools:listitem="@layout/item_resto_photo_list" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

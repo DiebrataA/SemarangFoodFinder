@@ -1,6 +1,7 @@
 package com.anggarad.dev.foodfinder.restolist
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +23,14 @@ class RestoByCategoryActivity : AppCompatActivity() {
     private var categoriesData: CategoriesDetail? = null
     private lateinit var restoAdapter: RestoByCategoryAdapter
     private lateinit var binding: ActivityRestoByCategoryBinding
+    private var userLocation: Location? = null
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
     companion object {
         const val ARG_PARAM1 = "param1"
         const val SERVER_URL = BuildConfig.MY_SERVER_URL
+        const val ARG_LOC = "loc"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +39,17 @@ class RestoByCategoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         categoriesData = intent.getParcelableExtra(ARG_PARAM1)
+        userLocation = intent.getParcelableExtra(ARG_LOC)
+
+        userLocation?.let {
+            latitude = it.latitude
+            longitude = it.longitude
+        }
         restoAdapter = RestoByCategoryAdapter()
         restoAdapter.onItemClick = { selectedItem ->
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra(DetailsActivity.RESTO_ID, selectedItem.restoId)
+            intent.putExtra(DetailsActivity.EXTRA_DATA, userLocation)
             startActivity(intent)
         }
 
@@ -54,7 +66,6 @@ class RestoByCategoryActivity : AppCompatActivity() {
 
     private fun getRestoList(categoryId: Int) {
 
-
         restoByCategoriesViewModel.getRestoByCategory(categoryId).observe(this, { restoList ->
             if (restoList != null) {
                 when (restoList) {
@@ -64,7 +75,7 @@ class RestoByCategoryActivity : AppCompatActivity() {
                             binding.viewError.root.visibility = View.VISIBLE
                         }
                         binding.progressBar.visibility = View.GONE
-                        restoAdapter.setRestoList(restoList.data)
+                        restoAdapter.setRestoList(restoList.data, latitude, longitude)
                     }
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -98,7 +109,6 @@ class RestoByCategoryActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.white)
         )
         categoriesData?.let {
-            binding.categoryTitlePage.text = it.categoryName
             Glide.with(this)
                 .load(SERVER_URL + "uploads/${it.categoryImg}")
                 .into(binding.ivCategoryLogo)

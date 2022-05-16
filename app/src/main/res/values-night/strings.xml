@@ -13,4 +13,8 @@
     <string name="halal">halal</string>
     <string name="location_detail">location detail</string>
     <string name="menu_title">Menu</string>
+    <string name="show_in_maps">Show in Maps</string>
+    <string name="review_history">Review History</string>
+    <string name="review_title">Reviews</string>
+    <string name="edit_review">Edit Review</string>
 </resources>

@@ -15,32 +15,36 @@
         android:gravity="center_horizontal"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:contentInsetEnd="16dp"
-        app:contentInsetStart="16dp">
+        app:contentInsetLeft="2dp"
+        app:contentInsetStart="2dp"
+        app:contentInsetStartWithNavigation="14dp">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_resto_widget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:searchIcon="@drawable/ic_baseline_search_24"
             android:background="@drawable/bg_searchview"
             android:focusable="true"
             android:padding="0dp"
             android:queryHint="@string/search_hint" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_search"
+    <FrameLayout
+        android:id="@+id/search_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_search"
-        tools:listitem="@layout/item_layout_search" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerInParent="true" />
+        android:layout_below="@id/toolbar_search">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/searchMenu_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_fragment_container">
+
+    </FrameLayout>
 
 
 </RelativeLayout>

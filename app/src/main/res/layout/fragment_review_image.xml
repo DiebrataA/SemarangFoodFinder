@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reviews.ReviewImageFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/text_primary">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:background="@color/black_transparent"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_user_name_review_image"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="0dp"
+                android:rating="5"
+                android:scaleX=".6"
+                android:scaleY=".6"
+                android:translationX="-50dp" />
+
+            <TextView
+                android:id="@+id/tv_user_name_review_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/full_name_label"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_review_image_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ratingBar3"
+                android:text="TextView"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

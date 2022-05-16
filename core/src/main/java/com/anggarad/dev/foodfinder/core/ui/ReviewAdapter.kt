@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
     private var listReview = ArrayList<ReviewDetails>()
+    var onItemClick: ((ReviewDetails) -> Unit)? = null
 
     companion object {
         const val SERVER_URL = BuildConfig.MY_SERVER_URL
@@ -33,7 +34,7 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
 
         fun bind(itemReview: ReviewDetails) {
             with(binding) {
-                if (itemReview.imgReviewPath == null) {
+                if (itemReview.imgReviewPath == "null") {
                     reviewPhoto.visibility = View.GONE
                 } else {
                     Glide.with(itemView.context)
@@ -41,17 +42,25 @@ class ReviewAdapter : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
                         .placeholder(R.drawable.ic_image)
                         .into(reviewPhoto)
                 }
+
                 Glide.with(itemView.context)
-                    .load(SERVER_URL + "uploads/${itemReview.imgProfile}")
+                    .load(itemReview.imgProfile)
                     .placeholder(R.drawable.ic_baseline_person_24)
                     .into(avatarImage)
-
 
                 tvDate.text = itemReview.date
                 tvReviewComment.text = itemReview.comments
                 nameUserReview.text = itemReview.name
                 ratingReview.text = itemReview.rating.toString()
                 Log.d("ReviewList: ", listReview.size.toString())
+
+
+            }
+        }
+
+        init {
+            binding.root.setOnClickListener {
+                onItemClick?.invoke(listReview[adapterPosition])
             }
         }
     }

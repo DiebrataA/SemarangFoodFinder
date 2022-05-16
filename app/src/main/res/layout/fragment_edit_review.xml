@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    tools:context=".reviews.UserReviewListFragment">
+
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/gradient_bg"
+        android:onClick="showAlert"
+        android:text="Update"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:rating="4"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar_edit_review"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/ic_round_warning_24"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:text="Currently you cannot add/edit the image for the review"
+        app:layout_constraintStart_toStartOf="@+id/tip_edit_comment"
+        app:layout_constraintTop_toBottomOf="@+id/tip_edit_comment" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar_edit_review"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_baseline_arrow_back_24" />
+
+            <ImageButton
+                android:id="@+id/btn_delete_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:onClick="showAlert"
+                android:src="@drawable/ic_baseline_delete_24"
+                app:tint="@color/error_main" />
+
+            <TextView
+                android:id="@+id/location_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/back_button"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="left|center_vertical"
+                android:text="@string/edit_review"
+                android:textColor="@color/text_primary" />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_edit_comment"
+        style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/write_a_review_title"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="true"
+        app:hintTextColor="@color/text_input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar2"
+        app:placeholderText="user@example.com"
+        app:startIconTint="@color/primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_comments_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            app:textInputLayoutFocusedRectEnabled="false"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/first_names" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

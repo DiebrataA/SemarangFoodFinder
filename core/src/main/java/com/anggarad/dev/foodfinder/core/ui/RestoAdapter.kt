@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.core.ui
 
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutBinding
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.bumptech.glide.Glide
+import kotlin.math.roundToInt
 
 class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
 
@@ -19,10 +21,21 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
         const val SERVER_URL = BuildConfig.MY_SERVER_URL
     }
 
-    fun setRestoList(newList: List<RestoDetail>?) {
+    fun setRestoList(newList: List<RestoDetail>?, userLat: Double, userLng: Double) {
         if (newList == null) return
         listResto.clear()
-        listResto.addAll(newList)
+        for (item in newList) {
+            val userLocation = Location("userLocation")
+            userLocation.longitude = userLng
+            userLocation.latitude = userLat
+            val restoLocation = Location("restoLocation")
+            restoLocation.latitude = item.latitude
+            restoLocation.longitude = item.longitude
+            val distance = userLocation.distanceTo(restoLocation)
+            item.distance = (distance / 1000 * 10.0).roundToInt() / 10.0f
+            listResto.add(item)
+        }
+        listResto.sortBy { it.distance }
         notifyDataSetChanged()
     }
 
@@ -35,15 +48,13 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
                     .into(ivItemImage)
                 tvItemRating.text = itemResto.ratingAvg.toString()
                 tvItemTitle.text = itemResto.name
-                tvItemApproxPrice.text = "Approx. Rp ${itemResto.priceRange} for two"
                 tvItemCategories.text =
                     itemResto.categories.toString().replace("[", "").replace("]", "")
-                tvItemLocation.text = itemResto.location
+                tvItemLocation.text = "${itemResto.distance} Km"
                 if (itemResto.isHalal != 1) {
                     tvItemIsHalal.visibility = View.GONE
                 } else {
                     tvItemIsHalal.visibility = View.VISIBLE
-                    tvItemIsHalal.text = "Halal"
                 }
                 when {
                     itemResto.haveInternet != 1 -> {
@@ -55,10 +66,14 @@ class RestoAdapter : RecyclerView.Adapter<RestoAdapter.RestoViewHolder>() {
                     itemResto.haveSocket != 1 -> {
                         icSocket.visibility = View.GONE
                     }
+                    itemResto.haveMusholla != 1 -> {
+                        icMosque.visibility = View.GONE
+                    }
                     else -> {
                         icWifi.visibility = View.VISIBLE
                         icSocket.visibility = View.VISIBLE
                         icWc.visibility = View.VISIBLE
+                        icMosque.visibility = View.VISIBLE
                     }
                 }
             }

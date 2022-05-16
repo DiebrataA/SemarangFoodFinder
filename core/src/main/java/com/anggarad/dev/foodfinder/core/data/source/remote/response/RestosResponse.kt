@@ -7,11 +7,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RestosResponse(
 
-    @field:SerializedName("values")
+    @field:SerializedName("response")
     val response: List<RestoItems>,
 
     @field:SerializedName("status")
-    val status: Int
+    val status: Int,
 ) : Parcelable
 
 @Parcelize
@@ -35,8 +35,11 @@ data class RestoItems(
     @field:SerializedName("price_range")
     val priceRange: String,
 
-    @field:SerializedName("location")
-    val location: String,
+    @field:SerializedName("location_lat")
+    val latitude: Double,
+
+    @field:SerializedName("location_lng")
+    val longitude: Double,
 
     @field:SerializedName("img_cover")
     val imgCover: String? = null,
@@ -69,5 +72,5 @@ data class RestoItems(
     val haveMeetingRoom: Int,
 
     @field:SerializedName("have_outdoor")
-    val haveOutdoor: Int
+    val haveOutdoor: Int,
 ) : Parcelable

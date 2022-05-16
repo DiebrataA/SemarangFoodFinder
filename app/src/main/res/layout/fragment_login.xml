@@ -5,14 +5,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
     tools:context=".auth.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <Button
+            android:id="@+id/button_login"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/gradient_bg"
+            android:enabled="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/login_button"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="@+id/tip_password"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tip_password"
+            app:layout_constraintTop_toBottomOf="@+id/tip_password"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+        <Button
+            android:id="@+id/btn_login_google"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/custom_google_btn"
+            android:elevation="6dp"
+            android:enabled="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Continue With Google"
+            android:textAllCaps="false"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_google_logo"
+            app:iconGravity="textStart"
+            app:iconSize="14sp"
+            app:iconTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <ImageView
             android:id="@+id/logo_container"
@@ -26,16 +71,64 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/button_login"
+            app:layout_constraintStart_toStartOf="@+id/button_login"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_google">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/don_t_have_an_account"
+                android:textColor="@color/text_title"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/tb_toRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/register_here"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+        </LinearLayout>
+
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:foregroundGravity="top|center_vertical"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.905" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="or"
+            android:textColor="@color/primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_login" />
+
 
         <TextView
             android:id="@+id/tv_error_login"
@@ -50,13 +143,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo_container" />
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tip_email"
             style="@style/ShapeAppearanceOverlay.App.FieldStroke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="40dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/custom_input"
             android:hint="@string/email_label"
             app:boxBackgroundColor="@color/white"
@@ -91,7 +185,9 @@
             android:id="@+id/tip_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/custom_input"
             android:hint="@string/password_label"
             app:boxBackgroundColor="@color/white"
@@ -104,6 +200,7 @@
             app:expandedHintEnabled="true"
             app:hintEnabled="true"
             app:hintTextColor="@color/text_input_hint"
+            app:layout_constraintEnd_toEndOf="@+id/tip_email"
             app:layout_constraintStart_toStartOf="@+id/tip_email"
             app:layout_constraintTop_toBottomOf="@+id/tip_email"
             app:passwordToggleEnabled="true"
@@ -122,55 +219,6 @@
                 tools:ignore="TextContrastCheck"
                 tools:text="@tools:sample/full_names" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
-        <Button
-            android:id="@+id/button_login"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="53dp"
-            android:background="@drawable/gradient_bg"
-            android:enabled="true"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/login_button"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tip_password"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tip_password"
-            app:layout_constraintTop_toBottomOf="@+id/tip_password" />
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/button_login"
-            app:layout_constraintStart_toStartOf="@+id/button_login"
-            app:layout_constraintTop_toBottomOf="@+id/button_login">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:text="@string/don_t_have_an_account"
-                android:textColor="@color/text_title" />
-
-            <TextView
-                android:id="@+id/tb_toRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/roboto_medium"
-                android:text="@string/register_here"
-                android:textColor="@color/primary"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

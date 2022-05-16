@@ -4,13 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".favorite.FavoriteFragment"
-    android:padding="16dp">
+    android:paddingStart="16dp"
+    android:paddingLeft="16dp"
+    android:paddingEnd="16dp"
+    android:paddingRight="16dp"
+    tools:context=".favorite.FavoriteFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/location_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="left|center_vertical"
+            android:text="@string/favorite_menu"
+            android:textColor="@color/text_primary" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
         tools:listitem="@layout/item_layout_trend" />
 
     <include

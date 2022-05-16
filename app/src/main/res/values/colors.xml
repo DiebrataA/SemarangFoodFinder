@@ -12,7 +12,7 @@
     <color name="primary_dark">#FFC3621A</color>
     <color name="primary_light">#FFF6954D</color>
     <color name="error_main">#FFDC3931</color>
-    <color name="info_main">#FF3B82F6</color>
+    <color name="info_main">#3B82F6</color>
     <color name="success_main">#FF22C55E</color>
     <color name="tabs_inactive">#FFE5E5E5</color>
     <color name="text_input_hint">#FF727070</color>

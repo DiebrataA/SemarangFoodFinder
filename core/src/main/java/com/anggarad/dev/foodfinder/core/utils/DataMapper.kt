@@ -6,6 +6,33 @@ import com.anggarad.dev.foodfinder.core.domain.model.*
 
 object DataMapper {
 
+    fun mapSingleReview(input: SingleReviewItem) = SingleReviewModel(
+        reviewsId = input.reviewsId,
+        restoId = input.restoId,
+        userId = input.userId,
+        date = input.date,
+        comments = input.comments,
+        rating = input.rating,
+        name = input.name,
+        imgReviewPath = input.imgReviewPath,
+        isDeleted = input.isDeleted
+    )
+
+
+    fun mapEditUserResponseToDomain(input: EditProfileResponse): EditUserModel {
+        return EditUserModel(
+            status = input.status,
+            response = input.response
+        )
+    }
+
+    fun mapPostEditReviewResponseToDomain(input: PostReviewResponse): PostEditReviewModel {
+        return PostEditReviewModel(
+            success = input.success,
+            message = input.message
+        )
+    }
+
     fun mapRegisterResponseToDomain(input: RegisterResponse): RegisterModel {
         return RegisterModel(
             success = input.success,
@@ -42,7 +69,8 @@ object DataMapper {
             opHours = input.opHours,
             address = input.address,
             imgCover = input.imgCover,
-            location = input.location,
+            latitude = input.latitude,
+            longitude = input.longitude,
             priceRange = input.priceRange,
             isFavorite = false,
             ratingAvg = input.ratingAvg,
@@ -69,7 +97,8 @@ object DataMapper {
                 address = it.address,
                 imgCover = it.imgCover,
                 priceRange = it.priceRange,
-                location = it.location,
+                latitude = it.latitude,
+                longitude = it.longitude,
                 isFavorite = it.isFavorite,
                 ratingAvg = it.ratingAvg,
                 categories = it.categories,
@@ -93,7 +122,8 @@ object DataMapper {
             address = it.address,
             imgCover = it.imgCover,
             priceRange = it.priceRange,
-            location = it.location,
+            latitude = it.latitude,
+            longitude = it.longitude,
             isFavorite = it.isFavorite,
             ratingAvg = it.ratingAvg,
             categories = it.categories,
@@ -116,7 +146,8 @@ object DataMapper {
         address = input.address,
         imgCover = input.imgCover,
         priceRange = input.priceRange,
-        location = input.location,
+        latitude = input.latitude,
+        longitude = input.longitude,
         isFavorite = input.isFavorite,
         ratingAvg = input.ratingAvg,
         categories = input.categories,
@@ -140,7 +171,8 @@ object DataMapper {
                 opHours = it.opHours,
                 address = it.address,
                 imgCover = it.imgCover,
-                location = it.location,
+                latitude = it.latitude,
+                longitude = it.longitude,
                 priceRange = it.priceRange,
                 isFavorite = false,
                 ratingAvg = it.ratingAvg,
@@ -263,35 +295,51 @@ object DataMapper {
             )
         }
 
-    fun mapSearchResponseToEntity(input: List<SearchItem>): List<SearchItemEntity> =
-        input.map {
-            SearchItemEntity(
-                restoId = it.restoId,
-                name = it.name,
-                location = it.location,
-                imgCover = it.imgCover
-            )
-        }
+//    fun mapSearchResponseToEntity(input: List<SearchItem>): List<SearchItemEntity> =
+//        input.map {
+//            SearchItemEntity(
+//                restoId = it.restoId,
+//                name = it.name,
+//                latitude = it.latitude,
+//                longitude = it.longitude,
+//                imgCover = it.imgCover
+//            )
+//        }
 
-    fun mapSearchResponseToDomain(input: List<SearchItem>): List<SearchModel> =
-        input.map {
+    fun mapSearchResponseToDomain(input: List<SearchItem>): List<SearchModel> {
+
+        return input.map {
             SearchModel(
                 restoId = it.restoId,
                 name = it.name,
-                location = it.location,
-                imgCover = it.imgCover
-            )
-        }
+                latitude = it.latitude,
+                isHalal = it.isHalal,
+                longitude = it.longitude,
+                imgCover = it.imgCover,
+                ratingAvg = it.ratingAvg,
+                menu = it.menu?.map { menuItem ->
+                    MenuResto(
+                        menuName = menuItem.menuName,
+                        menuPrice = menuItem.menuPrice,
+                        menuImg = menuItem.menuImg,
+                        isRecommended = menuItem.isRecommended
+                    )
+                }
 
-    fun mapSearchEntityToDomain(input: List<SearchItemEntity>): List<SearchModel> =
-        input.map {
-            SearchModel(
-                restoId = it.restoId,
-                name = it.name,
-                location = it.location,
-                imgCover = it.imgCover
             )
         }
+    }
+
+//    fun mapSearchEntityToDomain(input: List<SearchItemEntity>): List<SearchModel> =
+//        input.map {
+//            SearchModel(
+//                restoId = it.restoId,
+//                name = it.name,
+//                latitude = it.latitude,
+//                longitude = it.longitude,
+//                imgCover = it.imgCover
+//            )
+//        }
 
     fun mapCategoriesResponseToEntity(input: List<CategoriesResponseItem>): List<CategoriesEntity> =
         input.map {
@@ -323,7 +371,8 @@ object DataMapper {
                 address = it.address,
                 imgCover = it.imgCover,
                 priceRange = it.priceRange,
-                location = it.location,
+                latitude = it.latitude,
+                longitude = it.longitude,
                 categories = it.categories,
                 ratingAvg = it.ratingAvg,
                 haveInternet = it.haveInternet,
@@ -348,7 +397,8 @@ object DataMapper {
                 address = it.address,
                 imgCover = it.imgCover,
                 priceRange = it.priceRange,
-                location = it.location,
+                latitude = it.latitude,
+                longitude = it.longitude,
                 categories = it.categories,
                 ratingAvg = it.ratingAvg,
                 haveInternet = it.haveInternet,

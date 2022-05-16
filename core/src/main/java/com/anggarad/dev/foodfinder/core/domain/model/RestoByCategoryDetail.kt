@@ -14,7 +14,8 @@ data class RestoByCategoryDetail(
     val address: String,
     val imgCover: String? = null,
     val priceRange: String,
-    val location: String,
+    val latitude: Double,
+    val longitude: Double,
     val isFavorite: Boolean = false,
     val categories: String,
     val ratingAvg: Float? = null,
@@ -25,4 +26,5 @@ data class RestoByCategoryDetail(
     val haveSmokingRoom: Int,
     val haveMeetingRoom: Int,
     val haveOutdoor: Int,
+    var distance: Float? = null,
 ) : Parcelable

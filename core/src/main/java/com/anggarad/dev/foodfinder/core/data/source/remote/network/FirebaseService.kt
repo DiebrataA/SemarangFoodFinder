@@ -33,6 +33,7 @@ class FirebaseService {
         val downloadUrl = MutableLiveData<Resource<String>>()
 
         fileRef.putFile(uri).continueWithTask { task ->
+            downloadUrl.postValue(Resource.Loading())
             if (!task.isSuccessful) {
                 task.exception?.let {
                     throw it
@@ -41,7 +42,7 @@ class FirebaseService {
             }
             fileRef.downloadUrl
         }.addOnCompleteListener { task ->
-            downloadUrl.postValue(Resource.Loading())
+
             if (task.isSuccessful) {
                 val downloadUri = task.result
                 downloadUrl.postValue(Resource.Success(downloadUri.toString()))
@@ -138,30 +139,48 @@ class FirebaseService {
     fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>> {
         val authenticatedUser = MutableLiveData<Resource<UserRegister>>()
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        CoroutineScope(IO).launch {
             auth.signInWithCredential(credential).addOnCompleteListener { task ->
+                authenticatedUser.postValue(Resource.Loading())
                 if (task.isSuccessful) {
-                    Log.d("SignInActivity", "signInWithCredential:success")
-                    val isNew = task.result?.additionalUserInfo?.isNewUser
-                    val user = auth.currentUser
-//                    if (user != null){
-//                        val userInfo = UserRegister(
-//                            fullName = user.displayName,
-//                            email = user.email,
-//                            imgProfile = user.photoUrl.toString(),
-//                            phoneNum = user.phoneNumber
-//                        )
-//                        if (isNew == true){
-//                            fDb.getReference("Users")
-//                                .child(user.uid)
-//                                .setValue(userInfo)
-//                        }
-//                    }
 
+                    Log.d("SignInActivity", "signInWithCredential:success")
+                    val user = auth.currentUser
+                    val name = user?.displayName
+                    val imgProfile = user?.photoUrl
+                    val phoneNum = user?.phoneNumber
+                    val email = user?.email
+                    val isNew = task?.result?.additionalUserInfo?.isNewUser
+
+                    val userInfo = UserRegister(
+                        fullName = name,
+                        imgProfile = imgProfile.toString(),
+                        phoneNum = phoneNum,
+                        email = email,
+                        isNew = isNew
+                    )
+                    authenticatedUser.postValue(Resource.Success(userInfo))
+                } else {
+                    authenticatedUser.postValue(Resource.Error(task.exception.toString()))
                 }
+            }
+
+        return authenticatedUser
+    }
+
+    fun editProfile(uid: String, userDetail: UserDetail): LiveData<Resource<UserDetail>> {
+        val userRef = fDb.getReference("Users")
+        val userData = MutableLiveData<Resource<UserDetail>>()
+
+
+        userRef.child(uid).setValue(userDetail).addOnCompleteListener { task ->
+            userData.postValue(Resource.Loading())
+            if (task.isSuccessful) {
+                userData.postValue(Resource.Success(userDetail))
+            } else {
+                userData.postValue(Resource.Error(task.exception.toString()))
             }
         }
 
-        return authenticatedUser
+        return userData
     }
 }

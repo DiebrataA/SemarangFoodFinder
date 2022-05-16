@@ -1,5 +1,6 @@
 package com.anggarad.dev.foodfinder.core.ui
 
+import android.location.Location
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.anggarad.dev.foodfinder.core.R
 import com.anggarad.dev.foodfinder.core.databinding.ItemLayoutCafeHomeBinding
 import com.anggarad.dev.foodfinder.core.domain.model.RestoDetail
 import com.bumptech.glide.Glide
+import kotlin.math.roundToInt
 
 class CafeAdapter : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
 
@@ -20,10 +22,21 @@ class CafeAdapter : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
         const val SERVER_URL = BuildConfig.MY_SERVER_URL
     }
 
-    fun setCafeList(newList: List<RestoDetail>?) {
+    fun setCafeList(newList: List<RestoDetail>?, userLat: Double, userLng: Double) {
         if (newList == null) return
         listCafe.clear()
-        listCafe.addAll(newList)
+        for (item in newList) {
+            val userLocation = Location("userLocation")
+            userLocation.longitude = userLng
+            userLocation.latitude = userLat
+            val restoLocation = Location("restoLocation")
+            restoLocation.latitude = item.latitude
+            restoLocation.longitude = item.longitude
+            val distance = userLocation.distanceTo(restoLocation)
+            item.distance = (distance / 1000 * 10.0).roundToInt() / 10.0f
+            listCafe.add(item)
+        }
+        listCafe.sortByDescending { it.ratingAvg }
         notifyDataSetChanged()
     }
 
@@ -36,7 +49,9 @@ class CafeAdapter : RecyclerView.Adapter<CafeAdapter.CafeViewHolder>() {
                     .into(ivItemTrend)
                 trendingReview.text = itemCafe.ratingAvg.toString()
                 cafeHomeTitle.text = itemCafe.name
-                cafeHomeSubtitle.text = itemCafe.priceRange
+                cafeHomeSubtitle.text =
+                    itemCafe.categories.toString().replace("[", "").replace("]", "")
+                cafeHomeLocation.text = "${itemCafe.distance} Km"
                 Log.d("Cafe Home Title :", itemCafe.name)
             }
         }

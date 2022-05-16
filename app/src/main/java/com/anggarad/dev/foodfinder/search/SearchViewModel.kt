@@ -13,4 +13,8 @@ class SearchViewModel(private val restoUseCase: RestoUseCase) : ViewModel() {
         return restoUseCase.searchResto(key).asLiveData()
     }
 
+    suspend fun searchMenu(key: String): LiveData<Resource<List<SearchModel>>> {
+        return restoUseCase.searchMenu(key).asLiveData()
+    }
+
 }

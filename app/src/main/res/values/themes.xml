@@ -13,9 +13,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
 
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+    </style>
+
+    <style name="Theme.FoodFinder.SignInButton">
+        <item name="android:radius">8dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
     </style>
 
     <style name="Theme.FoodFinder.LightActionBar">
@@ -43,6 +53,11 @@
         <item name="cornerSize">10%</item>
         <item name="strokeWidth">1dp</item>
         <item name="strokeColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.MyText" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="fontFamily">@font/roboto</item>
     </style>
 
 

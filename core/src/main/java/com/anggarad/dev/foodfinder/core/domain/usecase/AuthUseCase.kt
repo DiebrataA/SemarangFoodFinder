@@ -13,7 +13,7 @@ interface AuthUseCase {
     suspend fun saveCredential(userId: Int)
     suspend fun saveUserInfo(userDetail: CurrentUserModel)
 
-    //    fun continueWithGoogle()
+    fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>>
     fun loginWithEmailFb(email: String, password: String): LiveData<Resource<UserRegister>>
     fun registerUserEmailFb(
         email: String,
@@ -21,12 +21,14 @@ interface AuthUseCase {
         user: UserRegister
     ): LiveData<Resource<UserRegister>>
 
+
     suspend fun userLogin(email: String, password: String): Flow<Resource<LoginModel>>
     suspend fun userRegister(
-        email: String,
-        password: String,
-        name: String,
-        phoneNum: String,
-        address: String
+        email: String?,
+        password: String?,
+        name: String?,
+        phoneNum: String?,
+        address: String?,
+        imgProfile: String?,
     ): Flow<Resource<RegisterModel>>
 }

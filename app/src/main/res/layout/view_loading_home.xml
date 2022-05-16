@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/progress_bar"
+    style="?android:attr/progressBarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    app:shimmer_auto_start="true"
+    tools:visibility="visible">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/list_categories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_home_categories_title"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_categories_placeholder" />
+
+            <include layout="@layout/item_categories_placeholder" />
+
+            <include layout="@layout/item_categories_placeholder" />
+
+            <include layout="@layout/item_categories_placeholder" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_home_categories_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:visibility="invisible"
+            android:text="Browse from categories"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_home_restoList_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_cafe"
+            android:layout_marginBottom="20dp"
+            android:paddingStart="8dp"
+            android:visibility="invisible"
+            android:text="Popular Restos"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp" />
+
+
+        <LinearLayout
+            android:id="@+id/list_cafe"
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_categories"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_layout_cafe_placeholder" />
+
+            <include layout="@layout/item_layout_cafe_placeholder" />
+
+            <include layout="@layout/item_layout_cafe_placeholder" />
+
+            <include layout="@layout/item_layout_cafe_placeholder" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_home_restoList_title"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_layout_placeholder" />
+
+            <include layout="@layout/item_layout_placeholder" />
+
+            <include layout="@layout/item_layout_placeholder" />
+
+            <include layout="@layout/item_layout_placeholder" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

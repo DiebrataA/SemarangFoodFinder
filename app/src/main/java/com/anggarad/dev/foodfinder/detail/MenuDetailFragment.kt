@@ -52,7 +52,7 @@ class MenuDetailFragment : BottomSheetDialogFragment() {
                 if (it.isRecommended == 0 || it.isRecommended == null) {
                     ivRecommendedIcon.visibility = View.GONE
                 } else {
-                    ivRecommendedIcon.visibility = View.GONE
+                    ivRecommendedIcon.visibility = View.VISIBLE
                 }
             }
 

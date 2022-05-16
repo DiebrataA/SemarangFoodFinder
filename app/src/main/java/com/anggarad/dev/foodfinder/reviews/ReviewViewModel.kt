@@ -1,4 +1,4 @@
-package com.anggarad.dev.foodfinder.detail
+package com.anggarad.dev.foodfinder.reviews
 
 import android.net.Uri
 import androidx.lifecycle.LiveData
@@ -8,7 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.PostReviewResponse
+import com.anggarad.dev.foodfinder.core.domain.model.PostEditReviewModel
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
+import com.anggarad.dev.foodfinder.core.domain.model.SingleReviewModel
+import com.anggarad.dev.foodfinder.core.domain.model.UserReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.usecase.ReviewUseCase
 import com.anggarad.dev.foodfinder.core.domain.usecase.UserUseCase
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class ReviewViewModel(
     private val reviewUseCase: ReviewUseCase,
-    userUseCase: UserUseCase
+    userUseCase: UserUseCase,
 ) : ViewModel() {
     private val _reviewResponse = Channel<ApiResponse<PostReviewResponse>>(Channel.BUFFERED)
     val reviewResponse = _reviewResponse.receiveAsFlow()
@@ -29,7 +32,7 @@ class ReviewViewModel(
         userId: Int,
         rating: Float,
         comments: String,
-        imgReviewPath: String
+        imgReviewPath: String,
     ) {
         viewModelScope.launch {
             reviewUseCase.postReview(restoId, userId, rating, comments, imgReviewPath)
@@ -50,6 +53,15 @@ class ReviewViewModel(
     val userId = userUseCase.getUserId().asLiveData()
     val userToken = reviewUseCase.getToken().asLiveData()
 
+    fun updateReview(
+        reviewId: Int?,
+        comments: String?,
+        rating: Float?,
+        isDeleted: Int?,
+    ): LiveData<Resource<PostEditReviewModel>> {
+        return reviewUseCase.updateUserReview(reviewId, comments, rating, isDeleted).asLiveData()
+    }
+
 //    private val _reviewList =MutableSharedFlow<Resource<List<ReviewDetails>>>()
 //    val reviewList = _reviewList.asSharedFlow()
 //
@@ -59,8 +71,16 @@ class ReviewViewModel(
 //        }
 //    }
 
+    fun getUserReviews(userId: Int): LiveData<Resource<List<UserReviewDetails>>> {
+        return reviewUseCase.getUsersReview(userId).asLiveData()
+    }
+
     fun getRestoReviews(restoId: Int): LiveData<Resource<List<ReviewDetails>>> {
         return reviewUseCase.getRestoReviews(restoId).asLiveData()
+    }
+
+    fun getReviewById(reviewId: Int): LiveData<Resource<SingleReviewModel>> {
+        return reviewUseCase.getReviewById(reviewId).asLiveData()
     }
 
 }

@@ -9,6 +9,6 @@ data class RegisterModel(
     val success: Boolean? = null,
     val message: String? = null,
     val status: Int? = null,
-    val userId: Int? = null,
-    val accId: Int? = null
+    val userId: Int? = 0,
+    val accId: Int? = 0,
 ) : Parcelable

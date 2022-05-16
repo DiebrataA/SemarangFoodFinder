@@ -15,15 +15,18 @@ interface IAuthRepository {
     fun registerUserEmailFb(
         email: String,
         password: String,
-        user: UserRegister
+        user: UserRegister,
     ): LiveData<Resource<UserRegister>>
+
+    fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>>
 
     suspend fun userLogin(email: String, password: String): Flow<Resource<LoginModel>>
     suspend fun userRegister(
-        email: String,
-        password: String,
-        name: String,
-        phoneNum: String,
-        address: String
+        email: String?,
+        password: String?,
+        name: String?,
+        phoneNum: String?,
+        address: String?,
+        imgProfile: String?,
     ): Flow<Resource<RegisterModel>>
 }

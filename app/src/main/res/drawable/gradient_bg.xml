@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="true">
-        <shape android:shape="rectangle">
-            <gradient android:startColor="#FAA91A" android:endColor="#F47A20" />
+        <shape>
+            <gradient android:angle="45" android:startColor="#FAA91A" android:endColor="#F47A20" android:type="linear" />
             <corners android:radius="8dp" />
         </shape>
     </item>
 
     <item android:state_enabled="false">
-        <shape android:shape="rectangle">
+        <shape>
             <solid android:color="@color/tabs_inactive" />
             <corners android:radius="8dp" />
         </shape>

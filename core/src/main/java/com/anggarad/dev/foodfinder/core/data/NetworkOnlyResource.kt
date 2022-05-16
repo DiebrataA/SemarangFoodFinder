@@ -6,13 +6,14 @@ import kotlinx.coroutines.flow.*
 abstract class NetworkOnlyResource<ResultType, RequestType> {
 
     private var result: Flow<Resource<ResultType>> = flow {
+
         emit(Resource.Loading())
         when (val apiResponse = createCall().first()) {
             is ApiResponse.Success -> {
                 emitAll(collectResult(apiResponse.data).map { Resource.Success(it) })
             }
-            is ApiResponse.Empty -> {
-                Resource.Success(null)
+            is ApiResponse.Empty<*> -> {
+                emitAll(collectResult(apiResponse.data as RequestType).map { Resource.Success(it) })
             }
             is ApiResponse.Error -> {
                 onFetchFailed()

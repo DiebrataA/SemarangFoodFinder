@@ -18,9 +18,13 @@ class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
         return authRepos.saveUserInfo(userDetail)
     }
 
+    override fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>> {
+        return authRepos.continueWithGoogle(idToken)
+    }
+
     override fun loginWithEmailFb(
         email: String,
-        password: String
+        password: String,
     ): LiveData<Resource<UserRegister>> {
         return authRepos.loginWithEmailFb(email, password)
     }
@@ -28,7 +32,7 @@ class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
     override fun registerUserEmailFb(
         email: String,
         password: String,
-        user: UserRegister
+        user: UserRegister,
     ): LiveData<Resource<UserRegister>> {
         return authRepos.registerUserEmailFb(email, password, user)
     }
@@ -38,12 +42,13 @@ class AuthInteractor(private val authRepos: IAuthRepository) : AuthUseCase {
     }
 
     override suspend fun userRegister(
-        email: String,
-        password: String,
-        name: String,
-        phoneNum: String,
-        address: String
+        email: String?,
+        password: String?,
+        name: String?,
+        phoneNum: String?,
+        address: String?,
+        imgProfile: String?,
     ): Flow<Resource<RegisterModel>> {
-        return authRepos.userRegister(email, password, name, phoneNum, address)
+        return authRepos.userRegister(email, password, name, phoneNum, address, imgProfile)
     }
 }

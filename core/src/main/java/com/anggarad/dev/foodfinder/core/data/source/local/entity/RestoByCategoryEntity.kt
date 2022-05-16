@@ -27,8 +27,10 @@ data class RestoByCategoryEntity(
     var imgCover: String? = null,
     @ColumnInfo(name = "priceRange")
     var priceRange: String,
-    @ColumnInfo(name = "location")
-    var location: String,
+    @ColumnInfo(name = "latitude")
+    var latitude: Double,
+    @ColumnInfo(name = "longitude")
+    var longitude: Double,
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false,
     @ColumnInfo(name = "ratingAvg")

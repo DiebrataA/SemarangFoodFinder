@@ -38,8 +38,11 @@ data class RestoByCategoryItems(
     @field:SerializedName("price_range")
     val priceRange: String,
 
-    @field:SerializedName("location")
-    val location: String,
+    @field:SerializedName("location_lat")
+    val latitude: Double,
+
+    @field:SerializedName("location_lng")
+    val longitude: Double,
 
     @field:SerializedName("img_cover")
     val imgCover: String? = null,
@@ -72,5 +75,5 @@ data class RestoByCategoryItems(
     val haveMeetingRoom: Int,
 
     @field:SerializedName("have_outdoor")
-    val haveOutdoor: Int
+    val haveOutdoor: Int,
 ) : Parcelable

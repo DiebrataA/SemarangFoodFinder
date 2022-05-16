@@ -10,6 +10,7 @@ import com.anggarad.dev.foodfinder.auth.AuthActivity
 import com.anggarad.dev.foodfinder.core.BuildConfig
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.databinding.FragmentProfileBinding
+import com.anggarad.dev.foodfinder.reviews.UserReviewHistoryActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -57,6 +58,13 @@ class ProfileFragment : Fragment() {
             fAuth.signOut()
             val intentAuth = Intent(activity, AuthActivity::class.java)
             startActivity(intentAuth)
+            requireActivity().finish()
+        }
+
+        binding.btnEditProfile.setOnClickListener {
+            val intentEdit = Intent(activity, EditProfileActivity::class.java)
+            intentEdit.putExtra(EditProfileActivity.USER_ID, userId)
+            startActivity(intentEdit)
         }
 
 //        profileViewModel.userId.observe(viewLifecycleOwner, { id ->
@@ -111,7 +119,7 @@ class ProfileFragment : Fragment() {
                     binding.tvPhone.text = user.data?.phoneNum
                     binding.tvUserAddress.text = user.data?.address
                     Glide.with(requireContext())
-                        .load(SERVER_URL + "uploads/${user.data?.imgProfile}")
+                        .load(user.data?.imgProfile)
                         .into(binding.ivAvatarProfile)
 
                     user.data?.userId?.let { onClickUserReviews(it) }

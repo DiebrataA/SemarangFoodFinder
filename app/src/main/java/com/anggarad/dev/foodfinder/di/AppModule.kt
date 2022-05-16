@@ -4,11 +4,11 @@ import com.anggarad.dev.foodfinder.MainViewModel
 import com.anggarad.dev.foodfinder.auth.AuthViewModel
 import com.anggarad.dev.foodfinder.core.domain.usecase.*
 import com.anggarad.dev.foodfinder.detail.DetailViewModel
-import com.anggarad.dev.foodfinder.detail.ReviewViewModel
 import com.anggarad.dev.foodfinder.favorite.FavoriteViewModel
 import com.anggarad.dev.foodfinder.home.HomeViewModel
 import com.anggarad.dev.foodfinder.profile.ProfileViewModel
 import com.anggarad.dev.foodfinder.restolist.RestoByCategoryViewModel
+import com.anggarad.dev.foodfinder.reviews.ReviewViewModel
 import com.anggarad.dev.foodfinder.search.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

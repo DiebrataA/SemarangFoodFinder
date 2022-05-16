@@ -15,7 +15,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     saveCallResult(apiResponse.data)
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
-                is ApiResponse.Empty -> {
+                is ApiResponse.Empty<*> -> {
                     emitAll(loadFromDB().map { Resource.Success(it) })
                 }
                 is ApiResponse.Error -> {

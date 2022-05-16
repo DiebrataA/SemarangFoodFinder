@@ -2,26 +2,21 @@ package com.anggarad.dev.foodfinder.search
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.Intent
+import android.location.Location
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.anggarad.dev.foodfinder.R
-import com.anggarad.dev.foodfinder.core.data.Resource
-import com.anggarad.dev.foodfinder.core.ui.SearchAdapter
 import com.anggarad.dev.foodfinder.databinding.ActivitySearchBinding
-import com.anggarad.dev.foodfinder.detail.DetailsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var binding: ActivitySearchBinding
+    private var location: Location? = null
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +28,11 @@ class SearchActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        location = intent.getParcelableExtra(EXTRA_LOC)
 
-        val searchAdapter = SearchAdapter()
-        searchAdapter.onItemClick = { searchItem ->
-            val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra(DetailsActivity.RESTO_ID, searchItem.restoId)
-            startActivity(intent)
+        location?.let {
+            latitude = it.latitude
+            longitude = it.longitude
         }
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
@@ -54,41 +48,24 @@ class SearchActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 if (query != null) {
-                    lifecycleScope.launchWhenStarted {
-                        searchViewModel.searchResto(query)
-                            .observe(this@SearchActivity, { searchRes ->
+                    val searchResultFragment =
+                        location?.let { SearchMenuFragment.newInstance(query, it) }
+                    val searchRestoFragment =
+                        location?.let { SearchRestoFragment.newInstance(query, it) }
 
-                                when (searchRes) {
-                                    is Resource.Success -> {
-                                        binding.progressBar.visibility = View.GONE
-                                        searchAdapter.setSearchList(searchRes.data)
-                                        Toast.makeText(
-                                            this@SearchActivity,
-                                            "Search Result available",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    is Resource.Error -> {
-                                        binding.progressBar.visibility = View.GONE
-                                        Toast.makeText(
-                                            this@SearchActivity,
-                                            "Error Search",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    }
-                                    is Resource.Loading -> {
-                                        binding.progressBar.visibility = View.VISIBLE
-                                    }
-
-                                }
-
-                            })
+                    searchResultFragment?.let {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.searchMenu_fragment_container,
+                                it).commit()
                     }
+                    searchRestoFragment?.let {
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.search_fragment_container, it).commit()
+                    }
+//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                    transaction.commit()
                 }
-
-
                 return true
             }
 
@@ -97,13 +74,10 @@ class SearchActivity : AppCompatActivity() {
             }
 
         })
-        with(binding.rvSearch) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = searchAdapter
-            addItemDecoration(
-                DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
-            )
-        }
+    }
+
+    companion object {
+        const val EXTRA_LOC = "extra_loc"
+        const val EXTRA_QUERY = "extra_query"
     }
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".search.SearchMenuFragment">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/resto_search_title"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="16dp"-->
+    <!--        android:fontFamily="@font/roboto_medium"-->
+    <!--        android:text="Looking for a Place?"-->
+    <!--        android:textColor="@color/text_primary"-->
+    <!--        android:textSize="18sp" />-->
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/resto_search_card"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/resto_search_title"-->
+    <!--        android:layout_margin="16dp"-->
+    <!--        app:cardCornerRadius="16dp"-->
+    <!--        app:cardElevation="6dp"-->
+    <!--        app:contentPadding="16dp">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/search_resto_card_content"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:drawablePadding="8dp"-->
+    <!--            tools:text="@string/search_hint"-->
+    <!--            android:textSize="18sp"-->
+    <!--            app:drawableEndCompat="@drawable/ic_location_green"-->
+    <!--            app:drawableStartCompat="@drawable/ic_baseline_search_24" />-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/dishes_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Matching Dishes"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dishes_search_title"
+        android:visibility="visible"
+        tools:listitem="@layout/item_layout_search_menu" />
+
+    <TextView
+        android:id="@+id/no_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textAlignment="viewStart"
+        android:textColor="@color/error_main"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:drawableStartCompat="@drawable/ic_baseline_search_24"
+        app:drawableTint="@color/error_main"
+        tools:text="@string/no_menu_available" />
+
+</RelativeLayout>

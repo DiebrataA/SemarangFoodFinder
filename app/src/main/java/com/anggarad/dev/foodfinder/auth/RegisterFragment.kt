@@ -42,11 +42,12 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         val name = binding.editFullname.text.toString().trim()
         val phoneNum = binding.editPhone.text.toString().trim()
         val address = binding.editAddress.text.toString().trim()
+        val imgProfile = ""
 
 
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            authViewModel.register(email, password, name, phoneNum, address)
+            authViewModel.register(email, password, name, phoneNum, address, imgProfile)
                 .observe(viewLifecycleOwner, { response ->
                     val userId = response.data?.userId
                     val accId = response.data?.accId
@@ -81,6 +82,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                                             displayHome()
                                             activity?.finish()
                                         }
+                                        is Resource.Loading -> binding.progressBar.visibility =
+                                            View.VISIBLE
                                     }
                                 })
                         }
@@ -92,7 +95,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+
                     }
                 })
         }

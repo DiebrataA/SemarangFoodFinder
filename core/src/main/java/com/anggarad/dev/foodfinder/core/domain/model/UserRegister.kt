@@ -11,5 +11,6 @@ data class UserRegister(
     var address: String? = "",
     var phoneNum: String? = "",
     var email: String? = null,
-    var imgProfile: String? = ""
+    var imgProfile: String? = "",
+    var isNew: Boolean? = false,
 ) : Parcelable

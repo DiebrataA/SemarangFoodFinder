@@ -25,7 +25,7 @@ class RestoRepository(
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IRestoRepository{
-    override fun getRestoList(): Flow<Resource<List<RestoDetail>>> =
+    override fun getRestoList(pullToRefresh: Boolean): Flow<Resource<List<RestoDetail>>> =
         object : NetworkBoundResource<List<RestoDetail>, List<RestoItems>>() {
             override fun loadFromDB(): Flow<List<RestoDetail>> {
                 return localDataSource.getRestoListData().map {
@@ -34,7 +34,7 @@ class RestoRepository(
             }
 
             override fun shouldFetch(data: List<RestoDetail>?): Boolean {
-                return data == null || data.isEmpty()
+                return pullToRefresh || data == null || data.isEmpty()
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<RestoItems>>> {
@@ -116,15 +116,24 @@ class RestoRepository(
     override suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>> =
         object : NetworkOnlyResource<List<SearchModel>, List<SearchItem>>() {
             override fun collectResult(data: List<SearchItem>): Flow<List<SearchModel>> {
-
                 return flow { emit(DataMapper.mapSearchResponseToDomain(data)) }
             }
 
             override suspend fun createCall(): Flow<ApiResponse<List<SearchItem>>> {
                 return remoteDataSource.searchResto(key)
             }
+        }.asFlow()
 
+    override suspend fun searchMenu(key: String): Flow<Resource<List<SearchModel>>> =
+        object : NetworkOnlyResource<List<SearchModel>, List<SearchItem>>() {
+            override fun collectResult(data: List<SearchItem>): Flow<List<SearchModel>> {
 
+                return flow { emit(DataMapper.mapSearchResponseToDomain(data)) }
+            }
+
+            override suspend fun createCall(): Flow<ApiResponse<List<SearchItem>>> {
+                return remoteDataSource.searchMenu(key)
+            }
         }.asFlow()
 
 }

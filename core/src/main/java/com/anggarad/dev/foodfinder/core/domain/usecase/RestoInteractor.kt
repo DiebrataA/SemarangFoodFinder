@@ -8,8 +8,8 @@ import com.anggarad.dev.foodfinder.core.domain.repository.IRestoRepository
 import kotlinx.coroutines.flow.Flow
 
 class RestoInteractor(private val restoRepository: IRestoRepository) : RestoUseCase {
-    override fun getRestoList(): Flow<Resource<List<RestoDetail>>> {
-        return restoRepository.getRestoList()
+    override fun getRestoList(pullToRefresh: Boolean): Flow<Resource<List<RestoDetail>>> {
+        return restoRepository.getRestoList(pullToRefresh)
     }
 
 //    override fun getCafeList(): Flow<Resource<List<RestoDetail>>> {
@@ -39,5 +39,9 @@ class RestoInteractor(private val restoRepository: IRestoRepository) : RestoUseC
 
     override suspend fun searchResto(key: String): Flow<Resource<List<SearchModel>>> {
         return restoRepository.searchResto(key)
+    }
+
+    override suspend fun searchMenu(key: String): Flow<Resource<List<SearchModel>>> {
+        return restoRepository.searchMenu(key)
     }
 }

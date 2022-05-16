@@ -9,13 +9,22 @@
     android:layout_marginTop="4dp"
     android:layout_marginEnd="8dp"
     android:layout_marginBottom="6dp"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="8dp"
     app:cardElevation="6dp"
     app:cardMaxElevation="6dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ic_mosque"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="2dp"
+            app:layout_constraintStart_toEndOf="@+id/ic_socket"
+            app:layout_constraintTop_toTopOf="@+id/ic_wc"
+            app:srcCompat="@drawable/ic_baseline_mosque" />
 
         <ImageView
             android:id="@+id/iv_item_image"
@@ -41,7 +50,7 @@
             android:id="@+id/ic_wc"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
             app:layout_constraintStart_toEndOf="@+id/ic_wifi"
             app:layout_constraintTop_toTopOf="@+id/ic_wifi"
             app:srcCompat="@drawable/ic_baseline_wc_24" />
@@ -50,22 +59,35 @@
             android:id="@+id/ic_socket"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="2dp"
             app:layout_constraintStart_toEndOf="@+id/ic_wc"
             app:layout_constraintTop_toTopOf="@+id/ic_wc"
             app:srcCompat="@drawable/ic_baseline_power_24" />
+
+        <ImageView
+            android:id="@+id/tv_item_isHalal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_hallal"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_item_location"
+            app:layout_constraintEnd_toEndOf="@+id/tv_item_rating"
+            tools:text="Halal" />
 
         <TextView
             android:id="@+id/tv_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto_medium"
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_rating"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/iv_item_image"
@@ -78,10 +100,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto"
             android:gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="#7E7E7E"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tv_item_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
@@ -91,64 +113,33 @@
             android:id="@+id/tv_item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginBottom="10dp"
             android:drawableLeft="@drawable/ic_baseline_location_on_24"
             android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/roboto"
             android:gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_dark_background"
+            android:textColor="@color/text_title"
             android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_item_categories"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_categories"
             tools:text="location" />
-
-        <TextView
-            android:id="@+id/tv_item_approxPrice"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_vertical|end"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_item_location"
-            app:layout_constraintEnd_toEndOf="@+id/tv_item_isHalal"
-            app:layout_constraintStart_toEndOf="@+id/tv_item_location"
-            tools:text="Approx. text for person" />
-
-        <TextView
-            android:id="@+id/tv_item_isHalal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:drawableLeft="@drawable/ic_baseline_check_24"
-            android:drawablePadding="5dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_item_rating"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_rating"
-            tools:text="Halal" />
 
         <TextView
             android:id="@+id/tv_item_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/background_review"
-            android:drawableEnd="@drawable/ic_star"
+            android:drawableStart="@drawable/ic_star"
             android:drawablePadding="2dp"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
-            android:textSize="10sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/rating" />

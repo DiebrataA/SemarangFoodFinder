@@ -5,16 +5,16 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/home_icon_selector"
         android:title="@string/menu_home" />
     <item
         android:id="@+id/favoriteFragment"
-        android:icon="@drawable/ic_favorite_black"
+        android:icon="@drawable/favorite_icon_selector"
         android:title="@string/favorite_menu" />
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:icon="@drawable/profile_icon_selector"
         android:title="@string/profile_title" />
 
 </menu>

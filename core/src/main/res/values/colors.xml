@@ -8,5 +8,8 @@
     <color name="green_500_light">#CC4CAF50</color>
     <color name="yellow_600">#FFffbb33</color>
     <color name="yellow_600_dark">#FFc6a700</color>
-    <color name ="yellow_600_light">#CCFFBB33</color>
+    <color name="yellow_600_light">#CCFFBB33</color>
+    <color name="primary">#FFF47A20</color>
+    <color name="primary_dark">#FFC3621A</color>
+    <color name="primary_light">#FFF6954D</color>
 </resources>

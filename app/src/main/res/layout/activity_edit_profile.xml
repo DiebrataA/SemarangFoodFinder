@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    tools:context=".profile.EditProfileActivity">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/edit_profile_avatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.RoundedCornerImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_profile_fullname"
+        style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/full_name_label"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="true"
+        app:hintTextColor="@color/text_input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_picture"
+        app:placeholderText="Full Name"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
+        app:startIconTint="@color/primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:singleLine="true"
+            android:textSize="14sp"
+            app:textInputLayoutFocusedRectEnabled="false"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/full_names" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_profile_email"
+        style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/custom_input"
+        android:enabled="false"
+        android:hint="@string/email_label"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="true"
+        app:hintTextColor="@color/text_input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tip_profile_fullname"
+        app:placeholderText="Full Name"
+        app:startIconDrawable="@drawable/ic_mail"
+        app:startIconTint="@color/tabs_inactive">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:fontFamily="@font/roboto_medium"
+            android:singleLine="true"
+            android:textSize="14sp"
+            app:textInputLayoutFocusedRectEnabled="false"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/full_names" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_profile_address"
+        style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/address_label"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="true"
+        app:hintTextColor="@color/text_input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tip_profile_email"
+        app:placeholderText="@string/address_label"
+        app:startIconDrawable="@drawable/ic_location_green"
+        app:startIconTint="@color/primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:singleLine="true"
+            android:textSize="14sp"
+            app:textInputLayoutFocusedRectEnabled="false"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/full_names" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tip_profile_phone"
+        style="@style/ShapeAppearanceOverlay.App.FieldStroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/phone_number_label"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:expandedHintEnabled="true"
+        app:hintTextColor="@color/text_input_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tip_profile_address"
+        app:placeholderText="@string/phone_number_label"
+        app:startIconDrawable="@drawable/ic_phone"
+        app:startIconTint="@color/primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_profile_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:singleLine="true"
+            android:textSize="14sp"
+            app:textInputLayoutFocusedRectEnabled="false"
+            tools:ignore="TextContrastCheck"
+            tools:text="@tools:sample/full_names" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_change_picture"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Change Picture"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="@+id/edit_profile_avatar"
+        app:layout_constraintStart_toStartOf="@+id/edit_profile_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_avatar"
+        app:strokeColor="@color/primary" />
+
+    <Button
+        android:id="@+id/btn_update_profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/update_profile_label"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/tip_profile_phone"
+        app:layout_constraintStart_toStartOf="@+id/tip_profile_phone"
+        app:layout_constraintTop_toBottomOf="@+id/tip_profile_phone"
+        app:strokeColor="@color/primary" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarUpload"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_change_picture"
+        app:layout_constraintStart_toStartOf="@+id/btn_change_picture"
+        app:layout_constraintTop_toBottomOf="@+id/btn_change_picture" />
+</androidx.constraintlayout.widget.ConstraintLayout>

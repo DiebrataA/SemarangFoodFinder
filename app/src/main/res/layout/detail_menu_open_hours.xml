@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="match_parent"
+    android:paddingStart="4dp">
+
+    <TextView
+        android:id="@+id/openHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:drawableStart="@drawable/ic_baseline_access_time_filled_24"
+        android:drawablePadding="2dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/text_primary"
+        tools:text="09.00-23.00" />
+
+    <TextView
+        android:id="@+id/tv_openHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/openHours"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/view_detail"
+        android:textColor="@color/primary"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>

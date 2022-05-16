@@ -35,14 +35,18 @@ class AuthRepository(
     override fun registerUserEmailFb(
         email: String,
         password: String,
-        user: UserRegister
+        user: UserRegister,
     ): LiveData<Resource<UserRegister>> {
         return remoteDataSource.registerWithEmailFb(email, password, user)
     }
 
+    override fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>> {
+        return remoteDataSource.continueWithGoogle(idToken)
+    }
+
     override fun loginWithEmailFb(
         email: String,
-        password: String
+        password: String,
     ): LiveData<Resource<UserRegister>> {
         return remoteDataSource.loginWithEmailFb(email, password)
     }
@@ -61,11 +65,12 @@ class AuthRepository(
         }.asFlow()
 
     override suspend fun userRegister(
-        email: String,
-        password: String,
-        name: String,
-        phoneNum: String,
-        address: String
+        email: String?,
+        password: String?,
+        name: String?,
+        phoneNum: String?,
+        address: String?,
+        imgProfile: String?,
     ): Flow<Resource<RegisterModel>> =
         object : NetworkOnlyResource<RegisterModel, RegisterResponse>() {
             override fun collectResult(data: RegisterResponse): Flow<RegisterModel> {
@@ -73,7 +78,12 @@ class AuthRepository(
             }
 
             override suspend fun createCall(): Flow<ApiResponse<RegisterResponse>> {
-                return remoteDataSource.userRegister(email, password, name, phoneNum, address)
+                return remoteDataSource.userRegister(email,
+                    password,
+                    name,
+                    phoneNum,
+                    address,
+                    imgProfile)
             }
 
         }.asFlow()

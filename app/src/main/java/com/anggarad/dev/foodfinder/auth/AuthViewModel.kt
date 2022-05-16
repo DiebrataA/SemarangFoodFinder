@@ -22,13 +22,15 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
     val registerResponse = _registerResponse.receiveAsFlow()
 
     suspend fun register(
-        email: String,
-        password: String,
-        name: String,
-        phoneNum: String,
-        address: String
+        email: String?,
+        password: String?,
+        name: String?,
+        phoneNum: String?,
+        address: String?,
+        imgProfile: String?,
     ): LiveData<Resource<RegisterModel>> {
-        return authUseCase.userRegister(email, password, name, phoneNum, address).asLiveData()
+        return authUseCase.userRegister(email, password, name, phoneNum, address, imgProfile)
+            .asLiveData()
 //        viewModelScope.launch {
 //            authUseCase.userRegister(email, password, name, phoneNum, address)
 //                .catch { e ->
@@ -64,8 +66,12 @@ class AuthViewModel(private val authUseCase: AuthUseCase) : ViewModel() {
     fun registerWithEmailFb(
         email: String,
         password: String,
-        userRegister: UserRegister
+        userRegister: UserRegister,
     ): LiveData<Resource<UserRegister>> {
         return authUseCase.registerUserEmailFb(email, password, userRegister)
+    }
+
+    fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>> {
+        return authUseCase.continueWithGoogle(idToken)
     }
 }

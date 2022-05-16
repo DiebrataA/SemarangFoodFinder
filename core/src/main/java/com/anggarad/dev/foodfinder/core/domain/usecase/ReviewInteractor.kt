@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import com.anggarad.dev.foodfinder.core.data.Resource
 import com.anggarad.dev.foodfinder.core.data.source.remote.network.ApiResponse
 import com.anggarad.dev.foodfinder.core.data.source.remote.response.PostReviewResponse
+import com.anggarad.dev.foodfinder.core.domain.model.PostEditReviewModel
 import com.anggarad.dev.foodfinder.core.domain.model.ReviewDetails
+import com.anggarad.dev.foodfinder.core.domain.model.SingleReviewModel
+import com.anggarad.dev.foodfinder.core.domain.model.UserReviewDetails
 import com.anggarad.dev.foodfinder.core.domain.repository.IReviewRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -28,13 +31,30 @@ class ReviewInteractor(private val reviewRepository: IReviewRepository) : Review
         uri: Uri,
         uid: String,
         type: String,
-        name: String
+        name: String,
     ): LiveData<Resource<String>> {
         return reviewRepository.postImage(uri, uid, type, name)
     }
 
     override fun getToken(): Flow<String> {
         return reviewRepository.getToken()
+    }
+
+    override fun updateUserReview(
+        reviewId: Int?,
+        comments: String?,
+        rating: Float?,
+        isDeleted: Int?,
+    ): Flow<Resource<PostEditReviewModel>> {
+        return reviewRepository.updateUserReview(reviewId, comments, rating, isDeleted)
+    }
+
+    override fun getUsersReview(userId: Int): Flow<Resource<List<UserReviewDetails>>> {
+        return reviewRepository.getUsersReview(userId)
+    }
+
+    override fun getReviewById(reviewId: Int): Flow<Resource<SingleReviewModel>> {
+        return reviewRepository.getReviewById(reviewId)
     }
 
 //    override fun getUsersReview(userId: Int): Flow<Resource<List<ReviewDetails>>> {

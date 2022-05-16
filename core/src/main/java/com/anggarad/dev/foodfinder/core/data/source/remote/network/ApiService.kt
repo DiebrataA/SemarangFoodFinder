@@ -54,23 +54,53 @@ interface ApiService {
     @FormUrlEncoded
     @POST("auth/api/v1/register")
     suspend fun userRegister(
-        @Field("name") name: String,
+        @Field("name") name: String? = null,
         @Field("address") address: String? = null,
         @Field("phone_num") phoneNum: String? = null,
-        @Field("email") email: String,
-        @Field("password") password: String
+        @Field("email") email: String? = null,
+        @Field("password") password: String? = null,
+        @Field("img_profile") imgProfile: String? = null,
     ): RegisterResponse
 
     @GET("api/restos/search/{key}")
     suspend fun searchResto(
-        @Path("key") key: String
+        @Path("key") key: String,
+    ): SearchResponse
+
+    @GET("api/menu/search/{key}")
+    suspend fun searchMenu(
+        @Path("key") key: String,
     ): SearchResponse
 
     @GET("api/restos/menu/{resto_id}")
     suspend fun getRestoMenu(
-        @Path("resto_id") restoId: Int
+        @Path("resto_id") restoId: Int,
     ): MenuResponse
 
     @GET("api/categories")
     suspend fun getRestoCategories(): CategoriesResponse
+
+    @FormUrlEncoded
+    @PUT("api/users/{id}")
+    suspend fun updateUser(
+        @Path("id") id: Int?,
+        @Field("name") name: String?,
+        @Field("address") address: String?,
+        @Field("phone_num") phoneNum: String?,
+        @Field("img_profile") imgProfile: String?,
+    ): EditProfileResponse
+
+    @FormUrlEncoded
+    @PUT("api/reviews/{reviews_id}")
+    suspend fun updateReview(
+        @Path("reviews_id") id: Int?,
+        @Field("rating") rating: Float?,
+        @Field("comments") comments: String?,
+        @Field("is_deleted") isDeleted: Int?,
+    ): PostReviewResponse
+
+    @GET("api/reviews/{reviews_id}")
+    suspend fun getReviewById(
+        @Path("reviews_id") id: Int?,
+    ): SingleReviewResponse
 }

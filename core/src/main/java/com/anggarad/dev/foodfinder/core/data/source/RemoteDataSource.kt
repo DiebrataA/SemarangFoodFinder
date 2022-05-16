@@ -30,7 +30,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (reviewsArray !== null && reviewsArray.isNotEmpty()) {
                     emit(ApiResponse.Success(reviewsArray))
                 } else if (reviewsArray !== null && reviewsArray.isEmpty()) {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(reviewsArray))
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -47,8 +47,20 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (reviewsArray !== null && reviewsArray.isNotEmpty()) {
                     emit(ApiResponse.Success(reviewsArray))
                 } else if (reviewsArray !== null && reviewsArray.isEmpty()) {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(reviewsArray))
                 }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getUsersReviewsById(userId: Int): Flow<ApiResponse<SingleReviewItem>> {
+        return flow {
+            try {
+                val response = apiService.getReviewById(userId)
+                val reviewItem = response.response
+                emit(ApiResponse.Success(reviewItem))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
@@ -60,7 +72,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         userId: Int,
         rating: Float,
         comments: String,
-        imgReviewPath: String
+        imgReviewPath: String,
     ): Flow<ApiResponse<PostReviewResponse>> {
 
         return flow {
@@ -114,7 +126,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (restoArray.isNotEmpty()) {
                     emit(ApiResponse.Success(restoArray))
                 } else {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(restoArray))
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -131,7 +143,7 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (menuArray.isNotEmpty()) {
                     emit(ApiResponse.Success(menuArray))
                 } else if (menuArray !== null && menuArray.isEmpty()) {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(menuArray))
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -147,7 +159,23 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (searchResArray.isNotEmpty()) {
                     emit(ApiResponse.Success(searchResArray))
                 } else if (searchResArray !== null && searchResArray.isEmpty()) {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(searchResArray))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun searchMenu(key: String): Flow<ApiResponse<List<SearchItem>>> {
+        return flow {
+            try {
+                val response = apiService.searchMenu(key)
+                val searchResArray = response.response
+                if (searchResArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(searchResArray))
+                } else if (searchResArray !== null && searchResArray.isEmpty()) {
+                    emit(ApiResponse.Empty(searchResArray))
                 }
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -181,16 +209,17 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     suspend fun userRegister(
-        email: String,
-        password: String,
-        name: String,
+        email: String?,
+        password: String?,
+        name: String?,
         phoneNum: String?,
-        address: String?
+        address: String?,
+        imgProfile: String?,
     ): Flow<ApiResponse<RegisterResponse>> {
         return flow {
             try {
                 val response =
-                    apiService.userRegister(name, address, phoneNum, email, password)
+                    apiService.userRegister(name, address, phoneNum, email, password, imgProfile)
                 emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
@@ -210,8 +239,41 @@ class RemoteDataSource(private val apiService: ApiService) {
                 if (categoriesArray.isNotEmpty()) {
                     emit(ApiResponse.Success(categoriesArray))
                 } else if (categoriesArray !== null && categoriesArray.isEmpty()) {
-                    emit(ApiResponse.Empty)
+                    emit(ApiResponse.Empty(categoriesArray))
                 }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun updateProfile(
+        userId: Int?,
+        name: String?,
+        address: String?,
+        phoneNum: String?,
+        imgProfile: String?,
+    ): Flow<ApiResponse<EditProfileResponse>> {
+        return flow {
+            try {
+                val response = apiService.updateUser(userId, name, address, phoneNum, imgProfile)
+                emit(ApiResponse.Success(response))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun updateUserReview(
+        reviewId: Int?,
+        comments: String?,
+        rating: Float?,
+        isDeleted: Int?,
+    ): Flow<ApiResponse<PostReviewResponse>> {
+        return flow {
+            try {
+                val response = apiService.updateReview(reviewId, rating, comments, isDeleted)
+                emit(ApiResponse.Success(response))
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
@@ -221,7 +283,7 @@ class RemoteDataSource(private val apiService: ApiService) {
     fun registerWithEmailFb(
         email: String,
         password: String,
-        userRegisterModel: UserRegister
+        userRegisterModel: UserRegister,
     ): LiveData<Resource<UserRegister>> {
         return firebaseService.registerWithEmailFb(email, password, userRegisterModel)
     }
@@ -230,9 +292,17 @@ class RemoteDataSource(private val apiService: ApiService) {
         return firebaseService.loginWithEmailFb(email, password)
     }
 
+    fun continueWithGoogle(idToken: String): LiveData<Resource<UserRegister>> {
+        return firebaseService.continueWithGoogle(idToken)
+    }
+
 
     fun getUserData(userId: String): LiveData<Resource<UserDetail>> {
         return firebaseService.getUserDetail(userId)
+    }
+
+    fun editProfile(uid: String, userDetail: UserDetail): LiveData<Resource<UserDetail>> {
+        return firebaseService.editProfile(uid, userDetail)
     }
 
 

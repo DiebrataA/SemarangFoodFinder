@@ -1,10 +1,12 @@
-package com.anggarad.dev.foodfinder.detail
+package com.anggarad.dev.foodfinder.reviews
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +18,6 @@ import com.anggarad.dev.foodfinder.core.utils.UploadRequestBody
 import com.anggarad.dev.foodfinder.core.utils.getFileName
 import com.anggarad.dev.foodfinder.databinding.ActivityPostReviewBinding
 import kotlinx.coroutines.flow.collect
-import okhttp3.RequestBody
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileInputStream
@@ -26,16 +27,13 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
 
     companion object {
         const val EXTRA_DATA = "extra_data"
-        private const val REQUEST_CODE_IMAGE_PICKER = 100
     }
 
     private val reviewViewModel: ReviewViewModel by viewModel()
     private lateinit var binding: ActivityPostReviewBinding
     private var ratingResult: Float = 0.0f
     private var imageToProcess: Uri? = null
-    private var requestBody: RequestBody? = null
     private var imageUrl: String? = null
-
     private var restoId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,14 +42,18 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
         setContentView(binding.root)
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
 
         restoId = intent.getIntExtra(EXTRA_DATA, 0)
+        binding.btnSubmitReview.isEnabled = false
+        binding.editComments.addTextChangedListener(reviewTextWatcher)
 
-        binding.ratingBar.stepSize = .5f
+        binding.ratingBar.stepSize = 1f
         binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
             ratingResult = rating
+            binding.btnSubmitReview.isEnabled = true
         }
 
         binding.imageButton2.setOnClickListener {
@@ -63,23 +65,31 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
 
         }
 
+        reviewViewModel.userId.observe(this, {
+            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+        })
+
         binding.btnSubmitReview.setOnClickListener {
             handlePostReview(restoId)
         }
 
     }
 
-//    private fun uploadReview(){
-//
-//        val parcelFileDescriptor = contentResolver.openFileDescriptor(imageToProcess!!, "r", null) ?: return
-//        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-//        file = File(cacheDir, contentResolver.getFileName(imageToProcess!!))
-//        val outputStream = FileOutputStream(file)
-//        inputStream.copyTo(outputStream)
-//
-//        binding.progressBarUploadImage.progress = 0
-//        val body = UploadRequestBody(file!!, "image", this)
-//    }
+    private val reviewTextWatcher = object : TextWatcher {
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            binding.btnSubmitReview.isEnabled = false
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val comments = binding.editComments.text.toString().trim()
+            binding.btnSubmitReview.isEnabled = comments.isNotEmpty()
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+    }
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -111,8 +121,7 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                 uploadImageFirebase()
                 binding.tvFilename.text = file.name
                 binding.progressBarUploadImage.progress = 0
-                requestBody = UploadRequestBody(file, "image", this)
-//                        requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                binding.btnSubmitReview.isEnabled = false
             }
         }
 
@@ -121,7 +130,7 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
         val randomString: String = List(20) { alphabet.random() }.joinToString("")
         reviewViewModel.postImage(
             imageToProcess!!,
-            randomString,
+            "reviewPic/$randomString",
             "images",
             "reviewPicture"
         ).observe(
@@ -145,10 +154,6 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                         onProgressUpdate(0)
                     }
                 }
-//                if (downloadUrl != null) {
-//                    imageUrl = downloadUrl
-//                    binding.progressBarUploadImage.progress = 100
-//                }
             }
         )
     }
@@ -156,19 +161,18 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
 
     private fun handlePostReview(restoId: Int?) {
 
-
         reviewViewModel.userId.observe(this, { userId ->
             val comments = binding.editComments.text.toString().trim()
             restoId?.let {
-                imageUrl?.let { it1 ->
+
                     reviewViewModel.postReview(
                         it,
                         userId,
                         ratingResult,
                         comments,
-                        it1
+                        imageUrl ?: null.toString()
                     )
-                }
+
 
             }
 
@@ -178,12 +182,10 @@ class PostReviewActivity : AppCompatActivity(), UploadRequestBody.UploadCallback
                         is ApiResponse.Success -> {
                             Toast.makeText(
                                 this@PostReviewActivity,
-                                "Post Berhasil",
+                                "Your Review Has been Submitted",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            val intent =
-                                Intent(this@PostReviewActivity, DetailsActivity::class.java)
-                            startActivity(intent)
+                            onBackPressed()
                             finish()
                         }
                         is ApiResponse.Error -> {
